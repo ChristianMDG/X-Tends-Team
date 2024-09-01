@@ -1,0 +1,205 @@
+/* Styles de base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Kanit", sans-serif;
+}
+
+body {
+    color: rgb(72, 202, 228);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.outer-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vw ;
+    width: 50vw;
+    max-width: 400px;
+    max-height: 400px;
+    position: relative;
+}
+
+.outer-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 99%;
+    width: 99%;
+    border-radius: 50%;
+    border-top: .2rem solid #FFD700;
+    border-bottom: .2rem solid  #C0C0C0 ;
+    border-left: .2rem solid  #DAA520;
+    border-right: .2rem solid #B0C4DE;
+    animation: borderSpin 8s linear infinite;
+}
+
+/* Animation de rotation de la bordure */
+@keyframes borderSpin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 50%;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 5vw;
+    margin-bottom: 20px;
+    color: #DAA520;
+}
+
+.btn:hover {
+    background-color: #DAA520;
+    text-decoration: underline;
+
+}
+
+/* Arrière-plan vidéo */
+.video-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+}
+
+#background-video {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+
+/* Effet de surbrillance */
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+    }
+}
+
+/* Effet de translation */
+@keyframes slide {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(10px);
+    }
+}
+
+/* Appliquer les animations au bouton Start */
+.btn {
+    position: relative;
+    border-radius: 40px;
+    padding: 1vw 5vw;
+    background-color: rgba(255, 255, 255, 0.3);
+    font-family: inherit;
+    font-size: 3vw;
+    color: white;
+    font-weight: 500;
+    overflow: hidden;
+    z-index: 1;
+    animation: pulse 2s infinite, slide 4s infinite;
+    text-decoration: none;
+}
+
+@media(max-width: 400px){
+    .outer-container{
+        height: 300px;
+        width: 300px;
+    }
+    .container{
+        height: 100%;
+        width: 100%;
+        padding: 10px;
+    }
+    h1{
+        font-size: 1.5rem;
+    }
+    .btn{
+        padding: 4px 20px;
+        font-size: 1.2rem;
+    }
+}
+
+@media(min-width: 601px) and (max-width: 768px){
+    .outer-container{
+        height: 100%;
+        width: 100%;
+        padding: 20px;
+    }
+    h1{
+        font-size: 2.5rem;
+    }
+    .btn{
+        padding: 5px 30px;
+        font-size: 1.7rem;
+    }
+}
+
+@media(min-width: 769px){
+    .outer-container {
+        height: 400px; 
+        width: 400px;  
+    }
+
+    .container {
+        height: 100%;
+        width: 100%;
+        padding: 25px; 
+    }
+
+    h1 {
+        font-size: 3rem;
+    }
+
+    .btn {
+        padding: 5px 30px; 
+        font-size: 2rem;
+    }
+}
+@media(max-width: 320px){
+    .outer-container {
+        height: 60vw;
+        width: 60vw;
+    }
+
+    h1 {
+        font-size: 4vw;
+    }
+
+    .btn {
+        padding: 2vw 4vw;
+        font-size: 3vw;
+    }
+}
+
+

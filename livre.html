@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion de Bibliothèque</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="Emprunt.css">
+</head>
+
+<body>
+    <!-- Vidéo de fond -->
+    <video autoplay muted loop class="background-video">
+        <source src="./videos/reading.mp4" type="video/mp4">
+        Votre navigateur ne supporte pas les vidéos HTML5.
+    </video>
+
+    <!-- En-tête -->
+    <header class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="logo">
+                <img src="./images/logo.png" alt="logo" width="100">
+            </div>
+            <div class="header-title text-white">
+                <h1>Bienvenue à la Bibliothèque</h1>
+                <p>Gérez vos livres avec simplicité et efficacité.</p>
+            </div>
+            <!-- Icône de menu pour afficher les options -->
+            <div class="menu-icon text-white" onclick="toggleMenu()" style="font-size: 30px; cursor: pointer;">
+                &#9776;
+            </div>
+        </div>
+    </header>
+
+    <!-- Navbar avec options -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="navbar" style="display: none;">
+        <div class="container">
+        <a class="nav-link" href="#" onclick="showSection('formSection')" style="color: #001aff;">Ajouter un Livre</a>
+        <a class="nav-link" href="#" onclick="showSection('livresSection')" style="color: #001aff;">Liste des Livres</a>
+
+        </div>
+    </nav>
+
+    <!-- Section pour les messages d'alerte -->
+    <div class="container mt-3">
+        <div id="alertMessage" class="alert d-none" role="alert"></div>
+    </div>
+
+    <!-- Section: Liste des livres -->
+    <div id="livresSection" class="container mt-4 section active">
+        <div class="card">
+            <div class="card-header">
+                <h2>Liste des Livres</h2>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped table-hover" id="livresTable">
+                    <thead>
+                        <tr>
+                            <th>Titre</th>
+                            <th>ISBN</th>
+                            <th>Date de Publication</th>
+                            <th>Disponible</th>
+                            <th>Auteur</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Contenu dynamique rempli par JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <a href="./adminges.html">
+                <button class="btn btn-outline-light">Come Back </button>
+            </a>
+        </div>
+
+
+    </div>
+
+    <!-- Section: Formulaire d'ajout/modification de livre -->
+    <div id="formSection" class="container mt-4 section d-none">
+        <div class="card">
+            <div class="card-header">
+                <h2 id="formTitle">Ajouter ou Modifier un Livre</h2>
+            </div>
+            <div class="card-body">
+                <form id="livreForm">
+                    <div class="form-group">
+                        <label for="titre" class="form-label">Titre du Livre</label>
+                        <input type="text" class="form-control" id="titre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="isbn" class="form-label">ISBN</label>
+                        <input type="text" class="form-control" id="isbn" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="datePublication" class="form-label">Date de Publication</label>
+                        <input type="date" class="form-control" id="datePublication" required>
+                    </div>
+                    <div class="form-check mb-3">
+                        <input type="checkbox" class="form-check-input" id="disponible">
+                        <label class="form-check-label" for="disponible">Disponible</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="auteur" class="form-label">Auteur</label>
+                        <select class="form-select" id="auteur" required>
+                            <option value="">Sélectionner un Auteur</option>
+                            <!-- Contenu dynamique rempli par JavaScript -->
+                        </select>
+                    </div>
+                    <button type="submit" id="submitBtn" class="btn btn-primary w-100">Ajouter Livre</button>
+                </form>
+            </div>
+        </div>
+<div class="text-center mt-3">
+    <a href="./adminges.html">
+        <button class="btn btn-outline-light">Come Back </button>
+    </a>
+</div>
+
+    </div>
+
+    <!-- Inclusion de Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"></script>
+    <!-- Custom JS -->
+    <script src="Emprunt.js"></script>
+</body>
+
+</html>

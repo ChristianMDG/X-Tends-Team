@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose</title>
+    <link rel="stylesheet" href="choice.css">
+    <style>
+      
+    </style>
+</head>
+<body>
+    
+<header>
+    <!-- Menu icon -->
+    <div class="menu-icon" onclick="toggleMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <a href="./index.html">Home</a>
+        <a href="./adminges.html">Admin</a>
+        <a href="./livreslide.html">User</a>
+    </nav>
+    <div class="logo">
+        <img src="./images/logo.png" alt="logo">
+    </div>
+    
+</header>
+
+<h2 data-text="I am an:">I am an:</h2>
+
+<!-- card animate -->
+<div class="wrapper">
+    <div class="cols">
+        <div class="col" ontouchstart="this.classList.toggle('hover');">
+            <div class="container">
+                <div class="front" style="background-image: url(./images/book4.jpg)">
+                    <div class="inner">
+                        <p>Admin</p>
+                    </div>
+                </div>
+                <div class="back">
+                    <div class="inner">
+                        <a href="./adminges.html"><p>Admin</p></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col" ontouchstart="this.classList.toggle('hover');">
+            <div class="container">
+                <div class="front" style="background-image: url(./images/book1.jpg)">
+                    <div class="inner">
+                        <p>User</p>
+                    </div>
+                </div>
+                <div class="back">
+                    <div class="inner">
+                        <a href="./livreslide.html"><p>User</p></a>
+                    </div>
+                </div>
+            </div>
+        </div>   
+    </div>
+</div>
+
+<!-- Bouton de retour à l'accueil -->
+<div class="text-center mt-3">
+    <a href="./index.html">
+        <button class="btn btn-outline-light">Come Back </button>
+    </a>
+</div>
+
+
+<!-- JavaScript pour le menu toggle -->
+<script>
+    function toggleMenu() {
+        var navbar = document.getElementById("navbar");
+        navbar.classList.toggle("show");
+    }
+
+   
+</script>
+
+<script src="Livre.js"></script>
+</body>
+</html>

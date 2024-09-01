@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="choice.css">
+</head>
+<body>
+    
+    <header>
+        <!-- Menu icon -->
+        <div class="menu-icon" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    
+        <!-- Navbar -->
+        <nav class="navbar" id="navbar">
+            <a href="./index.html">Home</a>
+            <a href="./livre.html">Library</a>
+            <a href="./Utilisateur.html">User</a>
+            <a href="./Emprunt.html">Emprunt</a>
+            <a href="./Auteur.html">Author</a>
+        </nav>
+        <div class="logo">
+            <img src="./images/logo.png" alt="logo">
+        </div>
+        
+    </header>
+    <!--text animate--> 
+    <h2 data-text="I want to manage my:">I want to manage my:</h2>
+    <!--text animate-->
+
+    <!--card animate-->
+    <div class="wrapper">
+        <!--<h1>I want to manage my:</h1>-->
+        <div class="cols">
+                  <div class="col" ontouchstart="this.classList.toggle('hover');">
+                      <div class="container">
+                          <div class="front" style="background-image: url(./images/book5.jpg)">
+                              <div class="inner">
+                                  <p>Library</p>
+                    <!--<span>Me</span>-->
+                              </div>
+                          </div>
+                          <div class="back">
+                              <div class="inner">
+                                <a href="./livre.html"><p>Library</p></a>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  
+                  <div class="col" ontouchstart="this.classList.toggle('hover');">
+                      <div class="container">
+                          <div class="front" style="background-image: url(./images/book6.jpg)">
+                              <div class="inner">
+                                <p>User</p>
+                      <!--<span>Me</span>-->
+                              </div>
+                          </div>
+                          <div class="back">
+                           <div class="inner">
+                            <a href="./Utilisateur.html"><p>User</p></a>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col" ontouchstart="this.classList.toggle('hover');">
+                      <div class="container">
+                          <div class="front" style="background-image: url(./images/book3.jpg)">
+                              <div class="inner">
+                                  <p>Emprunt</p>
+                      <!--<span>Me</span>-->
+                              </div>
+                          </div>
+                          <div class="back">
+                              <div class="inner">
+                                  <a href="./Emprunt.html"><p>Emprunt</p></a>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col" ontouchstart="this.classList.toggle('hover');">
+                    <div class="container">
+                        <div class="front" style="background-image: url(./images/book7.jpg)">
+                            <div class="inner">
+                                <p>Author</p>
+                     <!--<span>Me</span>-->
+                            </div>
+                        </div>
+                        <div class="back">
+                            <div class="inner">
+                                <a href="./Auteur.html"><p>Author</p></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+       </div>
+        <!--card animate-->
+
+    <!-- Bouton de retour à l'accueil -->
+    <div class="text-center mt-3">
+        <a href="./index.html">
+            <button class="btn btn-outline-light">Come Back </button>
+        </a>
+    </div>
+        <!-- JavaScript pour le menu toggle -->
+<script>
+    function toggleMenu() {
+        var navbar = document.getElementById("navbar");
+        navbar.classList.toggle("show");
+    }
+</script>
+</body>
+</html>

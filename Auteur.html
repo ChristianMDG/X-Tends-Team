@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Auteurs</title>
+    <!-- Lien vers Bootstrap pour le style rapide -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Votre fichier CSS personnalisé -->
+    <link rel="stylesheet" href="Auteur.css">
+</head>
+
+<body>
+
+    <!-- Vidéo de fond -->
+    <video autoplay muted loop class="background-video">
+        <source src="./videos/7.mp4" type="video/mp4">
+        Votre navigateur ne supporte pas les vidéos HTML5.
+    </video>
+
+    <!-- En-tête -->
+    <header class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="logo">
+                <img src="./images/logo.png" alt="logo" width="100">
+            </div>
+            <div class="header-title text-white">
+                <h1>Bienvenue, Administrateur</h1>
+                <p>Gérez vos auteurs avec simplicité et efficacité.</p>
+            </div>
+            <!-- Icône de menu pour afficher les options -->
+            <div class="menu-icon text-white" onclick="toggleMenu()" style="font-size: 30px; cursor: pointer;">
+                &#9776;
+            </div>
+        </div>
+    </header>
+
+    <!-- Navbar avec options -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="navbar" style="display: none;">
+        <div class="container">
+            <a class="nav-link" href="#" onclick="showSection('formSection')">Ajouter un Auteur</a>
+            <a class="nav-link" href="#" onclick="showSection('listSection')">Liste des Auteurs</a>
+        </div>
+    </nav>
+
+    <!-- Section pour les messages d'alerte -->
+    <div class="container mt-3">
+        <div id="alertMessage" class="alert d-none" role="alert"></div>
+    </div>
+
+    <!-- Formulaire pour ajouter/modifier un auteur -->
+    <div id="formSection" class="container mt-4 section">
+        <div class="card">
+            <div class="card-header">
+                <h2 id="formTitle">Ajouter un Auteur</h2>
+            </div>
+            <div class="card-body">
+                <form id="auteurForm">
+                    <div class="form-group">
+                        <label for="nom">Nom :</label>
+                        <input type="text" id="nom" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="prenom">Prénom :</label>
+                        <input type="text" id="prenom" class="form-control" required>
+                    </div>
+                    <button type="submit" id="submitBtn" class="btn btn-primary">Ajouter Auteur</button>
+                    <button type="button" class="btn btn-secondary" onclick="resetForm()">Annuler</button>
+                </form>
+            </div>
+            
+        </div>
+        <div class="text-center mt-3">
+            <a href="./adminges.html">
+                <button class="btn btn-outline-light">Come Back</button>
+            </a>
+        </div>
+    </div>
+
+    <!-- Liste des auteurs -->
+    <div id="listSection" class="container mt-4 section d-none">
+        <div class="card">
+            <div class="card-header">
+                <h2>Liste des Auteurs</h2>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped" id="auteursTable">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>Livres</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Les auteurs seront affichés ici dynamiquement -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+         <div class="text-center mt-3">
+        <a href="./adminges.html">
+            <button class="btn btn-outline-light">Come Back </button>
+        </a>
+    </div>
+    </div>
+
+    <!-- Inclusion de jQuery, Popper.js et Bootstrap JS pour les fonctionnalités dynamiques -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Inclusion d'Axios pour les requêtes HTTP -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- Votre fichier JavaScript personnalisé -->
+    <script src="Auteur.js"></script>
+</body>
+
+</html>

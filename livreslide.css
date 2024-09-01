@@ -1,0 +1,296 @@
+body {
+  font-family: 'Georgia', serif;
+  background-color: #f5ebe0; /* Couleur crème pour un look bibliothèque classique */
+  color: black;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+header {
+  background-color: #cd9777; /* Couleur bois pour le thème bibliothèque */
+  padding: 20px 0;
+  text-align: center;
+  color: #fff;
+  animation: slideInDown 1s ease-in-out;
+}
+
+@keyframes slideInDown {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(0); }
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+nav a {
+  color: #fff8dc;
+  text-decoration: none;
+  margin: 0 15px;
+  font-size: 18px;
+}
+
+nav a:hover {
+  color: #8b4513;
+  transition: color 0.3s ease-in-out;
+}
+
+.menu {
+  display: flex;
+  list-style: none;
+}
+
+.menu li {
+  position: relative;
+}
+
+.submenu .sub-menu {
+  display: none;
+  position: absolute;
+  background-color: #a0522d; /* Marron foncé */
+  top: 30px;
+  left: 0;
+  list-style: none;
+  padding: 10px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.submenu:hover .sub-menu {
+  display: block;
+}
+
+.search-bar input {
+  padding: 10px;
+  width: 220px;
+  border: 0px solid #8b4513;
+  border-radius: 50px;
+  outline: none;
+}
+
+.search-bar button {
+  background-color: #cd853f;
+  border: none;
+  color: #fff;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 50px;
+}
+
+.search-bar button:hover {
+  background-color: #8b4513;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.carrousel-section {
+  margin-top: 10%;
+  animation: fadeIn 2s ease-in-out;
+}
+
+.carrousel-section h1 {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 28px;
+  color: #8b4513;
+}
+
+.swiper-container {
+  width: 100%;
+  padding: 20px 0;
+}
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.card-item {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  padding: 20px;
+  max-width: 200px;
+  width: 100%;
+  margin: 0 auto;
+  animation: zoomIn 0.8s ease-in-out;
+}
+
+@keyframes zoomIn {
+  0% { transform: scale(0); }
+  100% { transform: scale(1); }
+}
+
+.card-item img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.message-button {
+  margin-top: 10px;
+  padding: 10px;
+  border: 2px solid #8b4513;
+  background-color: transparent;
+  color: #8b4513;
+  border-radius: 50px;
+  cursor: pointer;
+  animation: fadeIn 2s ease-in-out;
+}
+
+.message-button:hover {
+  background-color: #8b4513;
+  color: #fff;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.footer {
+  background-color: #cd9777;
+  padding: 40px 0;
+  text-align: center;
+  color: #ffffff;
+  font-family: 'Georgia', serif;
+  margin-top: 20%;
+  animation: slideInUp 1.5s ease-in-out;
+}
+
+@keyframes slideInUp {
+  0% { transform: translateY(100%); }
+  100% { transform: translateY(0); }
+}
+
+.footer-content {
+  margin-bottom: 20px;
+}
+
+.footer-title {
+  font-size: 44px;
+  margin-bottom: 10px;
+}
+
+.footer-description {
+  font-size: 16px;
+  color: #ffebcd;
+  margin-bottom: 20px;
+}
+
+.footer-social-icons a {
+  margin: 0 10px;
+  font-size: 50px;
+  transition: transform 0.3s ease;
+}
+
+.footer-social-icons a:hover {
+  transform: scale(1.2);
+}
+
+/* Facebook Icon */
+.footer-social-icons a:nth-child(1) i {
+  color: #3b5998; /* Facebook Blue */
+}
+
+/* LinkedIn Icon */
+.footer-social-icons a:nth-child(2) i {
+  color: #0077b5; /* LinkedIn Blue */
+}
+
+/* Instagram Icon */
+.footer-social-icons a:nth-child(3) i {
+  color: #e1306c; /* Instagram Pink */
+}
+
+.footer-bottom {
+  margin-top: 20px;
+}
+
+.footer-bottom p {
+  font-size: 14px;
+  color: #ffebcd;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .swiper-container {
+    padding: 10px 0;
+  }
+
+  .swiper-slide {
+    max-width: 200px;
+  }
+
+  .menu {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .menu.active {
+    display: flex;
+  }
+
+  .search-bar {
+    margin-top: 10px;
+  }
+
+  .swiper {
+    padding: 0 10px;
+  }
+
+  nav {
+    flex-direction: column;
+  }
+
+  .submenu .sub-menu {
+    position: static;
+    padding: 10px 0;
+    text-align: center;
+  }
+
+  .submenu:hover .sub-menu {
+    display: none;
+  }
+}
+
+/* Style général pour le bouton de retour */
+.btn-outline-light {
+  color: #cd9777;
+  border: 2px solid #8b4513;
+  border-radius: 50px;
+  background-color: transparent;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+/* Effet au survol */
+.btn-outline-light:hover {
+  background-color: #fff;
+  border-radius: 50px;
+  color: #333;
+  border-color: #fff;
+}
+
+/* Style pour le conteneur centré */
+.text-center {
+  text-align: center;
+}
+
+/* Espacement au-dessus du bouton */
+.mt-3 {
+  margin-top: 1rem;
+}
