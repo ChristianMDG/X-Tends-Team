@@ -264,33 +264,3 @@ nav a:hover {
     display: none;
   }
 }
-
-/* Style général pour le bouton de retour */
-.btn-outline-light {
-  color: #cd9777;
-  border: 2px solid #8b4513;
-  border-radius: 50px;
-  background-color: transparent;
-  padding: 10px 20px;
-  font-size: 16px;
-  border-radius: 5px;
-  transition: all 0.3s ease;
-}
-
-/* Effet au survol */
-.btn-outline-light:hover {
-  background-color: #fff;
-  border-radius: 50px;
-  color: #333;
-  border-color: #fff;
-}
-
-/* Style pour le conteneur centré */
-.text-center {
-  text-align: center;
-}
-
-/* Espacement au-dessus du bouton */
-.mt-3 {
-  margin-top: 1rem;
-}
