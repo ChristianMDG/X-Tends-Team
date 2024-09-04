@@ -264,3 +264,7 @@ nav a:hover {
     display: none;
   }
 }
+/* Ajustements pour les boutons du formulaire */
+#utilisateurForm .btn {
+  margin-right: 10px;
+}

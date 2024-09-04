@@ -1,6 +1,10 @@
+
+//js
+
 // Définition de l'URL de base de l'API
 const API_BASE_URL = "http://127.0.0.1:8080/api";
-let empruntEnModification = null; // Variable pour stocker l'ID de l'emprunt en cours de modification
+
+let utilisateurEnModification = null; // Variable pour stocker l'ID de l'utilisateur en cours de modification
 
 // Fonction pour basculer l'affichage du menu
 function toggleMenu() {
@@ -12,7 +16,11 @@ function toggleMenu() {
 function showSection(sectionId) {
   const sections = document.querySelectorAll(".section");
   sections.forEach((section) => {
-    section.classList.toggle("d-none", section.id !== sectionId);
+    if (section.id === sectionId) {
+      section.classList.remove("d-none");
+    } else {
+      section.classList.add("d-none");
+    }
   });
   // Masquer le menu après sélection
   toggleMenu();
@@ -20,14 +28,10 @@ function showSection(sectionId) {
 
 // Réinitialiser le formulaire
 function resetForm() {
-  document.getElementById("empruntForm").reset();
-  empruntEnModification = null;
-  document.getElementById("formTitle").textContent = "Ajouter un Emprunt";
-  document.getElementById("submitBtn").textContent = "Ajouter Emprunt";
-
-  // Réinitialiser les sélections de livres et utilisateurs
-  document.getElementById("livre").selectedIndex = 0;
-  document.getElementById("utilisateur").selectedIndex = 0;
+  document.getElementById("utilisateurForm").reset();
+  utilisateurEnModification = null;
+  document.getElementById("formTitle").textContent = "Ajouter un Utilisateur";
+  document.getElementById("submitBtn").textContent = "Ajouter Utilisateur";
 }
 
 // Afficher un message d'alerte
@@ -36,147 +40,108 @@ function showMessage(message, type) {
   alertDiv.textContent = message;
   alertDiv.className = `alert alert-${type}`;
   alertDiv.classList.remove("d-none");
-  // Masquer l'alerte après 3 secondes
+  // Masquer l'alerte après 5 secondes
   setTimeout(() => {
     alertDiv.classList.add("d-none");
-  }, 3000);
+  }, 5000);
 }
 
-// Charger la liste des emprunts au démarrage
-function loadEmprunts() {
-  axios.get(`${API_BASE_URL}/emprunts`)
-    .then((response) => {
-      const emprunts = response.data;
-      const tableBody = document.querySelector("#empruntsTable tbody");
-      tableBody.innerHTML = ""; // Vider le tableau avant de le remplir
-      emprunts.forEach((emprunt) => {
-        const row = document.createElement("tr");
-        row.setAttribute("data-id", emprunt.id);
-        row.innerHTML = `
-          <td>${emprunt.livre.titre}</td>
-          <td>${emprunt.utilisateur.nom}</td>
-          <td>${emprunt.dateEmprunt}</td>
-          <td>${emprunt.dateRetour}</td>
-          <td>
-            <button class="btn btn-warning btn-sm" onclick="modifierEmprunt(${emprunt.id})">Modifier</button>
-            <button class="btn btn-danger btn-sm" onclick="supprimerEmprunt(${emprunt.id})">Supprimer</button>
-          </td>
-        `;
-        tableBody.appendChild(row);
-      });
-    })
-    .catch((error) => {
-      console.error("Erreur lors du chargement des emprunts :", error);
-      showMessage("Erreur lors du chargement des emprunts.", "danger");
-    });
-}
+// Emprunt.js
 
-// Soumission du formulaire pour ajouter ou modifier un emprunt
-document.addEventListener("DOMContentLoaded", function () {
-  document.getElementById("empruntForm").addEventListener("submit", function (e) {
+document.addEventListener('DOMContentLoaded', function () {
+  // Références aux éléments du DOM
+  const empruntForm = document.getElementById('empruntForm');
+  const empruntsTable = document.getElementById('empruntsTable').getElementsByTagName('tbody')[0];
+
+  let emprunts = [];
+  let editingIndex = -1;
+
+  // Gestionnaire d'événements pour le formulaire de soumission
+  empruntForm.addEventListener('submit', function (e) {
     e.preventDefault();
-    const livreId = document.getElementById("livre").value;
-    const utilisateurId = document.getElementById("utilisateur").value;
-    const dateEmprunt = document.getElementById("dateEmprunt").value;
-    const dateRetour = document.getElementById("dateRetour").value;
 
-    const empruntData = { livre: { id: livres }, utilisateur: { id: utilisateur }, dateEmprunt, dateRetour };
+    const livreId = document.getElementById('livreId').value;
+    const utilisateurId = document.getElementById('utilisateurId').value;
+    const dateEmprunt = document.getElementById('dateEmprunt').value;
+    const dateRetour = document.getElementById('dateRetour').value;
 
-    if (empruntEnModification) {
-      axios.put(`http://127.0.0.1:8080/api/emprunts/${empruntEnModification}`, empruntData)
-        .then(() => {
-          showMessage("Emprunt modifié avec succès.", "success");
-          loadEmprunts();
-          resetForm();
-        })
-        .catch((error) => {
-          console.error("Erreur lors de la modification de l'emprunt :", error);
-          showMessage("Erreur lors de la modification de l'emprunt.", "danger");
-        });
+    const emprunt = {
+      livreId,
+      utilisateurId,
+      dateEmprunt,
+      dateRetour: dateRetour || 'Pas encore retourné'
+    };
+
+    if (editingIndex === -1) {
+      // Ajout d'un nouvel emprunt
+      emprunts.push(emprunt);
     } else {
-      axios.post(`http://127.0.0.1:8080/api/emprunts`, empruntData)
-        .then(() => {
-          showMessage("Emprunt ajouté avec succès.", "success");
-          loadEmprunts();
-          resetForm();
-        })
-        .catch((error) => {
-          console.error("Erreur lors de l'ajout de l'emprunt :", error);
-          showMessage("Erreur lors de l'ajout de l'emprunt.", "danger");
-        });
+      // Modification d'un emprunt existant
+      emprunts[editingIndex] = emprunt;
+      editingIndex = -1;
     }
+
+    // Réinitialiser le formulaire
+    empruntForm.reset();
+
+    // Mettre à jour la liste des emprunts
+    afficherEmprunts();
   });
 
-  loadLivresAndUtilisateurs(); // Charger les livres et utilisateurs lors du chargement de la page
-  loadEmprunts(); // Charger les emprunts
+  // Fonction pour afficher la liste des emprunts
+  function afficherEmprunts() {
+    // Vider le tableau
+    empruntsTable.innerHTML = '';
+
+    // Afficher chaque emprunt dans le tableau
+    emprunts.forEach(function (emprunt, index) {
+      const row = empruntsTable.insertRow();
+
+      row.insertCell(0).textContent = index + 1;
+      row.insertCell(1).textContent = emprunt.livreId;
+      row.insertCell(2).textContent = emprunt.utilisateurId;
+      row.insertCell(3).textContent = emprunt.dateEmprunt;
+      row.insertCell(4).textContent = emprunt.dateRetour;
+
+      // Boutons pour modifier ou supprimer un emprunt
+      const actionsCell = row.insertCell(5);
+      const editBtn = document.createElement('button');
+      editBtn.textContent = 'Modifier';
+      editBtn.className = 'btn btn-warning btn-sm mr-2';
+      editBtn.onclick = function () {
+        modifierEmprunt(index);
+      };
+
+      const deleteBtn = document.createElement('button');
+      deleteBtn.textContent = 'Supprimer';
+      deleteBtn.className = 'btn btn-danger btn-sm';
+      deleteBtn.onclick = function () {
+        supprimerEmprunt(index);
+      };
+
+      actionsCell.appendChild(editBtn);
+      actionsCell.appendChild(deleteBtn);
+    });
+  }
+
+  // Fonction pour modifier un emprunt
+  function modifierEmprunt(index) {
+    const emprunt = emprunts[index];
+
+    document.getElementById('livreId').value = emprunt.livreId;
+    document.getElementById('utilisateurId').value = emprunt.utilisateurId;
+    document.getElementById('dateEmprunt').value = emprunt.dateEmprunt;
+    document.getElementById('dateRetour').value = emprunt.dateRetour !== 'Pas encore retourné' ? emprunt.dateRetour : '';
+
+    editingIndex = index;
+  }
+
+  // Fonction pour supprimer un emprunt
+  function supprimerEmprunt(index) {
+    emprunts.splice(index, 1);
+    afficherEmprunts();
+  }
 });
 
-// Charger les livres et les utilisateurs pour les sélections
-function loadLivresAndUtilisateurs() {
-  axios.get(`http://127.0.0.1:8080/api/livres`)
-    .then((response) => {
-      const livres = response.data;
-      const livreSelect = document.getElementById("livre");
-      livres.forEach((livre) => {
-        const option = document.createElement("option");
-        option.value = livre.id;
-        option.textContent = livre.titre;
-        livreSelect.appendChild(option);
-      });
-    })
-    .catch((error) => {
-      console.error("Erreur lors du chargement des livres :", error);
-      showMessage("Erreur lors du chargement des livres.", "danger");
-    });
+Emprunt.js
 
-  axios.get(`http://127.0.0.1:8080/api/utilisateurs`)
-    .then((response) => {
-      const utilisateurs = response.data;
-      const utilisateurSelect = document.getElementById("utilisateur");
-      utilisateurs.forEach((utilisateur) => {
-        const option = document.createElement("option");
-        option.value = utilisateur.id;
-        option.textContent = utilisateur.nom;
-        utilisateurSelect.appendChild(option);
-      });
-    })
-    .catch((error) => {
-      console.error("Erreur lors du chargement des utilisateurs :", error);
-      showMessage("Erreur lors du chargement des utilisateurs.", "danger");
-    });
-}
-
-// Fonction pour modifier un emprunt
-function modifierEmprunt(id) {
-  axios.get(`http://127.0.0.1:8080/api/emprunts/${id}`)
-    .then((response) => {
-      const emprunt = response.data;
-      document.getElementById("livre").value = emprunt.livre.id;
-      document.getElementById("utilisateur").value = emprunt.utilisateur.id;
-      document.getElementById("dateEmprunt").value = emprunt.dateEmprunt;
-      document.getElementById("dateRetour").value = emprunt.dateRetour;
-
-      empruntEnModification = id;
-      document.getElementById("formTitle").textContent = "Modifier l'Emprunt";
-      document.getElementById("submitBtn").textContent = "Modifier Emprunt";
-    })
-    .catch((error) => {
-      console.error("Erreur lors du chargement de l'emprunt :", error);
-      showMessage("Erreur lors du chargement de l'emprunt.", "danger");
-    });
-}
-
-// Fonction pour supprimer un emprunt
-function supprimerEmprunt(id) {
-  if (confirm("Êtes-vous sûr de vouloir supprimer cet emprunt ?")) {
-    axios.delete(`http://127.0.0.1:8080/api/emprunts/${id}`)
-      .then(() => {
-        showMessage("Emprunt supprimé avec succès.", "success");
-        loadEmprunts();
-      })
-      .catch((error) => {
-        console.error("Erreur lors de la suppression de l'emprunt :", error);
-        showMessage("Erreur lors de la suppression de l'emprunt.", "danger");
-      });
-  }
-}

@@ -7,6 +7,7 @@
     <title>Gestion des Emprunts</title>
     <!-- Lien vers Bootstrap pour le style rapide -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
     <!-- Votre fichier CSS personnalisé -->
     <link rel="stylesheet" href="Emprunt.css">
 </head>
@@ -26,7 +27,7 @@
                 <img src="./images/logo.png" alt="logo" width="100">
             </div>
             <div class="header-title text-white">
-                <h1>Gestion des Emprunts</h1>
+                <h1>Bienvenue, Administrateur</h1>
                 <p>Gérez vos emprunts avec simplicité et efficacité.</p>
             </div>
             <!-- Icône de menu pour afficher les options -->
@@ -39,8 +40,8 @@
     <!-- Navbar avec options -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="navbar" style="display: none;">
         <div class="container">
-            <a class="nav-link" href="#" onclick="showSection('ajoutSection')">Ajouter Emprunt</a>
-            <a class="nav-link" href="#" onclick="showSection('listeSection')">Liste des Emprunts</a>
+            <a class="nav-link" href="#" onclick="showSection('formSection')">Ajouter un Emprunt</a>
+            <a class="nav-link" href="#" onclick="showSection('listSection')">Liste des Emprunts</a>
         </div>
     </nav>
 
@@ -50,7 +51,7 @@
     </div>
 
     <!-- Formulaire pour ajouter un emprunt -->
-    <div id="ajoutSection" class="container mt-4 section">
+    <div id="formSection" class="container mt-4 section">
         <div class="card">
             <div class="card-header">
                 <h2 id="formTitle">Ajouter un Emprunt</h2>
@@ -58,16 +59,12 @@
             <div class="card-body">
                 <form id="empruntForm">
                     <div class="form-group">
-                        <label for="livre">Livre :</label>
-                        <select id="livre" class="form-control" required>
-                            <option value="">Sélectionner un livre</option>
-                        </select>
+                        <label for="livreId">Livre ID :</label>
+                        <input type="number" id="livreId" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label for="utilisateur">Utilisateur :</label>
-                        <select id="utilisateur" class="form-control" required>
-                            <option value="">Sélectionner un utilisateur</option>
-                        </select>
+                        <label for="utilisateurId">Utilisateur ID :</label>
+                        <input type="number" id="utilisateurId" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label for="dateEmprunt">Date d'Emprunt :</label>
@@ -75,24 +72,22 @@
                     </div>
                     <div class="form-group">
                         <label for="dateRetour">Date de Retour :</label>
-                        <input type="date" id="dateRetour" class="form-control" required>
+                        <input type="date" id="dateRetour" class="form-control">
                     </div>
                     <button type="submit" id="submitBtn" class="btn btn-primary">Ajouter Emprunt</button>
                     <button type="button" class="btn btn-secondary" onclick="resetForm()">Annuler</button>
                 </form>
             </div>
         </div>
-
         <div class="text-center mt-3">
             <a href="./adminges.html">
                 <button class="btn btn-outline-light">Come Back </button>
             </a>
         </div>
-
     </div>
 
     <!-- Liste des emprunts -->
-    <div id="listeSection" class="container mt-4 section d-none">
+    <div id="listSection" class="container mt-4 section d-none">
         <div class="card">
             <div class="card-header">
                 <h2>Liste des Emprunts</h2>
@@ -101,8 +96,9 @@
                 <table class="table table-striped" id="empruntsTable">
                     <thead>
                         <tr>
-                            <th>Livre</th>
-                            <th>Utilisateur</th>
+
+                            <th>Livre ID</th>
+                            <th>Utilisateur ID</th>
                             <th>Date d'Emprunt</th>
                             <th>Date de Retour</th>
                             <th>Actions</th>
@@ -118,6 +114,27 @@
             <a href="./adminges.html">
                 <button class="btn btn-outline-light">Come Back </button>
             </a>
+        </div>
+    </div>
+
+    <!-- Modale pour afficher les détails de l'emprunt -->
+    <div class="modal fade" id="empruntModal" tabindex="-1" role="dialog" aria-labelledby="empruntModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="empruntModalLabel">Détails de l'Emprunt</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="empruntDetails">
+                    <!-- Détails de l'emprunt -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
         </div>
     </div>
 
