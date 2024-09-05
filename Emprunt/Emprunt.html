@@ -4,19 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestion des Auteurs</title>
+    <title>Gestion des Emprunts</title>
     <!-- Lien vers Bootstrap pour le style rapide -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
     <!-- Votre fichier CSS personnalisé -->
-    <link rel="stylesheet" href="Auteur.css">
+    <link rel="stylesheet" href="/Emprunt/Emprunt.css">
 </head>
 
 <body>
 
     <!-- Vidéo de fond -->
     <video autoplay muted loop class="background-video">
-        <source src="./videos/7.mp4" type="video/mp4">
+        <source src="./videos/emprunt.mp4" type="video/mp4">
         Votre navigateur ne supporte pas les vidéos HTML5.
     </video>
 
@@ -27,8 +26,8 @@
                 <img src="./images/logo.png" alt="logo" width="100">
             </div>
             <div class="header-title text-white">
-                <h1>Bienvenue, Administrateur</h1>
-                <p>Gérez vos auteurs avec simplicité et efficacité.</p>
+                <h1>Gestion des Emprunts</h1>
+                <p>Gérez vos emprunts avec simplicité et efficacité.</p>
             </div>
             <!-- Icône de menu pour afficher les options -->
             <div class="menu-icon text-white" onclick="toggleMenu()" style="font-size: 30px; cursor: pointer;">
@@ -40,8 +39,8 @@
     <!-- Navbar avec options -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="navbar" style="display: none;">
         <div class="container">
-            <a class="nav-link" href="#" onclick="showSection('formSection')"style="color: #1e90ff;font-size:20px">Ajouter un Auteur</a>
-            <a class="nav-link" href="#" onclick="showSection('listSection')"style="color: #1e90ff;font-size:20px">Liste des Auteurs</a>
+            <a class="nav-link" href="#" onclick="showSection('ajoutSection')">Ajouter Emprunt</a>
+            <a class="nav-link" href="#" onclick="showSection('listeSection')">Liste des Emprunts</a>
         </div>
     </nav>
 
@@ -50,62 +49,76 @@
         <div id="alertMessage" class="alert d-none" role="alert"></div>
     </div>
 
-    <!-- Formulaire pour ajouter/modifier un auteur -->
-    <div id="formSection" class="container mt-4 section">
+    <!-- Formulaire pour ajouter un emprunt -->
+    <div id="ajoutSection" class="container mt-4 section">
         <div class="card">
             <div class="card-header">
-                <h2 id="formTitle">Ajouter un Auteur</h2>
+                <h2 id="formTitle">Ajouter un Emprunt</h2>
             </div>
             <div class="card-body">
-                <form id="auteurForm">
+                <form id="empruntForm">
                     <div class="form-group">
-                        <label for="nom">Nom :</label>
-                        <input type="text" id="nom" class="form-control" required>
+                        <label for="livre">Livre :</label>
+                        <select id="livre" class="form-control" required>
+                            <option value="">Sélectionner un livre</option>
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label for="prenom">Prénom :</label>
-                        <input type="text" id="prenom" class="form-control" required>
+                        <label for="utilisateur">Utilisateur :</label>
+                        <select id="utilisateur" class="form-control" required>
+                            <option value="">Sélectionner un utilisateur</option>
+                        </select>
                     </div>
-                    <button type="submit" id="submitBtn" class="btn btn-primary">Ajouter Auteur</button>
+                    <div class="form-group">
+                        <label for="dateEmprunt">Date d'Emprunt :</label>
+                        <input type="date" id="dateEmprunt" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dateRetour">Date de Retour :</label>
+                        <input type="date" id="dateRetour" class="form-control" required>
+                    </div>
+                    <button type="submit" id="submitBtn" class="btn btn-primary">Ajouter Emprunt</button>
                     <button type="button" class="btn btn-secondary" onclick="resetForm()">Annuler</button>
                 </form>
             </div>
-            
         </div>
+
         <div class="text-center mt-3">
             <a href="./adminges.html">
-                <button class="btn btn-outline-light">Come Back</button>
+                <button class="btn btn-outline-light">Come Back </button>
             </a>
         </div>
+
     </div>
 
-    <!-- Liste des auteurs -->
-    <div id="listSection" class="container mt-4 section d-none">
+    <!-- Liste des emprunts -->
+    <div id="listeSection" class="container mt-4 section d-none">
         <div class="card">
             <div class="card-header">
-                <h2>Liste des Auteurs</h2>
+                <h2>Liste des Emprunts</h2>
             </div>
             <div class="card-body">
-                <table class="table table-striped" id="auteursTable">
+                <table class="table table-striped" id="empruntsTable">
                     <thead>
                         <tr>
-                            <th>Nom</th>
-                            <th>Prénom</th>
-                            <th>Livres</th>
+                            <th>Livre</th>
+                            <th>Utilisateur</th>
+                            <th>Date d'Emprunt</th>
+                            <th>Date de Retour</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Les auteurs seront affichés ici dynamiquement -->
+                        <!-- Les emprunts seront affichés ici dynamiquement -->
                     </tbody>
                 </table>
             </div>
         </div>
-         <div class="text-center mt-3">
-        <a href="./adminges.html">
-            <button class="btn btn-outline-light">Come Back </button>
-        </a>
-    </div>
+        <div class="text-center mt-3">
+            <a href="./adminges.html">
+                <button class="btn btn-outline-light">Come Back </button>
+            </a>
+        </div>
     </div>
 
     <!-- Inclusion de jQuery, Popper.js et Bootstrap JS pour les fonctionnalités dynamiques -->
@@ -117,7 +130,7 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <!-- Votre fichier JavaScript personnalisé -->
-    <script src="Auteur.js"></script>
+    <script src="/Emprunt/Emprunt.js"></script>
 </body>
 
 </html>

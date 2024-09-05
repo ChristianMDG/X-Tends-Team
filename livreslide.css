@@ -1,6 +1,10 @@
+html {
+  scroll-behavior: smooth; /* Ajoute un défilement doux pour tous les liens d'ancre */
+}
+
 body {
   font-family: 'Georgia', serif;
-  background-color: #f5ebe0; /* Couleur crème pour un look bibliothèque classique */
+  background-color:var(--bg-color); /* Couleur crème pour un look bibliothèque classique */
   color: black;
   margin: 0;
   padding: 0;
@@ -13,84 +17,120 @@ body {
   100% { opacity: 1; }
 }
 
+:root {
+  --bg-color: #f0f8ff; /* AliceBlue */
+  --second-bg-color: #dfefff; /* LightSkyBlue */
+  --text-color: #004080; /* Navy */
+  --main-color: #87cefa; /* LightSkyBlue */
+  --highlight-color: #1e90ff; /* DodgerBlue */
+}
+/* Header fixe avec un fond semi-transparent */
 header {
-  background-color: #cd9777; /* Couleur bois pour le thème bibliothèque */
-  padding: 20px 0;
-  text-align: center;
-  color: #fff;
-  animation: slideInDown 1s ease-in-out;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--main-color); /* Fond semi-transparent */
+  color: white;
+  padding: 10px 20px;
+  z-index: 1000; /* Assurez-vous que le header est au-dessus du contenu */
+  transition: background-color 0.3s; /* Pour une transition fluide du fond */
 }
 
-@keyframes slideInDown {
-  0% { transform: translateY(-100%); }
-  100% { transform: translateY(0); }
+/* Espacement pour éviter que le contenu ne soit caché sous le header */
+body::before {
+  content: "";
+  display: block;
+  height: 60px; /* Hauteur du header pour éviter le chevauchement */
 }
-
-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-nav a {
-  color: #fff8dc;
-  text-decoration: none;
-  margin: 0 15px;
-  font-size: 18px;
-}
-
-nav a:hover {
-  color: #8b4513;
-  transition: color 0.3s ease-in-out;
+.logo img {
+  vertical-align: middle;
+  width: 7%;
 }
 
 .menu {
-  display: flex;
   list-style: none;
+  margin: 0;
+  padding: 0;
+  justify-content: center;
 }
 
 .menu li {
-  position: relative;
+  display: inline-block;
 }
 
-.submenu .sub-menu {
+.menu a {
+  color: white;
+  text-decoration: none;
+  padding: 20px;
+  display: block;
+  font-size: 20px;
+}
+
+.menu a:hover{
+  color: #1e90ff;
+}
+
+.sub-menu {
   display: none;
   position: absolute;
-  background-color: #a0522d; /* Marron foncé */
-  top: 30px;
-  left: 0;
+  background-color: #a0d3f3;
   list-style: none;
-  padding: 10px;
-  animation: fadeIn 0.5s ease-in-out;
+  padding: 0;
+  margin: 0;
+}
+
+.sub-menu li {
+  display: block;
 }
 
 .submenu:hover .sub-menu {
   display: block;
 }
 
-.search-bar input {
-  padding: 10px;
-  width: 220px;
-  border: 0px solid #8b4513;
-  border-radius: 50px;
-  outline: none;
-}
-
-.search-bar button {
-  background-color: #cd853f;
+/* Style pour le menu toggle */
+.menu-toggle {
+  display: none;
+  background: none;
   border: none;
-  color: #fff;
-  padding: 10px 15px;
+  color: white;
+  font-size: 24px;
   cursor: pointer;
-  border-radius: 50px;
 }
 
-.search-bar button:hover {
-  background-color: #8b4513;
-  transition: background-color 0.3s ease-in-out;
+.menu-icon::before {
+  content: "☰"; /* icône hamburger */
+}
+
+/* Styles pour les écrans plus petits */
+@media (max-width: 768px) {
+  .menu {
+      display: none;
+      position: absolute;
+      top: 80px;
+      left: 0;
+      width: 100%;
+      background-color: #a0d3f3;
+      text-align: center;
+  }
+
+  .menu li {
+      display: block;
+  }
+
+  .menu-toggle {
+      display: block;
+  }
+
+  .menu.show {
+      display: block;
+  }
+}
+
+section {
+  padding: 50px;
+  margin: 20px 0;
+  border: 0px solid #ddd;
 }
 
 .carrousel-section {
@@ -101,8 +141,8 @@ nav a:hover {
 .carrousel-section h1 {
   text-align: center;
   margin-top: 40px;
-  font-size: 28px;
-  color: #8b4513;
+  font-size: 38px;
+  color: #1e90ff;
 }
 
 .swiper-container {
@@ -144,53 +184,50 @@ nav a:hover {
 .message-button {
   margin-top: 10px;
   padding: 10px;
-  border: 2px solid #8b4513;
+  border: 2px solid #1e90ff;
   background-color: transparent;
-  color: #8b4513;
+  color: #1e90ff;
   border-radius: 50px;
   cursor: pointer;
   animation: fadeIn 2s ease-in-out;
 }
 
 .message-button:hover {
-  background-color: #8b4513;
+  background-color: #1e90ff;
   color: #fff;
   transition: background-color 0.3s ease-in-out;
 }
 
+/* Style de base du footer */
 .footer {
-  background-color: #cd9777;
-  padding: 40px 0;
+  background-color: #87cefa;
+  padding: 40px 20px;
+  color: white;
   text-align: center;
-  color: #ffffff;
-  font-family: 'Georgia', serif;
-  margin-top: 20%;
-  animation: slideInUp 1.5s ease-in-out;
-}
-
-@keyframes slideInUp {
-  0% { transform: translateY(100%); }
-  100% { transform: translateY(0); }
-}
-
-.footer-content {
-  margin-bottom: 20px;
+  position: relative;
 }
 
 .footer-title {
-  font-size: 44px;
+  font-size: 2rem;
   margin-bottom: 10px;
+  animation: fadeInDown 1s ease-in-out;
 }
 
 .footer-description {
-  font-size: 16px;
-  color: #ffebcd;
+  font-size: 1.2rem;
   margin-bottom: 20px;
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+/* Icônes des réseaux sociaux */
+.footer-social-icons {
+  margin: 20px 0;
 }
 
 .footer-social-icons a {
   margin: 0 10px;
-  font-size: 50px;
+  color: white;
+  font-size: 1.5rem;
   transition: transform 0.3s ease;
 }
 
@@ -198,28 +235,61 @@ nav a:hover {
   transform: scale(1.2);
 }
 
-/* Facebook Icon */
-.footer-social-icons a:nth-child(1) i {
-  color: #3b5998; /* Facebook Blue */
-}
-
-/* LinkedIn Icon */
-.footer-social-icons a:nth-child(2) i {
-  color: #0077b5; /* LinkedIn Blue */
-}
-
-/* Instagram Icon */
-.footer-social-icons a:nth-child(3) i {
-  color: #e1306c; /* Instagram Pink */
-}
-
+/* Style du bas du footer */
 .footer-bottom {
   margin-top: 20px;
+  animation: fadeInUp 1s ease-in-out;
 }
 
-.footer-bottom p {
-  font-size: 14px;
-  color: #ffebcd;
+.footer-bottom img {
+  margin-bottom: 10px;
+  animation: bounceIn 2s ease;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounceIn {
+  0%,
+  20%,
+  40%,
+  60%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 /* Responsive Design */
@@ -230,9 +300,15 @@ nav a:hover {
 
   .swiper-slide {
     max-width: 200px;
+      padding: 5px; /* Moins de padding sur les petits écrans */
+
   }
 
-  .menu {
+  .card-item {
+    width: 80%; /* Les cartes occupent toute la largeur disponible */
+   }
+   
+   .menu {
     display: none;
     flex-direction: column;
     align-items: center;
@@ -263,8 +339,4 @@ nav a:hover {
   .submenu:hover .sub-menu {
     display: none;
   }
-}
-/* Ajustements pour les boutons du formulaire */
-#utilisateurForm .btn {
-  margin-right: 10px;
 }

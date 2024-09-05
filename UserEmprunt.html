@@ -34,41 +34,46 @@
         <div id="alertMessage" class="alert d-none" role="alert"></div>
     </div>
 
-<!-- Formulaire pour ajouter un emprunt -->
-<div id="formSection" class="container mt-4 section">
-    <div class="card">
-        <div class="card-header">
-            <h2 id="formTitle">Ajouter un Emprunt</h2>
+    <!-- Formulaire pour ajouter un emprunt -->
+    <div id="ajoutSection" class="container mt-4">
+        <div class="card">
+            <div class="card-header">
+                <h2>Emprunt</h2>
+            </div>
+            <div class="card-body">
+                <form id="empruntForm">
+                    <div class="form-group">
+                        <label for="livre">Livre :</label>
+                        <select id="livre" class="form-control" required>
+                            <option value="">Sélectionner un livre</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="utilisateur">Utilisateur :</label>
+                        <select id="utilisateur" class="form-control" required>
+                            <option value="">Sélectionner un utilisateur</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="dateEmprunt">Date d'Emprunt :</label>
+                        <input type="date" id="dateEmprunt" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dateRetour">Date de Retour :</label>
+                        <input type="date" id="dateRetour" class="form-control" required>
+                    </div>
+                    <button type="submit" id="submitBtn" class="btn btn-primary">Emprunter</button>
+                    <button type="button" class="btn btn-secondary" onclick="resetForm()">Annuler</button>
+                </form>
+            </div>
         </div>
-        <div class="card-body">
-            <form id="empruntForm">
-                <div class="form-group">
-                    <label for="livreId">Livre ID :</label>
-                    <input type="number" id="livreId" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="utilisateurId">Utilisateur ID :</label>
-                    <input type="number" id="utilisateurId" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="dateEmprunt">Date d'Emprunt :</label>
-                    <input type="date" id="dateEmprunt" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="dateRetour">Date de Retour :</label>
-                    <input type="date" id="dateRetour" class="form-control">
-                </div>
-                <button type="submit" id="submitBtn" class="btn btn-primary">Ajouter Emprunt</button>
-                <button type="button" class="btn btn-secondary" onclick="resetForm()">Annuler</button>
-            </form>
+
+        <div class="text-center mt-3">
+            <a href="./livreslide.html">
+                <button class="btn btn-outline-light">Retour</button>
+            </a>
         </div>
     </div>
-    <div class="text-center mt-3">
-        <a href="./adminges.html">
-            <button class="btn btn-outline-light">Come Back </button>
-        </a>
-    </div>
-</div>
 
     <!-- Inclusion de jQuery, Popper.js et Bootstrap JS pour les fonctionnalités dynamiques -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

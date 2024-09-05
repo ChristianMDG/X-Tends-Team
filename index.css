@@ -7,7 +7,7 @@
 }
 
 body {
-    color: rgb(72, 202, 228);
+    color: rgb(173, 216, 230); /* Bleu ciel très clair */
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -16,11 +16,18 @@ body {
     position: relative;
 }
 
+:root {
+    --bg-color: #f0f8ff; /* AliceBlue */
+    --second-bg-color: #dfefff; /* LightSkyBlue */
+    --text-color: #004080; /* Navy */
+    --main-color: #87cefa; /* LightSkyBlue */
+    --highlight-color: #1e90ff; /* DodgerBlue */
+  }
 .outer-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50vw ;
+    height: 50vw;
     width: 50vw;
     max-width: 400px;
     max-height: 400px;
@@ -35,10 +42,10 @@ body {
     height: 99%;
     width: 99%;
     border-radius: 50%;
-    border-top: .2rem solid #FFD700;
-    border-bottom: .2rem solid  #C0C0C0 ;
-    border-left: .2rem solid  #DAA520;
-    border-right: .2rem solid #B0C4DE;
+    border-top: .2rem solid var(--highlight-color); /* Bleu ciel très clair */
+    border-bottom: .2rem solid var(--main-color); /* Bleu pâle */
+    border-left: .2rem solid var(--second-bg-color); /* Bleu clair très doux */
+    border-right: .2rem solid var(--highlight-color); /* Bleu très pâle */
     animation: borderSpin 8s linear infinite;
 }
 
@@ -65,13 +72,12 @@ body {
 h1 {
     font-size: 5vw;
     margin-bottom: 20px;
-    color: #DAA520;
+    color: var(--main-color); /* Bleu très clair */
 }
 
 .btn:hover {
-    background-color: #DAA520;
+    background-color: var(--main-color); /* Bleu ciel très clair */
     text-decoration: underline;
-
 }
 
 /* Arrière-plan vidéo */
@@ -93,7 +99,6 @@ h1 {
     top: 0;
     left: 0;
 }
-
 
 /* Effet de surbrillance */
 @keyframes glow {
@@ -186,6 +191,7 @@ h1 {
         font-size: 2rem;
     }
 }
+
 @media(max-width: 320px){
     .outer-container {
         height: 60vw;
@@ -201,5 +207,3 @@ h1 {
         font-size: 3vw;
     }
 }
-
-
