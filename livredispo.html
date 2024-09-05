@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestion de Bibliothèque</title>
     <link rel="stylesheet" href="livredispo.css">
-    <!-- Intégration de Font Awesome pour les icônes (optionnel) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
@@ -18,33 +17,30 @@
                 <center><img src="./images/logo.png" alt="Logo"></center>
             </div>
             <button class="menu-toggle" aria-label="Toggle menu" onclick="toggleMenu()">
-                <i class="fas fa-bars"></i> <!-- Utilisez une icône hamburger -->
+                <i class="fas fa-bars"></i>
             </button>
-            <center><ul class="menu" id="menu">
-                <li><a href="./livreslide.html" class="fas fa-home">Home</a></li>
-                <li><a href="./livredispo.html" class="fas fa-book">Livres disponible</a></li>
-                <li><a href="./mesEmprunts.html" class="fas fa-book-reader">Mes Emprunts</a></li>
-            </ul></center>
+            <center>
+                <ul class="menu" id="menu">
+                    <li><a href="./livreslide.html" class="fas fa-home">Accueil</a></li>
+                    <li><a href="./livredispo.html" class="fas fa-book">Livres disponibles</a></li>
+                    <li><a href="./mesEmprunts.html" class="fas fa-book-reader">Mes Emprunts</a></li>
+                </ul>
+            </center>
         </nav>
     </header>
 
-    <!-- Section Livres disponibles -->
+    <!-- Section Livres disponibles et Emprunter -->
     <section id="books">
         <div class="section-container">
-            <h2>Livres disponibles</h2>
-            <ul id="book-list">
-                <!-- La liste des livres sera générée ici via JavaScript -->
-            </ul>
-            <p>Total de livres disponibles : <span id="book-count">0</span></p>
+            <h2>Livres Disponibles</h2>
+            <div id="books-list"></div>
         </div>
     </section>
-
     <!--footer-->
     <footer class="footer">
         <div class="footer-content">
             <h3 class="footer-title">X-Tends Library</h3>
             <p class="footer-description">Votre bibliothèque numérique à portée de main</p>
-
             <div class="footer-social-icons">
                 <a href="https://www.facebook.com" target="_blank" class="social-icon">
                     <i class="fab fa-facebook-f"></i>
@@ -56,27 +52,21 @@
                     <i class="fa fa-envelope"></i>
                 </a>
             </div>
-
             <div class="footer-bottom">
-                <img src="./images/logo.png" width="100px" height="100px" alt="Livre Ouvert">
+                <img src="./images/logo.png" width="100px" height="100px" alt="Logo">
                 <p>© 2024 Gestion de Bibliothèque by X-Tends Team PNM - Tous droits réservés</p>
             </div>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="script.js"></script>
+    <script src="livredispo.js"></script>
     <script>
         function toggleMenu() {
             const menu = document.getElementById('menu');
-            if (menu.style.display === 'flex') {
-                menu.style.display = 'none';
-            } else {
-                menu.style.display = 'flex';
-            }
+            menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
         }
-        
-     </script>
+    </script>
 </body>
 
 </html>

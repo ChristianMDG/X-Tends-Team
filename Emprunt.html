@@ -7,6 +7,7 @@
     <title>Gestion des Emprunts</title>
     <!-- Lien vers Bootstrap pour le style rapide -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
     <!-- Votre fichier CSS personnalisé -->
     <link rel="stylesheet" href="Emprunt.css">
 </head>
@@ -15,7 +16,7 @@
 
     <!-- Vidéo de fond -->
     <video autoplay muted loop class="background-video">
-        <source src="./videos/emprunt.mp4" type="video/mp4">
+        <source src="./videos/reading.mp4" type="video/mp4">
         Votre navigateur ne supporte pas les vidéos HTML5.
     </video>
 
@@ -26,8 +27,8 @@
                 <img src="./images/logo.png" alt="logo" width="100">
             </div>
             <div class="header-title text-white">
-                <h1>Gestion des Emprunts</h1>
-                <p>Gérez vos emprunts avec simplicité et efficacité.</p>
+                <h1>Bienvenue, Administrateur</h1>
+                <p>Gérez vos emprunts de livres.</p>
             </div>
             <!-- Icône de menu pour afficher les options -->
             <div class="menu-icon text-white" onclick="toggleMenu()" style="font-size: 30px; cursor: pointer;">
@@ -39,8 +40,8 @@
     <!-- Navbar avec options -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="navbar" style="display: none;">
         <div class="container">
-            <a class="nav-link" href="#" onclick="showSection('ajoutSection')"style="color: #1e90ff;font-size:20px">Ajouter Emprunt</a>
-            <a class="nav-link" href="#" onclick="showSection('listeSection')"style="color: #1e90ff;font-size:20px">Liste des Emprunts</a>
+            <a class="nav-link" href="#" onclick="showSection('formSection')">Ajouter un Emprunt</a>
+            <a class="nav-link" href="#" onclick="showSection('listSection')">Liste des Emprunts</a>
         </div>
     </nav>
 
@@ -50,7 +51,7 @@
     </div>
 
     <!-- Formulaire pour ajouter un emprunt -->
-    <div id="ajoutSection" class="container mt-4 section">
+    <div id="formSection" class="container mt-4 section">
         <div class="card">
             <div class="card-header">
                 <h2 id="formTitle">Ajouter un Emprunt</h2>
@@ -58,41 +59,35 @@
             <div class="card-body">
                 <form id="empruntForm">
                     <div class="form-group">
-                        <label for="livre">Livre :</label>
-                        <select id="livre" class="form-control" required>
-                            <option value="">Sélectionner un livre</option>
-                        </select>
+                        <label for="livreId">ID Livre :</label>
+                        <input type="number" id="livreId" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label for="utilisateur">Utilisateur :</label>
-                        <select id="utilisateur" class="form-control" required>
-                            <option value="">Sélectionner un utilisateur</option>
-                        </select>
+                        <label for="utilisateurId">ID Utilisateur :</label>
+                        <input type="number" id="utilisateurId" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label for="dateEmprunt">Date d'Emprunt :</label>
-                        <input type="date" id="dateEmprunt" class="form-control" required>
+                        <label for="dateEmprunt">Date d'emprunt :</label>
+                        <input type="date" id="dateEmprunt" class="form-control" disabled>
                     </div>
                     <div class="form-group">
-                        <label for="dateRetour">Date de Retour :</label>
-                        <input type="date" id="dateRetour" class="form-control" required>
+                        <label for="dateRetour">Date de retour :</label>
+                        <input type="date" id="dateRetour" class="form-control">
                     </div>
-                    <button type="submit" id="submitBtn" class="btn btn-primary">Ajouter Emprunt</button>
+                    <button type="submit" class="btn btn-primary">Ajouter Emprunt</button>
                     <button type="button" class="btn btn-secondary" onclick="resetForm()">Annuler</button>
                 </form>
             </div>
         </div>
-
         <div class="text-center mt-3">
             <a href="./adminges.html">
-                <button class="btn btn-outline-light">Come Back </button>
+                <button class="btn btn-outline-light">Come Back</button>
             </a>
         </div>
-
     </div>
 
     <!-- Liste des emprunts -->
-    <div id="listeSection" class="container mt-4 section d-none">
+    <div id="listSection" class="container mt-4 section d-none">
         <div class="card">
             <div class="card-header">
                 <h2>Liste des Emprunts</h2>
@@ -101,22 +96,22 @@
                 <table class="table table-striped" id="empruntsTable">
                     <thead>
                         <tr>
-                            <th>Livre</th>
-                            <th>Utilisateur</th>
-                            <th>Date d'Emprunt</th>
-                            <th>Date de Retour</th>
-                            <th>Actions</th>
+                            <th>ID</th>
+                            <th>ID Livre</th>
+                            <th>ID Utilisateur</th>
+                            <th>Date d'emprunt</th>
+                            <th>Date de retour</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Les emprunts seront affichés ici dynamiquement -->
+                        <!-- Les emprunts seront ajoutés ici dynamiquement -->
                     </tbody>
                 </table>
             </div>
         </div>
         <div class="text-center mt-3">
             <a href="./adminges.html">
-                <button class="btn btn-outline-light">Come Back </button>
+                <button class="btn btn-outline-light">Come Back</button>
             </a>
         </div>
     </div>

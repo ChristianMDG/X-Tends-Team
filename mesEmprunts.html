@@ -27,15 +27,13 @@
   </header>
     <!-- Section Mes emprunts -->
     <section id="loans">
-        <div class="section-container">
-            <h2>Mes emprunts</h2>
-            <ul id="loan-list">
-                <!-- La liste des emprunts sera générée ici via JavaScript -->
-            </ul>
-            <p>Total d'emprunts : <span id="loan-count">0</span></p>
-        </div>
-    </section>
-
+        <!-- Section Mes Emprunts -->
+        <section id="borrowed">
+          <div class="section-container">
+            <h2>Mes Emprunts</h2>
+            <div id="borrowed-books-list"></div>
+          </div>
+        </section>
     <!-- Formulaire d'emprunt -->
     <div id="borrow-form" class="modal">
         <div class="modal-content">
@@ -78,7 +76,7 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script src="script.js"></script>
+  <script src="livredispo.js"></script>
  <script>
     function toggleMenu() {
         const menu = document.getElementById('menu');

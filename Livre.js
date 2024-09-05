@@ -19,7 +19,6 @@ function showSection(sectionId) {
       section.classList.add("d-none");
     }
   });
-  // Masquer le menu après sélection
   toggleMenu();
 }
 
@@ -37,13 +36,12 @@ function showMessage(message, type) {
   alertDiv.textContent = message;
   alertDiv.className = `alert alert-${type}`;
   alertDiv.classList.remove("d-none");
-  // Masquer l'alerte après 5 secondes
   setTimeout(() => {
     alertDiv.classList.add("d-none");
   }, 5000);
 }
 
-// Charger la liste des livres au démarrage
+// Fonction pour charger les livres et les afficher dans le tableau
 function loadLivres() {
   axios
     .get(`${API_BASE_URL}/livres`)
@@ -58,7 +56,7 @@ function loadLivres() {
           <td>${livre.isbn}</td>
           <td>${new Date(livre.datePublication).toLocaleDateString()}</td>
           <td>${livre.disponible ? "Oui" : "Non"}</td>
-          <td>${livre.auteur}</td>
+          <td>${livre.auteur ? livre.auteur.nom : "Inconnu"}</td> <!-- Assurez-vous que l'auteur est un objet valide -->
           <td>
             <button class="btn btn-warning btn-sm" onclick="modifierLivre(${livre.id})">Modifier</button>
             <button class="btn btn-danger btn-sm" onclick="supprimerLivre(${livre.id})">Supprimer</button>
@@ -89,10 +87,10 @@ document.getElementById("livreForm").addEventListener("submit", function (event)
     // Modification d'un livre existant
     axios
       .put(`${API_BASE_URL}/livres/${livreEnModification}`, livreData)
-      .then((response) => {
+      .then(() => {
         showMessage("Livre modifié avec succès", "success");
         resetForm();
-        loadLivres(); // Recharger la liste des livres après modification
+        loadLivres();
       })
       .catch((error) => {
         showMessage("Erreur lors de la modification du livre", "danger");
@@ -102,10 +100,10 @@ document.getElementById("livreForm").addEventListener("submit", function (event)
     // Ajout d'un nouveau livre
     axios
       .post(`${API_BASE_URL}/livres`, livreData)
-      .then((response) => {
+      .then(() => {
         showMessage("Livre ajouté avec succès", "success");
         resetForm();
-        loadLivres(); // Recharger la liste des livres après ajout
+        loadLivres();
       })
       .catch((error) => {
         showMessage("Erreur lors de l'ajout du livre", "danger");
@@ -122,13 +120,13 @@ function modifierLivre(id) {
       const livre = response.data;
       document.getElementById("titre").value = livre.titre;
       document.getElementById("isbn").value = livre.isbn;
-      document.getElementById("datePublication").value = livre.datePublication.split("T")[0]; // Pour compenser le format de date
+      document.getElementById("datePublication").value = livre.datePublication.split("T")[0];
       document.getElementById("disponible").value = livre.disponible ? "true" : "false";
       document.getElementById("auteur").value = livre.auteur;
       livreEnModification = id;
       document.getElementById("formTitle").textContent = "Modifier Livre";
       document.getElementById("submitBtn").textContent = "Modifier Livre";
-      showSection("formSection"); // Afficher la section du formulaire
+      showSection("formSection");
     })
     .catch((error) => {
       showMessage("Erreur lors du chargement des données du livre", "danger");
@@ -141,9 +139,9 @@ function supprimerLivre(id) {
   if (confirm("Êtes-vous sûr de vouloir supprimer ce livre ?")) {
     axios
       .delete(`${API_BASE_URL}/livres/${id}`)
-      .then((response) => {
+      .then(() => {
         showMessage("Livre supprimé avec succès", "success");
-        loadLivres(); // Recharger la liste des livres après suppression
+        loadLivres();
       })
       .catch((error) => {
         showMessage("Erreur lors de la suppression du livre", "danger");
@@ -152,5 +150,5 @@ function supprimerLivre(id) {
   }
 }
 
-// Charger les livres lors du chargement de la page
+// Charger les livres au démarrage de la page
 document.addEventListener("DOMContentLoaded", loadLivres);
