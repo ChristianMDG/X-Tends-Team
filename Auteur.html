@@ -10,6 +10,7 @@
 
     <!-- Votre fichier CSS personnalisé -->
     <link rel="stylesheet" href="Auteur.css">
+    <link rel="stylesheet" href="Chargement.css">
 </head>
 
 <body>
@@ -40,8 +41,10 @@
     <!-- Navbar avec options -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="navbar" style="display: none;">
         <div class="container">
-            <a class="nav-link" href="#" onclick="showSection('formSection')"style="color: #1e90ff;font-size:20px">Ajouter un Auteur</a>
-            <a class="nav-link" href="#" onclick="showSection('listSection')"style="color: #1e90ff;font-size:20px">Liste des Auteurs</a>
+            <a class="nav-link" href="#" onclick="showSection('formSection')"
+                style="color: #1e90ff;font-size:20px">Ajouter un Auteur</a>
+            <a class="nav-link" href="#" onclick="showSection('listSection')"
+                style="color: #1e90ff;font-size:20px">Liste des Auteurs</a>
         </div>
     </nav>
 
@@ -70,11 +73,10 @@
                     <button type="button" class="btn btn-secondary" onclick="resetForm()">Annuler</button>
                 </form>
             </div>
-            
         </div>
         <div class="text-center mt-3">
             <a href="./adminges.html">
-                <button class="btn btn-outline-light">Come Back</button>
+                <button class="btn btn-outline-light">Retour</button>
             </a>
         </div>
     </div>
@@ -101,12 +103,15 @@
                 </table>
             </div>
         </div>
-         <div class="text-center mt-3">
-        <a href="./adminges.html">
-            <button class="btn btn-outline-light">Come Back </button>
-        </a>
+        <div class="text-center mt-3">
+            <a href="./adminges.html">
+                <button class="btn btn-outline-light">Retour</button>
+            </a>
+        </div>
     </div>
-    </div>
+
+    <!-- Spinner de chargement -->
+    <div id="loading" class="spinner" style="display:none;"></div>
 
     <!-- Inclusion de jQuery, Popper.js et Bootstrap JS pour les fonctionnalités dynamiques -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -118,6 +123,30 @@
 
     <!-- Votre fichier JavaScript personnalisé -->
     <script src="Auteur.js"></script>
+    <script src="chargement.js"></script>
+
+    <script>
+        // Fonction pour récupérer la liste des auteurs
+        function getAuteurs() {
+            showLoading(); // Affiche le spinner avant la requête
+
+            axios.get('http://localhost:8080/api/auteurs')  // URL de ton API pour les auteurs
+                .then(function (response) {
+                    hideLoading(); // Masque le spinner après la requête
+                    console.log(response.data); // Traite la réponse ici, afficher les auteurs
+                })
+                .catch(function (error) {
+                    hideLoading(); // Masque le spinner en cas d'erreur
+                    console.error(error); // Gestion de l'erreur
+                });
+        }
+
+        // Appel de la fonction pour charger les auteurs lors du chargement de la page
+        window.onload = function () {
+            getAuteurs();
+        };
+    </script>
+
 </body>
 
 </html>
