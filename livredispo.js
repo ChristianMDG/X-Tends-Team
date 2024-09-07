@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     const bookElement = document.createElement("div");
                     bookElement.classList.add("book-item");
                     bookElement.innerHTML = `
-                        ID: ${book.id} - Titre: ${book.titre} - Auteur: ${book.author}
+                        ID: ${book.id} - Titre: ${book.titre} - Auteur: ${book.auteurs}
                         <button class="borrow-button" data-id="${book.id}">Emprunter</button>
                     `;
                     booksList.appendChild(bookElement);
@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     const bookElement = document.createElement("div");
                     bookElement.classList.add("borrowed-book-item");
                     bookElement.innerHTML = `
-                        ID: ${book.id} - Titre: ${book.titre} - Auteur: ${book.author} 
+                        ID: ${book.id} - Titre: ${book.titre} - Auteur: ${book.auteurs} 
                         - Date d'emprunt: ${book.borrowDate} - Date de retour: ${book.returnDate}
                         <button class="return-button" data-id="${book.id}">Retourner</button>
                     `;

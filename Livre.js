@@ -71,6 +71,15 @@ function loadLivres() {
     });
 }
 
+function addAuteurToLivre(livreId, auteurId) {
+  axios.post(`http://localhost:8080/api/livres/${livreId}/add-auteur`, { auteurId })
+    .then(response => {
+      console.log('Auteur added to Livre:', response.data);
+      // Update UI or notify user
+    })
+    .catch(error => console.error('Error adding auteur to livre:', error));
+}
+
 // Fonction pour ajouter ou modifier un livre
 document.getElementById("livreForm").addEventListener("submit", function (event) {
   event.preventDefault();

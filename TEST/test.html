@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management</title>
+    <link rel="stylesheet" href="test.css">
+    <script defer src="test.js"></script>
+</head>
+
+<body>
+    <h1>Library Management</h1>
+
+    <section>
+        <h2>Available Books</h2>
+        <div id="books-list"></div>
+    </section>
+
+    <section>
+        <h2>Add a New Book</h2>
+        <form id="add-book-form">
+            <input type="text" id="book-title" placeholder="Title" required>
+            <input type="text" id="book-author" placeholder="Author" required>
+            <button type="submit">Add Book</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Update Book</h2>
+        <form id="update-book-form">
+            <input type="number" id="update-book-id" placeholder="Book ID" required>
+            <input type="text" id="update-book-title" placeholder="New Title" required>
+            <input type="text" id="update-book-author" placeholder="New Author" required>
+            <button type="submit">Update Book</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Borrow a Book</h2>
+        <form id="borrow-book-form">
+            <input type="number" id="borrow-book-id" placeholder="Book ID" required>
+            <button type="submit">Borrow Book</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Delete a Book</h2>
+        <form id="delete-book-form">
+            <input type="number" id="delete-book-id" placeholder="Book ID" required>
+            <button type="submit">Delete Book</button>
+        </form>
+    </section>
+</body>
+
+</html>
