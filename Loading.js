@@ -6,5 +6,5 @@ window.addEventListener('load', function () {
         document.getElementById('loader').style.display = 'none';
         // Affiche le contenu
         document.getElementById('content').style.display = 'block';
-    }, 3000); // 2 secondes de chargement simulé
+    }, 700); // 2 secondes de chargement simulé
 });
