@@ -1,97 +1,68 @@
-const apiBaseURL = 'http://localhost:8080/api/livres';
+document.addEventListener('DOMContentLoaded', () => {
+    const bookForm = document.getElementById('bookForm');
+    const booksList = document.getElementById('booksList');
 
-// Fetch and display all available books
-function fetchBooks() {
-    fetch(`${apiBaseURL}/disponibles`)
-        .then(response => response.json())
-        .then(data => {
-            const booksList = document.getElementById('books-list');
-            booksList.innerHTML = '';
-            data.forEach(book => {
-                const bookItem = document.createElement('div');
-                bookItem.classList.add('book-item');
-                bookItem.innerHTML = `
-                    <h3>${book.titre}</h3>
-                    <p>${book.auteur}</p>
-                    <p><strong>Disponible:</strong> ${book.disponible ? 'Yes' : 'No'}</p>
-                `;
-                booksList.appendChild(bookItem);
+    // Fonction pour ajouter un livre avec une image
+    bookForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const formData = new FormData();
+        formData.append('titre', document.getElementById('titre').value);
+        formData.append('isbn', document.getElementById('isbn').value);
+        formData.append('datePublication', document.getElementById('datePublication').value);
+        formData.append('image', document.getElementById('image').files[0]);
+
+        // Ajouter le livre et uploader l'image
+        axios.post('/api/livres', {
+            titre: document.getElementById('titre').value,
+            isbn: document.getElementById('isbn').value,
+            datePublication: document.getElementById('datePublication').value,
+            disponible: true
+        }).then(response => {
+            const bookId = response.data.id;
+
+            // Uploader l'image après avoir ajouté le livre
+            axios.post(`/api/livres/uploadImage/${bookId}`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }).then(() => {
+                alert('Livre ajouté avec succès');
+                displayBooks(); // Mettre à jour la liste des livres
+            }).catch(error => {
+                console.error('Erreur lors de l\'upload de l\'image:', error);
             });
-        })
-        .catch(error => console.error('Error fetching books:', error));
-}
+        }).catch(error => {
+            console.error('Erreur lors de l\'ajout du livre:', error);
+        });
+    });
 
-// Add a new book
-document.getElementById('add-book-form').addEventListener('submit', function (e) {
-    e.preventDefault();
-    const title = document.getElementById('book-title').value;
-    const author = document.getElementById('book-author').value;
+    // Fonction pour afficher la liste des livres
+    function displayBooks() {
+        axios.get('/api/livres').then(response => {
+            const books = response.data;
+            booksList.innerHTML = '';
 
-    fetch(apiBaseURL, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ titre: title, auteur: author, disponible: true })
-    })
-        .then(response => response.json())
-        .then(data => {
-            alert('Book added successfully');
-            fetchBooks();  // Refresh the list
-        })
-        .catch(error => console.error('Error adding book:', error));
+            books.forEach(book => {
+                const bookDiv = document.createElement('div');
+                bookDiv.classList.add('book');
+
+                const bookImage = book.imageUrl ? `<img src="${book.imageUrl}" alt="${book.titre}">` : '';
+
+                bookDiv.innerHTML = `
+                    ${bookImage}
+                    <h3>${book.titre}</h3>
+                    <p>ISBN: ${book.isbn}</p>
+                    <p>Date de publication: ${book.datePublication}</p>
+                `;
+
+                booksList.appendChild(bookDiv);
+            });
+        }).catch(error => {
+            console.error('Erreur lors de la récupération des livres:', error);
+        });
+    }
+
+    // Afficher la liste des livres lors du chargement de la page
+    displayBooks();
 });
-
-// Update a book
-document.getElementById('update-book-form').addEventListener('submit', function (e) {
-    e.preventDefault();
-    const bookId = document.getElementById('update-book-id').value;
-    const title = document.getElementById('update-book-title').value;
-    const author = document.getElementById('update-book-author').value;
-
-    fetch(`${apiBaseURL}/${bookId}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ titre: title, auteur: author })
-    })
-        .then(response => response.json())
-        .then(data => {
-            alert('Book updated successfully');
-            fetchBooks();  // Refresh the list
-        })
-        .catch(error => console.error('Error updating book:', error));
-});
-
-// Borrow a book
-document.getElementById('borrow-book-form').addEventListener('submit', function (e) {
-    e.preventDefault();
-    const bookId = document.getElementById('borrow-book-id').value;
-
-    fetch(`${apiBaseURL}/emprunter/${bookId}`, { method: 'POST' })
-        .then(response => response.text())
-        .then(data => {
-            alert(data);
-            fetchBooks();  // Refresh the list
-        })
-        .catch(error => console.error('Error borrowing book:', error));
-});
-
-// Delete a book
-document.getElementById('delete-book-form').addEventListener('submit', function (e) {
-    e.preventDefault();
-    const bookId = document.getElementById('delete-book-id').value;
-
-    fetch(`${apiBaseURL}/${bookId}`, {
-        method: 'DELETE'
-    })
-        .then(() => {
-            alert('Book deleted successfully');
-            fetchBooks();  // Refresh the list
-        })
-        .catch(error => console.error('Error deleting book:', error));
-});
-
-// Initial fetch of books
-fetchBooks();

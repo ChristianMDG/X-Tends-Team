@@ -1,163 +1,137 @@
-// Définition de l'URL de base de l'API
-const API_BASE_URL = "http://127.0.0.1:8080/api";
+document.addEventListener("DOMContentLoaded", () => {
+  const booksList = document.getElementById("books-list");
+  const borrowedBooksList = document.getElementById("borrowed-books-list");
 
-let livreEnModification = null; // Variable pour stocker l'ID du livre en cours de modification
+  // API endpoint
+  const apiUrl = "http://127.0.0.1:8080/api/livres";
 
-// Fonction pour basculer l'affichage du menu
-function toggleMenu() {
-  const navbar = document.getElementById("navbar");
-  navbar.style.display = navbar.style.display === "flex" ? "none" : "flex";
-}
+  // Afficher les livres disponibles
+  function displayAvailableBooks() {
+    booksList.innerHTML = ''; // Vider avant d'ajouter le loader
 
-// Fonction pour afficher la section correspondante et masquer les autres
-function showSection(sectionId) {
-  const sections = document.querySelectorAll(".section");
-  sections.forEach((section) => {
-    if (section.id === sectionId) {
-      section.classList.remove("d-none");
-    } else {
-      section.classList.add("d-none");
-    }
-  });
-  toggleMenu();
-}
+    const loader = document.createElement('div');
+    loader.classList.add('loader');
+    loader.innerHTML = '<img src="./images/loader.gif" alt="Chargement...">';
+    booksList.appendChild(loader); // Afficher le loader pendant le chargement
 
-// Réinitialiser le formulaire
-function resetForm() {
-  document.getElementById("livreForm").reset();
-  livreEnModification = null;
-  document.getElementById("formTitle").textContent = "Ajouter un Livre";
-  document.getElementById("submitBtn").textContent = "Ajouter Livre";
-}
+    fetch(`${apiUrl}/disponibles`)
+      .then(response => response.json())
+      .then(data => {
+        booksList.innerHTML = ""; // Réinitialise la liste
+        if (data.length === 0) {
+          booksList.innerHTML = "<p>Aucun livre disponible pour le moment.</p>";
+        } else {
+          data.forEach(book => {
+            const bookElement = document.createElement("div");
+            bookElement.classList.add("book-item");
+            bookElement.innerHTML = `
+                            <div class="book-card">
+                                <img src="${book.coverImage || './images/default_cover.jpg'}" alt="${book.titre}" class="book-cover">
+                                <h3>${book.titre}</h3>
+                                <p>Auteur(s): ${book.auteurs.join(", ")}</p>
+                                <button class="borrow-button" data-id="${book.id}">Emprunter</button>
+                            </div>
+                        `;
+            booksList.appendChild(bookElement);
+          });
+        }
 
-// Afficher un message d'alerte
-function showMessage(message, type) {
-  const alertDiv = document.getElementById("alertMessage");
-  alertDiv.textContent = message;
-  alertDiv.className = `alert alert-${type}`;
-  alertDiv.classList.remove("d-none");
-  setTimeout(() => {
-    alertDiv.classList.add("d-none");
-  }, 5000);
-}
-
-// Fonction pour charger les livres et les afficher dans le tableau
-function loadLivres() {
-  axios
-    .get(`${API_BASE_URL}/livres`)
-    .then((response) => {
-      const livres = response.data;
-      const tableBody = document.querySelector("#livresTable tbody");
-      tableBody.innerHTML = ""; // Vider le tableau avant de le remplir
-      livres.forEach((livre) => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-          <td>${livre.titre}</td>
-          <td>${livre.isbn}</td>
-          <td>${new Date(livre.datePublication).toLocaleDateString()}</td>
-          <td>${livre.disponible ? "Oui" : "Non"}</td>
-          <td>${livre.auteur ? livre.auteur.nom : "Inconnu"}</td> <!-- Assurez-vous que l'auteur est un objet valide -->
-          <td>
-            <button class="btn btn-warning btn-sm" onclick="modifierLivre(${livre.id})">Modifier</button>
-            <button class="btn btn-danger btn-sm" onclick="supprimerLivre(${livre.id})">Supprimer</button>
-          </td>
-        `;
-        tableBody.appendChild(row);
-      });
-    })
-    .catch((error) => {
-      showMessage("Erreur lors du chargement des livres", "danger");
-      console.error("Erreur lors du chargement des livres :", error);
-    });
-}
-
-function addAuteurToLivre(livreId, auteurId) {
-  axios.post(`http://localhost:8080/api/livres/${livreId}/add-auteur`, { auteurId })
-    .then(response => {
-      console.log('Auteur added to Livre:', response.data);
-      // Update UI or notify user
-    })
-    .catch(error => console.error('Error adding auteur to livre:', error));
-}
-
-// Fonction pour ajouter ou modifier un livre
-document.getElementById("livreForm").addEventListener("submit", function (event) {
-  event.preventDefault();
-
-  const livreData = {
-    titre: document.getElementById("titre").value,
-    isbn: document.getElementById("isbn").value,
-    datePublication: document.getElementById("datePublication").value,
-    disponible: document.getElementById("disponible").value === "true",
-    auteur: document.getElementById("auteur").value
-  };
-
-  if (livreEnModification) {
-    // Modification d'un livre existant
-    axios
-      .put(`${API_BASE_URL}/livres/${livreEnModification}`, livreData)
-      .then(() => {
-        showMessage("Livre modifié avec succès", "success");
-        resetForm();
-        loadLivres();
+        // Ajouter les gestionnaires d'événements pour les boutons d'emprunt
+        document.querySelectorAll(".borrow-button").forEach(button => {
+          button.addEventListener("click", (event) => {
+            const bookId = event.target.getAttribute("data-id");
+            borrowBook(bookId);
+          });
+        });
       })
-      .catch((error) => {
-        showMessage("Erreur lors de la modification du livre", "danger");
-        console.error("Erreur lors de la modification du livre :", error);
-      });
-  } else {
-    // Ajout d'un nouveau livre
-    axios
-      .post(`${API_BASE_URL}/livres`, livreData)
-      .then(() => {
-        showMessage("Livre ajouté avec succès", "success");
-        resetForm();
-        loadLivres();
-      })
-      .catch((error) => {
-        showMessage("Erreur lors de l'ajout du livre", "danger");
-        console.error("Erreur lors de l'ajout du livre :", error);
+      .catch(error => {
+        console.error("Erreur lors de la récupération des livres:", error);
+        booksList.innerHTML = "<p>Erreur lors du chargement des livres disponibles. Veuillez réessayer plus tard.</p>";
       });
   }
+
+  // Emprunter un livre
+  function borrowBook(bookId) {
+    fetch(`${apiUrl}/emprunter/${bookId}`, {
+      method: "POST"
+    })
+      .then(response => response.text())
+      .then(message => {
+        alert(message);
+        displayAvailableBooks(); // Rafraîchir la liste des livres disponibles
+        displayBorrowedBooks();  // Rafraîchir la liste des livres empruntés
+      })
+      .catch(error => {
+        console.error("Erreur lors de l'emprunt du livre:", error);
+        alert("Une erreur est survenue lors de l'emprunt. Veuillez réessayer.");
+      });
+  }
+
+  // Afficher les livres empruntés
+  function displayBorrowedBooks() {
+    borrowedBooksList.innerHTML = ''; // Vider avant d'ajouter le loader
+
+    const loader = document.createElement('div');
+    loader.classList.add('loader');
+    loader.innerHTML = '<img src="./images/loader.gif" alt="Chargement...">';
+    borrowedBooksList.appendChild(loader); // Afficher le loader pendant le chargement
+
+    fetch(`${apiUrl}/emprunts`)
+      .then(response => response.json())
+      .then(data => {
+        borrowedBooksList.innerHTML = ""; // Réinitialise la liste
+        if (data.length === 0) {
+          borrowedBooksList.innerHTML = "<p>Vous n'avez aucun emprunt en cours.</p>";
+        } else {
+          data.forEach(book => {
+            const bookElement = document.createElement("div");
+            bookElement.classList.add("borrowed-book-item");
+            bookElement.innerHTML = `
+                            <div class="borrowed-book-card">
+                                <img src="${book.coverImage || './images/default_cover.jpg'}" alt="${book.titre}" class="book-cover">
+                                <h3>${book.titre}</h3>
+                                <p>Auteur(s): ${book.auteurs.join(", ")}</p>
+                                <p>Date d'emprunt: ${new Date(book.borrowDate).toLocaleDateString()}</p>
+                                <p>Date de retour: ${new Date(book.returnDate).toLocaleDateString()}</p>
+                                <button class="return-button" data-id="${book.id}">Retourner</button>
+                            </div>
+                        `;
+            borrowedBooksList.appendChild(bookElement);
+          });
+        }
+
+        // Ajouter les gestionnaires d'événements pour les boutons de retour
+        document.querySelectorAll(".return-button").forEach(button => {
+          button.addEventListener("click", (event) => {
+            const bookId = event.target.getAttribute("data-id");
+            returnBook(bookId);
+          });
+        });
+      })
+      .catch(error => {
+        console.error("Erreur lors de la récupération des livres empruntés:", error);
+        borrowedBooksList.innerHTML = "<p>Erreur lors du chargement des emprunts. Veuillez réessayer plus tard.</p>";
+      });
+  }
+
+  // Retourner un livre
+  function returnBook(bookId) {
+    fetch(`${apiUrl}/retour/${bookId}`, {
+      method: "POST"
+    })
+      .then(response => response.text())
+      .then(message => {
+        alert(message);
+        displayAvailableBooks(); // Rafraîchir la liste des livres disponibles
+        displayBorrowedBooks();  // Rafraîchir la liste des livres empruntés
+      })
+      .catch(error => {
+        console.error("Erreur lors du retour du livre:", error);
+        alert("Une erreur est survenue lors du retour. Veuillez réessayer.");
+      });
+  }
+
+  // Initialiser l'affichage
+  displayAvailableBooks();
+  displayBorrowedBooks();
 });
-
-// Fonction pour remplir le formulaire lors de la modification d'un livre
-function modifierLivre(id) {
-  axios
-    .get(`${API_BASE_URL}/livres/${id}`)
-    .then((response) => {
-      const livre = response.data;
-      document.getElementById("titre").value = livre.titre;
-      document.getElementById("isbn").value = livre.isbn;
-      document.getElementById("datePublication").value = livre.datePublication.split("T")[0];
-      document.getElementById("disponible").value = livre.disponible ? "true" : "false";
-      document.getElementById("auteur").value = livre.auteur;
-      livreEnModification = id;
-      document.getElementById("formTitle").textContent = "Modifier Livre";
-      document.getElementById("submitBtn").textContent = "Modifier Livre";
-      showSection("formSection");
-    })
-    .catch((error) => {
-      showMessage("Erreur lors du chargement des données du livre", "danger");
-      console.error("Erreur lors du chargement des données du livre :", error);
-    });
-}
-
-// Fonction pour supprimer un livre
-function supprimerLivre(id) {
-  if (confirm("Êtes-vous sûr de vouloir supprimer ce livre ?")) {
-    axios
-      .delete(`${API_BASE_URL}/livres/${id}`)
-      .then(() => {
-        showMessage("Livre supprimé avec succès", "success");
-        loadLivres();
-      })
-      .catch((error) => {
-        showMessage("Erreur lors de la suppression du livre", "danger");
-        console.error("Erreur lors de la suppression du livre :", error);
-      });
-  }
-}
-
-// Charger les livres au démarrage de la page
-document.addEventListener("DOMContentLoaded", loadLivres);

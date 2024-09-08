@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion de Bibliothèque</title>
+    <link rel="stylesheet" href="test.css">
+</head>
+
+<body>
+    <h1>Bibliothèque</h1>
+
+    <!-- Formulaire pour ajouter un livre avec une image -->
+    <form id="bookForm">
+        <input type="text" id="titre" placeholder="Titre du livre" required><br>
+        <input type="text" id="isbn" placeholder="ISBN" required><br>
+        <input type="date" id="datePublication" required><br>
+        <label for="image">Choisir une image :</label>
+        <input type="file" id="image" required><br>
+        <button type="submit">Ajouter le livre</button>
+    </form>
+
+    <h2>Liste des livres</h2>
+    <div id="booksList"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="test.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,231 @@
+/* Reset and basic styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #e8f4f8;
+  color: #333;
+  line-height: 1.6;
+}
+
+:root {
+  --bg-color: #f0f8ff;
+  /* AliceBlue */
+  --second-bg-color: #dfefff;
+  /* LightSkyBlue */
+  --text-color: #004080;
+  /* Navy */
+  --main-color: #87cefa;
+  /* LightSkyBlue */
+  --highlight-color: #1e90ff;
+  /* DodgerBlue */
+}
+
+/* Header fixe avec un fond semi-transparent */
+header {
+  width: 100%;
+  background-color: var(--main-color);
+  color: white;
+}
+
+.logo img {
+  vertical-align: middle;
+  width: 7%;
+  padding-top: 10px;
+}
+
+.menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+}
+
+.menu li {
+  display: inline-block;
+}
+
+.menu a {
+  color: white;
+  text-decoration: none;
+  padding: 20px;
+  display: block;
+  font-size: 20px;
+}
+
+.menu a:hover {
+  color: #1e90ff;
+}
+
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .menu {
+    display: none;
+    position: absolute;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    background-color: #a0d3f3;
+    text-align: center;
+  }
+
+  .menu li {
+    display: block;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .menu.show {
+    display: block;
+  }
+}
+
+/* Section emprunts */
+.section-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+h2 {
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 30px;
+  color: #007bff;
+}
+
+/* Listes des livres */
+.books-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Cartes des livres */
+.book-item,
+.borrowed-book-item {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 300px;
+}
+
+.book-item:hover,
+.borrowed-book-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Titre du livre - Coloration essentielle */
+.book-item h3,
+.borrowed-book-item h3 {
+  font-size: 1.8em;
+  color: #1e90ff;
+  /* Bleu vif pour un titre accrocheur */
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  /* Titre en majuscules pour le rendre plus visible */
+}
+
+/* ISBN du livre - Coloration essentielle */
+.book-item p,
+.borrowed-book-item p {
+  font-size: 1.2em;
+  color: #333;
+  /* Gris foncé pour différencier du titre */
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+/* Image de couverture par défaut */
+.default-cover {
+  background-color: var(--second-bg-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.default-cover span {
+  font-size: 2.5em;
+  color: var(--text-color);
+}
+
+/* Boutons - Coloration essentielle */
+button {
+  background-color: #1e90ff;
+  /* Couleur bleue pour les boutons */
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  cursor: pointer;
+  border-radius: 8px;
+  font-size: 1em;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+  background-color: #0056b3;
+  /* Couleur bleu foncé au survol */
+  transform: translateY(-3px);
+}
+
+/* Footer */
+.footer {
+  background-color: #87cefa;
+  padding: 40px 20px;
+  color: white;
+  text-align: center;
+}
+
+.footer-title {
+  font-size: 1.5em;
+}
+
+.footer-social-icons {
+  margin: 20px 0;
+}
+
+.footer-social-icons a {
+  color: white;
+  margin: 0 10px;
+  font-size: 1.2em;
+  text-decoration: none;
+}
+
+.footer-bottom img {
+  margin-top: 20px;
+}
+
+.footer-bottom p {
+  margin-top: 10px;
+  font-size: 0.9em;
+}
