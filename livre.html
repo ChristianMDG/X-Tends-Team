@@ -10,6 +10,37 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="livre.css">
     <link rel="stylesheet" href="Chargement.css">
+    <style>
+        .background-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid #007bff;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -65,7 +96,10 @@
                     </div>
                     <div class="form-group">
                         <label for="isbn">ISBN :</label>
-                        <input type="text" id="isbn" class="form-control" required>
+                        <input type="text" id="isbn" class="form-control" placeholder="Format: 978-3-16-148410-0"
+                            required>
+                        <small id="isbnHelp" class="form-text text-muted">Veuillez entrer un ISBN valide. Format:
+                            978-3-16-148410-0 (ISBN-13) ou 0-306-40615-2 (ISBN-10).</small>
                     </div>
                     <div class="form-group">
                         <label for="datePublication">Date de Publication :</label>
@@ -77,10 +111,6 @@
                             <option value="true">Oui</option>
                             <option value="false">Non</option>
                         </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="auteur">Auteur :</label>
-                        <input type="text" id="auteur" class="form-control" required>
                     </div>
                     <button type="submit" id="submitBtn" class="btn btn-primary">Ajouter Livre</button>
                     <button type="button" class="btn btn-secondary" onclick="resetForm()">Annuler</button>
@@ -103,7 +133,6 @@
                             <th>ISBN</th>
                             <th>Date de Publication</th>
                             <th>Disponible</th>
-                            <th>Auteur</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -139,44 +168,32 @@
 
         // Fonction pour formater l'ISBN
         function formatIsbn(isbn) {
-            // Supprimer les caractères non numériques
             isbn = isbn.replace(/\D/g, '');
-
-            // Vérifier la longueur de l'ISBN
             if (isbn.length === 13) {
-                // Format ISBN-13
                 return `${isbn.substring(0, 3)}-${isbn.substring(3, 4)}-${isbn.substring(4, 7)}-${isbn.substring(7, 12)}-${isbn.substring(12, 13)}`;
             } else if (isbn.length === 10) {
-                // Format ISBN-10
                 return `${isbn.substring(0, 1)}-${isbn.substring(1, 4)}-${isbn.substring(4, 9)}-${isbn.substring(9)}`;
-            } else {
-                // Retourner l'ISBN sans formatage si la longueur est incorrecte
-                return isbn;
             }
+            return isbn;
         }
 
-        // Appliquer le formatage lors de la saisie de l'ISBN dans le formulaire
         document.getElementById("isbn").addEventListener("input", function (event) {
             event.target.value = formatIsbn(event.target.value);
         });
 
-        // Fonction pour basculer l'affichage du menu
         function toggleMenu() {
             const navbar = document.getElementById("navbar");
-            navbar.style.display = navbar.style.display === "flex" ? "none" : "flex";
+            navbar.style.display = navbar.style.display === "none" ? "flex" : "none";
         }
 
-        // Fonction pour afficher la section correspondante et masquer les autres
         function showSection(sectionId) {
-            const sections = document.querySelectorAll(".section");
-            sections.forEach((section) => {
+            document.querySelectorAll(".section").forEach(section => {
                 section.classList.add("d-none");
             });
             document.getElementById(sectionId).classList.remove("d-none");
             toggleMenu();
         }
 
-        // Réinitialiser le formulaire
         function resetForm() {
             document.getElementById("livreForm").reset();
             livreEnModification = null;
@@ -184,7 +201,6 @@
             document.getElementById("submitBtn").textContent = "Ajouter Livre";
         }
 
-        // Afficher un message d'alerte
         function showMessage(message, type) {
             const alertDiv = document.getElementById("alertMessage");
             alertDiv.textContent = message;
@@ -195,21 +211,19 @@
             }, 5000);
         }
 
-        // Charger la liste des livres au démarrage
         function loadLivres() {
             axios.get(`${API_BASE_URL}/livres`)
-                .then((response) => {
+                .then(response => {
                     const livres = response.data;
-                    const tableBody = document.querySelector("#livresTable tbody");
-                    tableBody.innerHTML = ""; // Vider le tableau
-                    livres.forEach((livre) => {
+                    const tableBody = document.getElementById("livresTable").getElementsByTagName("tbody")[0];
+                    tableBody.innerHTML = "";
+                    livres.forEach(livre => {
                         const row = document.createElement("tr");
                         row.innerHTML = `
                             <td>${livre.titre}</td>
                             <td>${formatIsbn(livre.isbn)}</td>
-                            <td>${new Date(livre.datePublication).toLocaleDateString()}</td>
-                            <td>${livre.disponible ? "Oui" : "Non"}</td>
-                            <td>${livre.auteur}</td>
+                            <td>${livre.datePublication}</td>
+                            <td>${livre.disponible ? 'Oui' : 'Non'}</td>
                             <td>
                                 <button class="btn btn-warning btn-sm" onclick="modifierLivre(${livre.id})">Modifier</button>
                                 <button class="btn btn-danger btn-sm" onclick="supprimerLivre(${livre.id})">Supprimer</button>
@@ -218,28 +232,27 @@
                         tableBody.appendChild(row);
                     });
                 })
-                .catch((error) => {
+                .catch(error => {
                     showMessage("Erreur lors du chargement des livres", "danger");
                 });
         }
 
-        // Ajouter ou modifier un livre
         document.getElementById("livreForm").addEventListener("submit", function (event) {
             event.preventDefault();
             const titre = document.getElementById("titre").value;
-            const isbn = document.getElementById("isbn").value.replace(/\D/g, ''); // Enlever les tirets pour l'envoi
+            const isbn = document.getElementById("isbn").value.replace(/\D/g, '');
             const datePublication = document.getElementById("datePublication").value;
             const disponible = document.getElementById("disponible").value === "true";
-            const auteur = document.getElementById("auteur").value;
+
+            if (!validateIsbn(isbn)) {
+                showMessage("L'ISBN doit être au format valide (10 ou 13 chiffres)", "danger");
+                return;
+            }
+
+            const data = { titre, isbn, datePublication, disponible };
 
             if (livreEnModification) {
-                axios.put(`${API_BASE_URL}/livres/${livreEnModification}`, {
-                    titre,
-                    isbn,
-                    datePublication,
-                    disponible,
-                    auteur
-                })
+                axios.put(`${API_BASE_URL}/livres/${livreEnModification}`, data)
                     .then(() => {
                         showMessage("Livre modifié avec succès", "success");
                         loadLivres();
@@ -249,13 +262,7 @@
                         showMessage("Erreur lors de la modification du livre", "danger");
                     });
             } else {
-                axios.post(`${API_BASE_URL}/livres`, {
-                    titre,
-                    isbn,
-                    datePublication,
-                    disponible,
-                    auteur
-                })
+                axios.post(`${API_BASE_URL}/livres`, data)
                     .then(() => {
                         showMessage("Livre ajouté avec succès", "success");
                         loadLivres();
@@ -267,16 +274,18 @@
             }
         });
 
-        // Modifier un livre
+        function validateIsbn(isbn) {
+            return /^[0-9]{10}$|^[0-9]{13}$/.test(isbn);
+        }
+
         function modifierLivre(id) {
             axios.get(`${API_BASE_URL}/livres/${id}`)
-                .then((response) => {
+                .then(response => {
                     const livre = response.data;
                     document.getElementById("titre").value = livre.titre;
                     document.getElementById("isbn").value = formatIsbn(livre.isbn);
                     document.getElementById("datePublication").value = livre.datePublication;
                     document.getElementById("disponible").value = livre.disponible;
-                    document.getElementById("auteur").value = livre.auteur;
                     livreEnModification = id;
                     document.getElementById("formTitle").textContent = "Modifier un Livre";
                     document.getElementById("submitBtn").textContent = "Modifier Livre";
@@ -287,7 +296,6 @@
                 });
         }
 
-        // Supprimer un livre
         function supprimerLivre(id) {
             if (confirm("Êtes-vous sûr de vouloir supprimer ce livre ?")) {
                 axios.delete(`${API_BASE_URL}/livres/${id}`)
@@ -301,7 +309,6 @@
             }
         }
 
-        // Charger les livres au démarrage
         document.addEventListener("DOMContentLoaded", function () {
             loadLivres();
         });
