@@ -1,0 +1,297 @@
+/* Reset and basic styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #e8f4f8;
+    color: var(--text-color);
+    line-height: 1.6;
+    scroll-behavior: smooth;
+    /* Ajout pour un défilement fluide */
+}
+
+:root {
+    --bg-color: #f0f8ff;
+    /* AliceBlue */
+    --second-bg-color: #dfefff;
+    /* LightSkyBlue */
+    --text-color: #004080;
+    /* Navy */
+    --main-color: #87cefa;
+    /* LightSkyBlue */
+    --highlight-color: #1e90ff;
+    /* DodgerBlue */
+    --button-hover-color: #0056b3;
+    /* Color for button hover */
+}
+
+/* Header fixe avec un fond semi-transparent */
+header {
+    width: 100%;
+    background-color: var(--main-color);
+    color: white;
+    position: sticky;
+    /* Header fixe */
+    top: 0;
+    z-index: 10;
+    /* Toujours visible */
+}
+
+.logo img {
+    vertical-align: middle;
+    width: 7%;
+    padding-top: 10px;
+}
+
+.menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+    display: flex;
+    /* Flex pour centrer le menu */
+}
+
+.menu li {
+    display: inline-block;
+}
+
+.menu a {
+    color: white;
+    text-decoration: none;
+    padding: 20px;
+    display: block;
+    font-size: 20px;
+    transition: color 0.3s ease;
+}
+
+.menu a:hover,
+.menu a:focus {
+    /* Focus pour l'accessibilité */
+    color: var(--highlight-color);
+}
+
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .menu {
+        display: none;
+        position: absolute;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        background-color: #a0d3f3;
+        text-align: center;
+    }
+
+    .menu li {
+        display: block;
+    }
+
+    .menu-toggle {
+        display: block;
+        margin-left: auto;
+    }
+
+    .menu.show {
+        display: block;
+    }
+}
+
+/* Section emprunts */
+.section-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+h2 {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 30px;
+    color: var(--highlight-color);
+}
+
+/* Liste des livres */
+.books-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Cartes des livres empruntés */
+.borrowed-book-item {
+    background-color: var(--bg-color);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    min-height: 300px;
+    position: relative;
+    /* Pour positionner le bouton en bas */
+}
+
+/* Style pour le hover sur la carte */
+.borrowed-book-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Titre du livre */
+.borrowed-book-item h3 {
+    font-size: 1.8em;
+    color: var(--highlight-color);
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+/* ISBN du livre */
+.borrowed-book-item p {
+    font-size: 1.2em;
+    color: #333;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+/* Icône de couverture */
+.book-icon {
+    background-color: var(--second-bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-size: 2.5em;
+    color: var(--text-color);
+}
+
+/* Alignement des informations des livres */
+.book-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: start;
+    padding: 5px;
+    text-align: left;
+    margin-bottom: auto;
+    /* Assure que les infos sont au-dessus du bouton */
+}
+
+/* Pour les livres empruntés */
+.borrowed-book-item .book-info {
+    gap: 5px;
+    text-align: left;
+    padding: 5px;
+}
+
+/* Les titres et les informations des livres alignés à gauche */
+.book-info div {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+/* Style général pour les textes */
+.book-info span {
+    font-size: 0.9em;
+    color: #333;
+}
+
+/* Boutons */
+button {
+    background-color: var(--highlight-color);
+    color: rgb(255, 255, 255);
+    border: none;
+    padding: 12px 20px;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 1em;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 6px #0000001a;
+}
+
+button:hover,
+button:focus {
+    /* Ajout du focus */
+    background-color: var(--button-hover-color);
+    transform: translateY(-3px);
+}
+
+/* Positionnement du bouton "Retourner" */
+.return-button {
+    margin-top: auto;
+    /* Place le bouton en bas de la carte */
+    padding: 12px 20px;
+    background-color: var(--highlight-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    bottom: 20px;
+    /* Positionne le bouton en bas */
+    left: 50%;
+    transform: translateX(-50%);
+    /* Centre le bouton horizontalement */
+}
+
+/* Footer */
+.footer {
+    background-color: var(--main-color);
+    padding: 40px 20px;
+    color: white;
+    text-align: center;
+}
+
+.footer-title {
+    font-size: 1.5em;
+}
+
+.footer-social-icons {
+    margin: 20px 0;
+}
+
+.footer-social-icons a {
+    color: white;
+    margin: 0 10px;
+    font-size: 1.2em;
+    text-decoration: none;
+}
+
+.footer-social-icons a:hover,
+.footer-social-icons a:focus {
+    /* Focus pour les icônes */
+    color: var(--highlight-color);
+}
+
+.footer-bottom img {
+    margin-top: 20px;
+}
+
+.footer-bottom p {
+    margin-top: 10px;
+    font-size: 0.9em;
+}
+

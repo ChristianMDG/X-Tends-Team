@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion de Bibliothèque</title>
+    <link rel="stylesheet" href="MesEmprunts.css">
+    <!-- Intégration de Font Awesome pour les icônes (optionnel) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Styles pour le formulaire d'authentification */
+        #user-authentication {
+            margin-bottom: 20px;
+        }
+
+        #authForm {
+            max-width: 400px;
+            margin: auto;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .message {
+            color: red;
+            font-size: 14px;
+        }
+
+        /* Styles pour la liste des livres empruntés */
+        .books-list {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .book-card {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px;
+            width: calc(33.333% - 20px);
+        }
+
+        .book-card h4 {
+            margin-top: 0;
+        }
+
+        /* Styles pour le footer */
+        .footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .footer-title {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .footer-description {
+            font-size: 1em;
+            margin-bottom: 10px;
+        }
+
+        .footer-social-icons {
+            margin-bottom: 10px;
+        }
+
+        .footer-social-icons .social-icon {
+            margin: 0 10px;
+            color: #333;
+            text-decoration: none;
+            font-size: 1.2em;
+        }
+
+        .footer-bottom {
+            margin-top: 10px;
+        }
+
+        .footer-bottom img {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!--header-->
+    <header>
+        <nav>
+            <div class="logo">
+                <center><img src="./images/logo.png" alt="Logo" class="logo-img"></center>
+            </div>
+            <button class="menu-toggle" aria-label="Toggle menu" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <center>
+                <ul class="menu" id="menu">
+                    <li><a href="./livreslide.html" class="fas fa-home">Home</a></li>
+                    <li><a href="./Dispo.html" class="fas fa-book">Livres disponibles</a></li>
+                    <li><a href="./MesEmprunt.html" class="fas fa-book-reader">Mes Emprunts</a></li>
+                </ul>
+            </center>
+        </nav>
+    </header>
+
+    <!-- Section Mes emprunts -->
+    <section id="loans">
+        <div class="section-container">
+            <h2>Mes Emprunts</h2>
+            <div id="user-authentication">
+                <h3>Identification Utilisateur</h3>
+                <form id="authForm">
+                    <div class="form-group">
+                        <label for="userId">ID Utilisateur :</label>
+                        <input type="number" id="userId" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Valider</button>
+                    <p id="authMessage" class="message"></p>
+                </form>
+            </div>
+            <div id="borrowed-books-list" class="books-list" style="display: none;">
+                <!-- Les cartes de livres seront insérées ici par JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!--footer-->
+    <footer class="footer">
+        <div class="footer-content">
+            <h3 class="footer-title">X-Tends Library</h3>
+            <p class="footer-description">Votre bibliothèque numérique à portée de main</p>
+
+            <div class="footer-social-icons">
+                <a href="https://www.facebook.com" target="_blank" class="social-icon">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://www.linkedin.com" target="_blank" class="social-icon">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://www.gmail.com" target="_blank" class="social-icon">
+                    <i class="fa fa-envelope"></i>
+                </a>
+            </div>
+
+            <div class="footer-bottom">
+                <img src="./images/logo.png" width="100px" height="100px" alt="Livre Ouvert">
+                <p>© 2024 Gestion de Bibliothèque by X-Tends Team PNM - Tous droits réservés</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('menu');
+            if (menu.style.display === 'flex') {
+                menu.style.display = 'none';
+            } else {
+                menu.style.display = 'flex';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const authForm = document.getElementById('authForm');
+            const authMessage = document.getElementById('authMessage');
+            const borrowedBooksList = document.getElementById('borrowed-books-list');
+
+            authForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+                const userId = document.getElementById('userId').value;
+
+                // Vérifiez l'ID utilisateur (remplacez cette URL par celle de votre API de vérification)
+                axios.get(`http://localhost:8080/api/utilisateurs/${userId}`)
+                    .then(response => {
+                        if (response.data) {
+                            // Si l'utilisateur est valide, affichez la liste des livres empruntés
+                            borrowedBooksList.style.display = 'block';
+                            loadBorrowedBooks(userId); // Fonction pour charger les livres empruntés
+                            authMessage.textContent = ''; // Effacer le message d'erreur
+                        } else {
+                            authMessage.textContent = 'ID Utilisateur invalide.';
+                        }
+                    })
+                    .catch(error => {
+                        authMessage.textContent = 'Erreur lors de la vérification de l\'ID.';
+                        console.error(error); // Gestion de l'erreur
+                    });
+            });
+
+            function loadBorrowedBooks(userId) {
+                axios.get(`http://localhost:8080/api/emprunts?utilisateurId=${userId}`)
+                    .then(response => {
+                        const booksList = document.getElementById('borrowed-books-list');
+                        booksList.innerHTML = ''; // Effacer les livres existants
+                        response.data.forEach(emprunt => {
+                            const bookCard = document.createElement('div');
+                            bookCard.classList.add('book-card');
+                            bookCard.innerHTML = `
+                                <h4>${emprunt.titre}</h4>
+                                <p>Auteur: ${emprunt.auteur}</p>
+                                <p>Date d'emprunt: ${emprunt.dateEmprunt}</p>
+                                <p>Date de retour: ${emprunt.dateRetour}</p>
+                            `;
+                            booksList.appendChild(bookCard);
+                        });
+                    })
+                    .catch(error => {
+                        console.error(error); // Gestion de l'erreur
+                    });
+            }
+        });
+    </script>
+</body>
+
+</html>

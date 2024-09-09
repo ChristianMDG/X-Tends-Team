@@ -1,0 +1,355 @@
+/* Reset and basic styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #e8f4f8;
+    color: var(--text-color);
+    line-height: 1.6;
+    scroll-behavior: smooth;
+    /* Ajout pour un défilement fluide */
+}
+
+:root {
+    --bg-color: #f0f8ff;
+    /* AliceBlue */
+    --second-bg-color: #dfefff;
+    /* LightSkyBlue */
+    --text-color: #004080;
+    /* Navy */
+    --main-color: #87cefa;
+    /* LightSkyBlue */
+    --highlight-color: #1e90ff;
+    /* DodgerBlue */
+    --button-hover-color: #0056b3;
+    /* Color for button hover */
+}
+
+/* Header fixe avec un fond semi-transparent */
+header {
+    width: 100%;
+    background-color: var(--main-color);
+    color: white;
+    position: sticky;
+    /* Header fixe */
+    top: 0;
+    z-index: 10;
+    /* Toujours visible */
+}
+
+.logo img {
+    vertical-align: middle;
+    width: 7%;
+    padding-top: 10px;
+}
+
+.menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+    display: flex;
+    /* Flex pour centrer le menu */
+}
+
+.menu li {
+    display: inline-block;
+}
+
+.menu a {
+    color: white;
+    text-decoration: none;
+    padding: 20px;
+    display: block;
+    font-size: 20px;
+    transition: color 0.3s ease;
+}
+
+.menu a:hover,
+.menu a:focus {
+    /* Focus pour l'accessibilité */
+    color: var(--highlight-color);
+}
+
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .menu {
+        display: none;
+        position: absolute;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        background-color: #a0d3f3;
+        text-align: center;
+    }
+
+    .menu li {
+        display: block;
+    }
+
+    .menu-toggle {
+        display: block;
+        margin-left: auto;
+    }
+
+    .menu.show {
+        display: block;
+    }
+}
+
+/* Section emprunts */
+.section-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: rgba(74, 186, 227, 0);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+h2 {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 30px;
+    color: var(--highlight-color);
+}
+
+
+/* Footer */
+.footer {
+    background-color: var(--main-color);
+    padding: 40px 20px;
+    color: white;
+    text-align: center;
+}
+
+.footer-title {
+    font-size: 1.5em;
+}
+
+.footer-social-icons {
+    margin: 20px 0;
+}
+
+.footer-social-icons a {
+    color: white;
+    margin: 0 10px;
+    font-size: 1.2em;
+    text-decoration: none;
+}
+
+.footer-social-icons a:hover,
+.footer-social-icons a:focus {
+    /* Focus pour les icônes */
+    color: var(--highlight-color);
+}
+
+.footer-bottom img {
+    margin-top: 20px;
+}
+
+.footer-bottom p {
+    margin-top: 10px;
+    font-size: 0.9em;
+}
+
+/* Ajoutons un style flex pour aligner les informations des livres */
+.book-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: start;
+    padding: 5px;
+    text-align: left;
+}
+
+/* Pour les livres empruntés */
+.borrowed-book-item .book-info {
+    gap: 5px;
+    text-align: left;
+    padding: 5px;
+}
+
+/* Les titres et les informations des livres alignés à gauche */
+.book-info div {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+/* Style général pour les textes */
+.book-info span {
+    font-size: 0.9em;
+    color: #333;
+}
+
+section book style .section-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#books-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.book-item {
+    width: 200px;
+    perspective: 1000px;
+}
+
+.book-cover {
+    width: 100%;
+    height: 300px;
+    background-color: #f3f3f3;
+    border-radius: 5px;
+    position: relative;
+    transform-style: preserve-3d;
+    transform: rotateY(0deg);
+    transition: transform 0.6s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.book-cover img {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+}
+
+.book-cover:hover {
+    transform: rotateY(180deg);
+}
+
+.borrow-button {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: var(--highlight-color);
+    color: white;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.borrow-button:hover {
+    background-color: var(--button-hover-color);
+}
+
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+    padding-top: 60px;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px;
+    border-radius: 10px;
+}
+
+
+.book-icon {
+    font-size: 100px;
+    color:var(--text-color);
+    opacity: 0.7;
+}
+
+.book-item:hover .book-icon {
+    transform: scale(1.2);
+    color:var(--main-color);
+    transition: transform 0.3s ease;
+}
+
+
+#books-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    justify-content: center;
+}
+
+.book-item {
+    width: 200px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    text-align: center;
+}
+
+.book-cover {
+    width: 100%;
+    height: 250px;
+    background-color: #f3f3f3;
+    border-radius: 5px;
+    position: relative;
+}
+
+
+form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}

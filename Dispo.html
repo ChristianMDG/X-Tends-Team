@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion de Bibliothèque</title>
+    <link rel="stylesheet" href="Dispo.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Styles pour le modal */
+        .modal {
+            display: none;
+            /* Masquer le modal par défaut */
+            position: fixed;
+            z-index: 1000;
+            /* S'assurer qu'il est au-dessus du contenu */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Fond semi-transparent */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            position: relative;
+            border-radius: 8px;
+            /* Coins arrondis */
+        }
+
+        .close-button {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: #000;
+            text-decoration: none;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            /* Coins arrondis pour les boutons */
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        button.cancel {
+            background-color: #6c757d;
+        }
+
+        button.cancel:hover {
+            background-color: #5a6268;
+        }
+
+        /* Loader */
+        .loader {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+            /* Hauteur pour centrer le loader */
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <center><img src="./images/logo.png" alt="Logo"></center>
+            </div>
+            <center>
+                <ul class="menu" id="menu">
+                    <li><a href="./livreslide.html" class="fas fa-home">Listes</a></li>
+                    <li><a href="./Dispo.html" class="fas fa-book">Livres disponibles</a></li>
+                    <li><a href="./MesEmprunt.html" class="fas fa-book-reader">Mes Emprunts</a></li>
+                </ul>
+            </center>
+        </nav>
+    </header>
+    <!-- Section Livres disponibles -->
+    <section id="books">
+        <div class="section-container">
+            <h2>Livres Disponibles</h2>
+            <div id="books-list"></div>
+        </div>
+    </section>
+    <!-- Modal de Confirmation -->
+    <div id="modal-confirm" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">&times;</span>
+            <h3>Confirmation d'Emprunt</h3>
+            <p id="modal-text">Voulez-vous vraiment emprunter ce livre ?</p>
+            <button id="confirm-button">Confirmer</button>
+            <button class="cancel" onclick="closeModal()">Annuler</button>
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <h3 class="footer-title">X-Tends Library</h3>
+            <div class="footer-social-icons">
+                <a href="https://www.facebook.com" target="_blank" class="social-icon">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://www.linkedin.com" target="_blank" class="social-icon">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://www.gmail.com" target="_blank" class="social-icon">
+                    <i class="fa fa-envelope"></i>
+                </a>
+            </div>
+            <p>© 2024 Gestion de Bibliothèque by X-Tends Team - Tous droits réservés</p>
+        </div>
+    </footer>
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const booksList = document.getElementById("books-list");
+            const apiUrl = "http://127.0.0.1:8080/api/livres";
+            let selectedBookId = null;
+
+            // Afficher la liste des livres disponibles
+            function displayAvailableBooks() {
+                booksList.innerHTML = ''; // Vider avant d'ajouter le loader
+                const loader = document.createElement('div');
+                loader.classList.add('loader');
+                loader.innerHTML = '<img src="./images/loader.gif" alt="Chargement...">';
+                booksList.appendChild(loader);
+                fetch(`${apiUrl}/disponibles`)
+                    .then(response => response.json())
+                    .then(data => {
+                        booksList.innerHTML = ""; // Réinitialise la liste
+                        if (data.length === 0) {
+                            booksList.innerHTML = "<p>Aucun livre disponible pour le moment.</p>";
+                        } else {
+                            data.forEach(book => {
+                                const bookElement = document.createElement("div");
+                                bookElement.classList.add("book-item");
+                                const coverImage = book.coverImage ?
+                                    `<img src="${book.coverImage}" alt="${book.titre}" class="book-cover">` :
+                                    `<div class="book-cover">
+                                        <div class="book-title"><i class="fas fa-book book-icon"></i></div>
+                                    </div>`;
+                                bookElement.innerHTML = `
+                                    ${coverImage}
+                                    <div class="book-details">
+                                        <h4 class="book-title">${book.titre}</h4>
+                                        <button class="borrow-button" data-book-id="${book.id}">Emprunter</button>
+                                    </div>
+                                `;
+                                booksList.appendChild(bookElement);
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Erreur lors de la récupération des livres:", error);
+                        booksList.innerHTML = "<p>Erreur lors de la récupération des livres.</p>";
+                    });
+            }
+
+            displayAvailableBooks();
+
+            booksList.addEventListener("click", event => {
+                if (event.target.classList.contains("borrow-button")) {
+                    selectedBookId = event.target.dataset.bookId;
+                    openModal();
+                }
+            });
+
+            // Ouvrir et fermer le modal
+            const modal = document.getElementById("modal-confirm");
+            const confirmButton = document.getElementById("confirm-button");
+
+            function openModal() {
+                modal.style.display = "flex"; // Utilisation de "flex" pour centrer le contenu
+            }
+
+            function closeModal() {
+                modal.style.display = "none";
+                selectedBookId = null; // Réinitialiser l'ID du livre sélectionné
+            }
+
+            confirmButton.addEventListener("click", () => {
+                axios.post(`${apiUrl}/emprunter/${selectedBookId}`)
+                    .then(response => {
+                        closeModal();
+                        displayToast("Livre emprunté avec succès !");
+                        displayAvailableBooks();
+                    })
+                    .catch(error => {
+                        console.error("Erreur lors de l'emprunt:", error);
+                        displayToast("Erreur lors de l'emprunt du livre.");
+                        closeModal(); // Fermer le modal même en cas d'erreur
+                    });
+            });
+
+            // Toast notification
+            function displayToast(message) {
+                const toast = document.createElement("div");
+                toast.classList.add("toast");
+                toast.innerText = message;
+                document.body.appendChild(toast);
+                setTimeout(() => {
+                    toast.remove();
+                }, 3000);
+            }
+
+            // Fermer le modal lorsqu'on clique à l'extérieur du contenu
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    closeModal();
+                }
+            };
+        });
+    </script>
+</body>
+
+</html>

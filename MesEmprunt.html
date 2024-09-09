@@ -5,35 +5,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestion de Bibliothèque</title>
-    <link rel="stylesheet" href="livredisponible.css">
+    <link rel="stylesheet" href="MesEmprunts.css">
+    <!-- Intégration de Font Awesome pour les icônes (optionnel) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
+   
     <!--header-->
     <header>
         <nav>
             <div class="logo">
-                <center><img src="./images/logo.png" alt="Logo"></center>
+                <center><img src="./images/logo.png" alt="Logo" class="logo-img"></center>
             </div>
             <button class="menu-toggle" aria-label="Toggle menu" onclick="toggleMenu()">
                 <i class="fas fa-bars"></i>
             </button>
             <center>
                 <ul class="menu" id="menu">
-                    <li><a href="./livreslide.html" class="fas fa-home">Listes</a></li>
-                    <li><a href="./livredispo.html" class="fas fa-book">Livres disponibles</a></li>
-                    <li><a href="./mesEmprunts.html" class="fas fa-book-reader">Mes Emprunts</a></li>
+                    <li><a href="./livreslide.html" class="fas fa-home">Home</a></li>
+                    <li><a href="./Dispo.html" class="fas fa-book">Livres disponibles</a></li>
+                    <li><a href="./MesEmprunt.html" class="fas fa-book-reader">Mes Emprunts</a></li>
                 </ul>
             </center>
         </nav>
     </header>
 
-    <!-- Section Livres disponibles et Emprunter -->
-    <section id="books">
+    <!-- Section Mes emprunts -->
+    <section id="loans">
         <div class="section-container">
-            <h2>Livres Disponibles</h2>
-            <div id="books-list"></div>
+            <h2>Mes Emprunts</h2>
+            <div id="borrowed-books-list" class="books-list">
+                <!-- Les cartes de livres seront insérées ici par JavaScript -->
+            </div>
         </div>
     </section>
 
@@ -42,6 +46,7 @@
         <div class="footer-content">
             <h3 class="footer-title">X-Tends Library</h3>
             <p class="footer-description">Votre bibliothèque numérique à portée de main</p>
+
             <div class="footer-social-icons">
                 <a href="https://www.facebook.com" target="_blank" class="social-icon">
                     <i class="fab fa-facebook-f"></i>
@@ -53,21 +58,26 @@
                     <i class="fa fa-envelope"></i>
                 </a>
             </div>
+
             <div class="footer-bottom">
-                <img src="./images/logo.png" width="100px" height="100px" alt="Logo">
+                <img src="./images/logo.png" width="100px" height="100px" alt="Livre Ouvert">
                 <p>© 2024 Gestion de Bibliothèque by X-Tends Team PNM - Tous droits réservés</p>
             </div>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="livredisponible.js"></script>
-
+    <script src="MesEmprunts.js"></script>
     <script>
         function toggleMenu() {
             const menu = document.getElementById('menu');
-            menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+            if (menu.style.display === 'flex') {
+                menu.style.display = 'none';
+            } else {
+                menu.style.display = 'flex';
+            }
         }
+        
     </script>
 </body>
 
