@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Livres pour vous</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+  <link rel="stylesheet" href="livreslide.css">
+  <link rel="stylesheet" href="Loading.css">
+</head>
+<body>
+  <!--header-->
+  <header>
+    <nav>
+        <div class="logo">
+            <center><img src="./images/logo.png" alt="Logo"></center>
+        </div>
+        <button class="menu-toggle" aria-label="Toggle menu">
+            <span class="menu-icon"></span>
+        </button>
+        <center><ul class="menu" id="menu">
+            <li><a href="./choice.html" class="fas fa-home">Home</a></li>
+            <li class="submenu">
+                <a href="#" class="fas fa-list">Book</a>
+                <ul class="sub-menu">
+                    <li><a href="#roman">Roman</a></li>
+                    <li><a href="#science">Science</a></li>
+                    <li><a href="#conte">Conte</a></li>
+                    <li><a href="#action">Action</a></li>
+                    <li><a href="#horreur">Horreur</a></li>
+                </ul>
+            </li>
+            <li><a href="./Dispo.html"class="fas fa-book">Livres disponible</a></li>
+            <li><a href="./MesEmprunt.html"class="fas fa-book-reader">Mes Emprunts</a></li>
+        </ul>
+    </nav>
+</header>
+  <!-- Loader -->
+  <div id="loader" class="loader-container">
+    <div class="loader"></div>
+  </div>
+
+
+  <!-- Carousel Section -->
+   <div id="container">
+<section class="carrousel-section" id="roman">
+  <h1>Roman</h1>
+  <div class="swiper-container">
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        <!-- Ajout des images ici -->
+        <div class="swiper-slide">
+          <div class="card-item">
+            <img src="./images/R1.jpg" alt="Roman 1">
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="card-item">
+            <img src="./images/R2.jpg" alt="Roman 2">
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="card-item">
+            <img src="./images/R3.jpg" alt="Roman 3">
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="card-item">
+            <img src="./images/R4.jpg" alt="Roman 4">
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="card-item">
+            <img src="./images/R5.jpg" alt="Roman 5">
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="card-item">
+            <img src="./images/R6.jpg" alt="Roman 6">
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="card-item">
+            <img src="./images/R7.jpg" alt="Roman 7">
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="card-item">
+            <img src="./images/R8.jpg" alt="Roman 8">
+          </div>
+        </div>
+        <!-- Répétez pour les autres images... -->
+      </div>
+      <!-- Add Navigation -->
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+    </div>
+  </div>
+</section>
+
+
+    <!-- Carousel Section -->
+    <section class="carrousel-section" id="science">
+      <h1>Science</h1>
+      <div class="swiper-container">
+        <div class="swiper mySwiper">
+          <div class="swiper-wrapper">
+            <!-- Ajout des images ici -->
+            <div class="swiper-slide">
+              <div class="card-item">
+                <img src="./images/S1.jpg" alt="">
+              </div>
+            </div>
+  
+            <div class="swiper-slide">
+              <div class="card-item">
+                <img src="./images/S2.jpg" alt="">
+              </div>
+            </div>
+  
+            <div class="swiper-slide">
+              <div class="card-item">
+                <img src="./images/S3.png" alt="">
+              </div>
+            </div>
+  
+            <div class="swiper-slide">
+              <div class="card-item">
+                <img src="./images/S4.jpg" alt="">
+              </div>
+            </div>
+  
+            <div class="swiper-slide">
+              <div class="card-item">
+                <img src="./images/S5.jpg" alt="">
+              </div>
+            </div>
+  
+            <div class="swiper-slide">
+              <div class="card-item">
+                <img src="./images/S6.jpg" alt="">
+              </div>
+            </div>
+  
+            <div class="swiper-slide">
+              <div class="card-item">
+                <img src="./images/S7.jpg" alt="">
+              </div>
+            </div>
+  
+            <div class="swiper-slide">
+              <div class="card-item">
+                <img src="./images/S8.jpg" alt="">
+              </div>
+            </div>
+            <!-- Répétez pour les autres images... -->
+          </div>
+          <!-- Add Navigation -->
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+        </div>
+      </div>
+    </section>
+
+      <!-- Carousel Section -->
+  <section class="carrousel-section" id="conte">
+    <h1>Conte</h1>
+    <div class="swiper-container">
+      <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+          <!-- Ajout des images ici -->
+          <div class="swiper-slide">
+            <div class="card-item">
+              <img src="./images/C1.jpg" alt="">
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="card-item">
+              <img src="./images/C2.jpg" alt="">
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="card-item">
+              <img src="./images/C3.jpg" alt="">
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="card-item">
+              <img src="./images/C4.jpg" alt="">
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="card-item">
+              <img src="./images/C5.jpg" alt="">
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="card-item">
+              <img src="./images/C6.jpg" alt="">
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="card-item">
+              <img src="./images/C7.jpg" alt="">
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="card-item">
+              <img src="./images/C8.jpg" alt="">
+            </div>
+          </div>
+          <!-- Répétez pour les autres images... -->
+        </div>
+        <!-- Add Navigation -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      </div>
+    </div>
+  </section>
+
+    <!-- Carousel Section -->
+  <!-- Carousel Section -->
+<section class="carrousel-section" id="action">
+  <h1>Action</h1>
+  <div class="swiper-container">
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        <!-- Ajout des images ici -->
+        <div class="swiper-slide">
+          <div class="card-item">
+            <img src="./images/A1.jpg" alt="Description de l'image A1">
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="card-item">
+            <img src="./images/A2.jpg" alt="Description de l'image A2">
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="card-item">
+            <img src="./images/A3.jpg" alt="Description de l'image A3">
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="card-item">
+            <img src="./images/A4.jpg" alt="Description de l'image A4">
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="card-item">
+            <img src="./images/A5.jpg" alt="Description de l'image A5">
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="card-item">
+            <img src="./images/A6.jpg" alt="Description de l'image A6">
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="card-item">
+            <img src="./images/A7.jpg" alt="Description de l'image A7">
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="card-item">
+            <img src="./images/A8.jpg" alt="Description de l'image A8">
+          </div>
+        </div>
+
+        <!-- Répétez pour les autres images... -->
+      </div>
+      <!-- Add Navigation -->
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+    </div>
+  </div>
+</section>
+
+
+      <!-- Carousel Section -->
+  <section class="carrousel-section" id="horreur">
+    <h1>Horreur</h1>
+    <div class="swiper-container">
+      <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+          <!-- Ajout des images ici -->
+          <div class="swiper-slide">
+            <div class="card-item">
+              <img src="./images/H1.jpg" alt="">
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="card-item">
+              <img src="./images/H2.jpg" alt="">
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="card-item">
+              <img src="./images/H3.jpg" alt="">
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="card-item">
+              <img src="./images/H4.jpg" alt="">
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="card-item">
+              <img src="./images/H5.jpg" alt="">
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="card-item">
+              <img src="./images/H6.jpg" alt="">
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="card-item">
+              <img src="./images/H7.jpg" alt="">
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="card-item">
+              <img src="./images/H8.jpg" alt="">
+            </div>
+          </div>
+          <!-- Répétez pour les autres images... -->
+        </div>
+        <!-- Add Navigation -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <!--footer-->
+  <footer class="footer">
+    <div class="footer-content">
+      <h3 class="footer-title">X-Tends Library</h3>
+      <p class="footer-description">Votre bibliothèque numérique à portée de main</p>
+  
+      <div class="footer-social-icons">
+        <a href="https://www.facebook.com" target="_blank" class="social-icon">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://www.linkedin.com" target="_blank" class="social-icon">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://www.gmail.com" target="_blank" class="social-icon">
+          <i class="fa fa-envelope"></i>
+        </a>
+      </div>
+  
+      <div class="footer-bottom">
+        <img src="./images/logo.png" width="100px" height="100px" alt="Livre Ouvert">
+        <p>© 2024 Gestion de Bibliothèque by X-Tends Team PNM - Tous droits réservés</p>
+      </div>
+    </div>
+  </footer>
+  
+  
+
+  <!-- SwiperJS Scripts -->
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script>
+    // Menu Toggle
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuToggle = document.querySelector('.menu-toggle');
+      const menu = document.getElementById('menu');
+  
+      menuToggle.addEventListener('click', function() {
+          menu.classList.toggle('show');
+      });
+  });
+  
+    // Swiper Initialization
+    var swiper = new Swiper('.swiper', {
+      slidesPerView: 4,
+      spaceBetween: 10,
+      loop: true,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      breakpoints: {
+        320: {
+          slidesPerView: 1,
+          spaceBetween: 10,
+        },
+        640: {
+          slidesPerView: 2,
+          spaceBetween: 10,
+        },
+        768: {
+          slidesPerView: 3,
+          spaceBetween: 10,
+        },
+        1024: {
+          slidesPerView: 4,
+          spaceBetween: 10,
+        },
+      }
+    });
+  </script>
+  <script src="Loading.js"></script>
+</body>
+</html>

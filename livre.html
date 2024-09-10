@@ -10,37 +10,7 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="livre.css">
     <link rel="stylesheet" href="Chargement.css">
-    <style>
-        .background-video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: -1;
-        }
-
-        .spinner {
-            border: 4px solid rgba(0, 0, 0, 0.1);
-            border-radius: 50%;
-            border-top: 4px solid #007bff;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-    </style>
+    
 </head>
 
 <body>
@@ -112,6 +82,14 @@
                             <option value="false">Non</option>
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label for="description">Description :</label>
+                        <textarea id="description" class="form-control" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="imageUrl">URL de l'image :</label>
+                        <input type="url" id="imageUrl" class="form-control" placeholder="URL de l'image">
+                    </div>
                     <button type="submit" id="submitBtn" class="btn btn-primary">Ajouter Livre</button>
                     <button type="button" class="btn btn-secondary" onclick="resetForm()">Annuler</button>
                 </form>
@@ -133,6 +111,8 @@
                             <th>ISBN</th>
                             <th>Date de Publication</th>
                             <th>Disponible</th>
+                            <th>Image</th>
+                            <th>Description</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -191,25 +171,59 @@
                 section.classList.add("d-none");
             });
             document.getElementById(sectionId).classList.remove("d-none");
-            toggleMenu();
         }
 
         function resetForm() {
             document.getElementById("livreForm").reset();
+            document.getElementById("formTitle").innerText = "Ajouter un Livre";
+            document.getElementById("submitBtn").innerText = "Ajouter Livre";
             livreEnModification = null;
-            document.getElementById("formTitle").textContent = "Ajouter un Livre";
-            document.getElementById("submitBtn").textContent = "Ajouter Livre";
         }
 
-        function showMessage(message, type) {
-            const alertDiv = document.getElementById("alertMessage");
-            alertDiv.textContent = message;
-            alertDiv.className = `alert alert-${type}`;
-            alertDiv.classList.remove("d-none");
-            setTimeout(() => {
-                alertDiv.classList.add("d-none");
-            }, 5000);
-        }
+        document.getElementById("livreForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+            const titre = document.getElementById("titre").value;
+            const isbn = document.getElementById("isbn").value;
+            const datePublication = document.getElementById("datePublication").value;
+            const disponible = document.getElementById("disponible").value === "true";
+            const description = document.getElementById("description").value;
+            const imageUrl = document.getElementById("imageUrl").value;
+
+            const data = {
+                titre,
+                isbn,
+                datePublication,
+                disponible,
+                description,
+                imageUrl
+            };
+
+            if (livreEnModification) {
+                // Modifier un livre existant
+                axios.put(`${API_BASE_URL}/livres/${livreEnModification}`, data)
+                    .then(response => {
+                        showAlert("Livre modifié avec succès", "success");
+                        resetForm();
+                        loadLivres();
+                    })
+                    .catch(error => {
+                        console.error("Erreur lors de la modification du livre:", error);
+                        showAlert("Erreur lors de la modification du livre", "danger");
+                    });
+            } else {
+                // Ajouter un nouveau livre
+                axios.post(`${API_BASE_URL}/livres`, data)
+                    .then(response => {
+                        showAlert("Livre ajouté avec succès", "success");
+                        resetForm();
+                        loadLivres();
+                    })
+                    .catch(error => {
+                        console.error("Erreur lors de l'ajout du livre:", error);
+                        showAlert("Erreur lors de l'ajout du livre", "danger");
+                    });
+            }
+        });
 
         function loadLivres() {
             axios.get(`${API_BASE_URL}/livres`)
@@ -217,99 +231,82 @@
                     const livres = response.data;
                     const tableBody = document.getElementById("livresTable").getElementsByTagName("tbody")[0];
                     tableBody.innerHTML = "";
+
                     livres.forEach(livre => {
                         const row = document.createElement("tr");
+
                         row.innerHTML = `
                             <td>${livre.titre}</td>
-                            <td>${formatIsbn(livre.isbn)}</td>
+                            <td>${livre.isbn}</td>
                             <td>${livre.datePublication}</td>
-                            <td>${livre.disponible ? 'Oui' : 'Non'}</td>
+                            <td>${livre.disponible ? "Oui" : "Non"}</td>
+                            <td><img src="${livre.imageUrl}" alt="${livre.titre}" style="width: 50px; height: 50px;"></td>
+                            <td>${livre.description}</td>
                             <td>
-                                <button class="btn btn-warning btn-sm" onclick="modifierLivre(${livre.id})">Modifier</button>
-                                <button class="btn btn-danger btn-sm" onclick="supprimerLivre(${livre.id})">Supprimer</button>
+                                <button class="btn btn-warning btn-sm" onclick="editLivre(${livre.id})">Modifier</button>
+                                <button class="btn btn-danger btn-sm" onclick="deleteLivre(${livre.id})">Supprimer</button>
                             </td>
                         `;
+
                         tableBody.appendChild(row);
                     });
                 })
                 .catch(error => {
-                    showMessage("Erreur lors du chargement des livres", "danger");
+                    console.error("Erreur lors du chargement des livres:", error);
                 });
         }
 
-        document.getElementById("livreForm").addEventListener("submit", function (event) {
-            event.preventDefault();
-            const titre = document.getElementById("titre").value;
-            const isbn = document.getElementById("isbn").value.replace(/\D/g, '');
-            const datePublication = document.getElementById("datePublication").value;
-            const disponible = document.getElementById("disponible").value === "true";
-
-            if (!validateIsbn(isbn)) {
-                showMessage("L'ISBN doit être au format valide (10 ou 13 chiffres)", "danger");
-                return;
-            }
-
-            const data = { titre, isbn, datePublication, disponible };
-
-            if (livreEnModification) {
-                axios.put(`${API_BASE_URL}/livres/${livreEnModification}`, data)
-                    .then(() => {
-                        showMessage("Livre modifié avec succès", "success");
-                        loadLivres();
-                        resetForm();
-                    })
-                    .catch(() => {
-                        showMessage("Erreur lors de la modification du livre", "danger");
-                    });
-            } else {
-                axios.post(`${API_BASE_URL}/livres`, data)
-                    .then(() => {
-                        showMessage("Livre ajouté avec succès", "success");
-                        loadLivres();
-                        resetForm();
-                    })
-                    .catch(() => {
-                        showMessage("Erreur lors de l'ajout du livre", "danger");
-                    });
-            }
-        });
-
-        function validateIsbn(isbn) {
-            return /^[0-9]{10}$|^[0-9]{13}$/.test(isbn);
-        }
-
-        function modifierLivre(id) {
+        function editLivre(id) {
             axios.get(`${API_BASE_URL}/livres/${id}`)
                 .then(response => {
                     const livre = response.data;
+
                     document.getElementById("titre").value = livre.titre;
-                    document.getElementById("isbn").value = formatIsbn(livre.isbn);
+                    document.getElementById("isbn").value = livre.isbn;
                     document.getElementById("datePublication").value = livre.datePublication;
-                    document.getElementById("disponible").value = livre.disponible;
+                    document.getElementById("disponible").value = livre.disponible ? "true" : "false";
+                    document.getElementById("description").value = livre.description;
+                    document.getElementById("imageUrl").value = livre.imageUrl;
+
+                    document.getElementById("formTitle").innerText = "Modifier un Livre";
+                    document.getElementById("submitBtn").innerText = "Modifier Livre";
                     livreEnModification = id;
-                    document.getElementById("formTitle").textContent = "Modifier un Livre";
-                    document.getElementById("submitBtn").textContent = "Modifier Livre";
-                    showSection("formSection");
+
+                    showSection('formSection');
                 })
-                .catch(() => {
-                    showMessage("Erreur lors de la récupération des détails du livre", "danger");
+                .catch(error => {
+                    console.error("Erreur lors de la récupération du livre:", error);
+                    showAlert("Erreur lors de la récupération du livre", "danger");
                 });
         }
 
-        function supprimerLivre(id) {
+        function deleteLivre(id) {
             if (confirm("Êtes-vous sûr de vouloir supprimer ce livre ?")) {
                 axios.delete(`${API_BASE_URL}/livres/${id}`)
-                    .then(() => {
-                        showMessage("Livre supprimé avec succès", "success");
+                    .then(response => {
+                        showAlert("Livre supprimé avec succès", "success");
                         loadLivres();
                     })
-                    .catch(() => {
-                        showMessage("Erreur lors de la suppression du livre", "danger");
+                    .catch(error => {
+                        console.error("Erreur lors de la suppression du livre:", error);
+                        showAlert("Erreur lors de la suppression du livre", "danger");
                     });
             }
         }
 
-        document.addEventListener("DOMContentLoaded", function () {
+        function showAlert(message, type) {
+            const alertMessage = document.getElementById("alertMessage");
+            alertMessage.className = `alert alert-${type}`;
+            alertMessage.textContent = message;
+            alertMessage.classList.remove("d-none");
+
+            setTimeout(() => {
+                alertMessage.classList.add("d-none");
+            }, 3000);
+        }
+
+        // Initialisation
+        $(document).ready(function () {
             loadLivres();
         });
     </script>

@@ -6,8 +6,8 @@
   <title>Livres pour vous</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+  <link rel="icon" href="./images/favicon.png" type="image/x-icon">
   <link rel="stylesheet" href="livreslide.css">
-  <link rel="stylesheet" href="Loading.css">
 </head>
 <body>
   <!--header-->
@@ -36,14 +36,19 @@
         </ul>
     </nav>
 </header>
-  <!-- Loader -->
-  <div id="loader" class="loader-container">
-    <div class="loader"></div>
+
+<!-- Book Details Modal -->
+<div id="bookModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2 id="bookTitle">Titre du Livre</h2>
+    <img id="bookImage" src="" alt="Image du Livre">
+    <p id="bookDescription">Description du Livre</p>
   </div>
+</div>
 
 
   <!-- Carousel Section -->
-   <div id="container">
 <section class="carrousel-section" id="roman">
   <h1>Roman</h1>
   <div class="swiper-container">
@@ -116,49 +121,49 @@
             <!-- Ajout des images ici -->
             <div class="swiper-slide">
               <div class="card-item">
-                <img src="./images/S1.jpg" alt="">
+                <img src="./images/S1.jpg" alt="Science 1">
               </div>
             </div>
   
             <div class="swiper-slide">
               <div class="card-item">
-                <img src="./images/S2.jpg" alt="">
+                <img src="./images/S2.jpg" alt="Science 2">
               </div>
             </div>
   
             <div class="swiper-slide">
               <div class="card-item">
-                <img src="./images/S3.png" alt="">
+                <img src="./images/S3.png" alt="Science 3">
               </div>
             </div>
   
             <div class="swiper-slide">
               <div class="card-item">
-                <img src="./images/S4.jpg" alt="">
+                <img src="./images/S4.jpg" alt="Science 4">
               </div>
             </div>
   
             <div class="swiper-slide">
               <div class="card-item">
-                <img src="./images/S5.jpg" alt="">
+                <img src="./images/S5.jpg" alt="Science 5">
               </div>
             </div>
   
             <div class="swiper-slide">
               <div class="card-item">
-                <img src="./images/S6.jpg" alt="">
+                <img src="./images/S6.jpg" alt="Science 6">
               </div>
             </div>
   
             <div class="swiper-slide">
               <div class="card-item">
-                <img src="./images/S7.jpg" alt="">
+                <img src="./images/S7.jpg" alt="Science 7">
               </div>
             </div>
   
             <div class="swiper-slide">
               <div class="card-item">
-                <img src="./images/S8.jpg" alt="">
+                <img src="./images/S8.jpg" alt="Science 8">
               </div>
             </div>
             <!-- Répétez pour les autres images... -->
@@ -179,49 +184,49 @@
           <!-- Ajout des images ici -->
           <div class="swiper-slide">
             <div class="card-item">
-              <img src="./images/C1.jpg" alt="">
+              <img src="./images/C1.jpg" alt="Conte 1">
             </div>
           </div>
 
           <div class="swiper-slide">
             <div class="card-item">
-              <img src="./images/C2.jpg" alt="">
+              <img src="./images/C2.jpg" alt="Conte 2">
             </div>
           </div>
 
           <div class="swiper-slide">
             <div class="card-item">
-              <img src="./images/C3.jpg" alt="">
+              <img src="./images/C3.jpg" alt="Conte 3">
             </div>
           </div>
 
           <div class="swiper-slide">
             <div class="card-item">
-              <img src="./images/C4.jpg" alt="">
+              <img src="./images/C4.jpg" alt="Conte 4">
             </div>
           </div>
 
           <div class="swiper-slide">
             <div class="card-item">
-              <img src="./images/C5.jpg" alt="">
+              <img src="./images/C5.jpg" alt="Conte 5">
             </div>
           </div>
 
           <div class="swiper-slide">
             <div class="card-item">
-              <img src="./images/C6.jpg" alt="">
+              <img src="./images/C6.jpg" alt="Conte 6">
             </div>
           </div>
 
           <div class="swiper-slide">
             <div class="card-item">
-              <img src="./images/C7.jpg" alt="">
+              <img src="./images/C7.jpg" alt="Conte 7">
             </div>
           </div>
 
           <div class="swiper-slide">
             <div class="card-item">
-              <img src="./images/C8.jpg" alt="">
+              <img src="./images/C8.jpg" alt="Conte 8">
             </div>
           </div>
           <!-- Répétez pour les autres images... -->
@@ -243,49 +248,49 @@
         <!-- Ajout des images ici -->
         <div class="swiper-slide">
           <div class="card-item">
-            <img src="./images/A1.jpg" alt="Description de l'image A1">
+            <img src="./images/A1.jpg" alt="Ation 1">
           </div>
         </div>
 
         <div class="swiper-slide">
           <div class="card-item">
-            <img src="./images/A2.jpg" alt="Description de l'image A2">
+            <img src="./images/A2.jpg" alt="Ation 2">
           </div>
         </div>
 
         <div class="swiper-slide">
           <div class="card-item">
-            <img src="./images/A3.jpg" alt="Description de l'image A3">
+            <img src="./images/A3.jpg" alt="Ation 3">
           </div>
         </div>
 
         <div class="swiper-slide">
           <div class="card-item">
-            <img src="./images/A4.jpg" alt="Description de l'image A4">
+            <img src="./images/A4.jpg" alt="Ation 4">
           </div>
         </div>
 
         <div class="swiper-slide">
           <div class="card-item">
-            <img src="./images/A5.jpg" alt="Description de l'image A5">
+            <img src="./images/A5.jpg" alt="Ation 5">
           </div>
         </div>
 
         <div class="swiper-slide">
           <div class="card-item">
-            <img src="./images/A6.jpg" alt="Description de l'image A6">
+            <img src="./images/A6.jpg" alt="Ation 6">
           </div>
         </div>
 
         <div class="swiper-slide">
           <div class="card-item">
-            <img src="./images/A7.jpg" alt="Description de l'image A7">
+            <img src="./images/A7.jpg" alt="Ation 7">
           </div>
         </div>
 
         <div class="swiper-slide">
           <div class="card-item">
-            <img src="./images/A8.jpg" alt="Description de l'image A8">
+            <img src="./images/A8.jpg" alt="Ation 8">
           </div>
         </div>
 
@@ -308,49 +313,49 @@
           <!-- Ajout des images ici -->
           <div class="swiper-slide">
             <div class="card-item">
-              <img src="./images/H1.jpg" alt="">
+              <img src="./images/H1.jpg" alt="Horreur 1">
             </div>
           </div>
 
           <div class="swiper-slide">
             <div class="card-item">
-              <img src="./images/H2.jpg" alt="">
+              <img src="./images/H2.jpg" alt="Horreur 2">
             </div>
           </div>
 
           <div class="swiper-slide">
             <div class="card-item">
-              <img src="./images/H3.jpg" alt="">
+              <img src="./images/H3.jpg" alt="Horreur 3">
             </div>
           </div>
 
           <div class="swiper-slide">
             <div class="card-item">
-              <img src="./images/H4.jpg" alt="">
+              <img src="./images/H4.jpg" alt="Horreur 4">
             </div>
           </div>
 
           <div class="swiper-slide">
             <div class="card-item">
-              <img src="./images/H5.jpg" alt="">
+              <img src="./images/H5.jpg" alt="Horreur 5">
             </div>
           </div>
 
           <div class="swiper-slide">
             <div class="card-item">
-              <img src="./images/H6.jpg" alt="">
+              <img src="./images/H6.jpg" alt="Horreur 6">
             </div>
           </div>
 
           <div class="swiper-slide">
             <div class="card-item">
-              <img src="./images/H7.jpg" alt="">
+              <img src="./images/H7.jpg" alt="Horreur 7">
             </div>
           </div>
 
           <div class="swiper-slide">
             <div class="card-item">
-              <img src="./images/H8.jpg" alt="">
+              <img src="./images/H8.jpg" alt="Horreur 8">
             </div>
           </div>
           <!-- Répétez pour les autres images... -->
@@ -361,7 +366,6 @@
       </div>
     </div>
   </section>
-  </div>
 
   <!--footer-->
   <footer class="footer">
@@ -436,6 +440,103 @@
       }
     });
   </script>
-  <script src="Loading.js"></script>
+  <script>
+    // Les détails des livres (remplis manuellement pour chaque livre)
+    const bookDetails = {
+      // Romans
+      "R1": { title: "Le Nom de la rose", description: "*Le Nom de la Rose* d'Umberto Eco est un roman historique et policier publié en 1980. L'histoire se déroule au XIVe siècle dans une abbaye bénédictine isolée en Italie, où un moine franciscain, Guillaume de Baskerville, et son jeune acolyte Adso de Melk sont appelés pour enquêter sur une série de meurtres mystérieux. Le roman mêle mystère, histoire, philosophie, et théologie, avec des réflexions profondes sur la connaissance, la vérité, et le pouvoir. L'abbaye, un véritable labyrinthe de livres et de savoir, joue un rôle central dans l'intrigue, reflétant les thèmes de l'ignorance et de la découverte.", image: "./images/R1.jpg" },
+      "R2": { title: "L'Étranger", description: "L'Étranger d'Albert Camus suit Meursault, un homme indifférent à la mort de sa mère et à la vie en général. Après avoir entamé une relation avec Marie, il tue un homme lors d'une altercation sur la plage. Le procès qui s'ensuit se concentre davantage sur son comportement émotionnel et son détachement que sur le meurtre lui-même. Meursault est finalement condamné à mort, confronté à l'absurdité de l'existence et de la justice. Le roman explore la condition humaine et la quête de sens dans un monde sans logique apparente.", image: "./images/R2.jpg" },
+      "R3": { title: "Le Grand Meaulnes", description: "*Le Grand Meaulnes* d'Alain-Fournier est un roman publié en 1913 qui raconte l'histoire de François Seurel, un adolescent qui se lie d'amitié avec Augustin Meaulnes, un élève mystérieux et charismatique. Meaulnes découvre un domaine enchâssé où il rencontre une jeune fille, Yvonne de Galais, et vit une aventure idyllique mais éphémère. À son retour, il devient obsédé par cette rencontre et cherche à retrouver le domaine et Yvonne. Le roman explore les thèmes de la quête du rêve, de l'innocence perdue, et de la nostalgie. À travers les expériences de Meaulnes et Seurel, le livre illustre la difficulté de réconcilier les idéaux romantiques avec la réalité.", image: "./images/R3.jpg" },
+      "R4": { title: "Les Misérables", description: "*Les Misérables* de Victor Hugo suit Jean Valjean, un ancien forçat qui, après avoir été rejeté par la société, trouve rédemption grâce à la bonté d'un évêque. Il prend soin de Cosette, une orpheline maltraitée, tout en se cachant de Javert, un inspecteur inflexible qui poursuit son passé. Cosette tombe amoureuse de Marius, un jeune républicain engagé dans une insurrection. Jean Valjean se bat courageusement pour protéger Marius, tandis que Javert, déchiré par ses propres principes, se suicide. Finalement, Jean Valjean trouve la paix en mourant entouré de ceux qu'il aime.", image: "./images/R4.jpg" },
+      "R5": { title: "Moby Dick", description: "Moby-Dick de Herman Melville, publié en 1851, raconte l'histoire d'**Ishmael**, un marin qui embarque sur le navire **Pequod** commandé par le mystérieux et obsessionnel **Capitaine Ahab**. Ahab est déterminé à traquer et tuer **Moby Dick**, une gigantesque baleine blanche qui lui a coûté une jambe. Au fil du voyage, l'équipage fait face à divers dangers et aventures maritimes, tandis que la quête d'Ahab devient de plus en plus destructrice. La fixation d'Ahab sur Moby Dick conduit à une confrontation finale tragique. Le roman explore des thèmes tels que la vengeance, la nature et la condition humaine à travers une riche symbolique et une narration complexe.", image: "./images/R5.jpg" },
+      "R6": { title: "Cent ans de solitude", description: "*Cent Ans de Solitude* de Gabriel García Márquez, publié en 1967, suit la famille Buendía sur plusieurs générations dans le village fictif de Macondo. Le patriarche, **José Arcadio Buendía**, fonde le village et est obsédé par la recherche de la vérité et de la connaissance. La saga familiale est marquée par des événements extraordinaires, des tragédies et des cycles de solitude et d'isolement. Les personnages vivent des histoires d'amour, de guerre et de destin, souvent influencés par le réalisme magique, où le fantastique et le quotidien se mélangent. Le roman explore les thèmes du pouvoir, du temps, et des dynamiques familiales tout en offrant une critique sociale et historique de l'Amérique latine.", image: "./images/R6.jpg" },
+      "R7": { title: "A la recherche du temps perdu", description: "*À la recherche du temps perdu* de Marcel Proust, publié en sept volumes entre 1913 et 1927, est un roman monumental qui explore la mémoire, le temps et la société française de la fin du XIXe siècle. Le narrateur, souvent identifié à Proust lui-même, se remémore sa jeunesse, ses amours et ses relations à travers le prisme de la mémoire involontaire, symbolisée par la célèbre madeleine. L'œuvre suit les expériences du narrateur avec des personnages comme **Madeleine**, **Swann**, et **Albertine**, tout en offrant une profonde analyse des thèmes du désir, de la beauté, et de l'art. Le roman est connu pour son style d'écriture détaillé et introspectif, ainsi que pour son exploration des nuances psychologiques et sociales. À travers une prose riche et complexe, Proust interroge la nature de la réalité et la façon dont le passé influence le présent.", image: "./images/R7.jpg" },
+      "R8": { title: "Le vieil homme et la mer", description: "*Le Vieil Homme et la Mer* d'Ernest Hemingway, publié en 1952, raconte l'histoire de **Santiago**, un vieux pêcheur cubain qui lutte pour attraper un gros marlin après une longue période de malchance. Pendant trois jours et trois nuits, Santiago se bat avec le poisson, éprouvant une endurance et une détermination extraordinaires. Après avoir finalement capturé le marlin, il est confronté à des requins qui dévorent le poisson pendant le trajet de retour. Bien que Santiago rentre chez lui avec seulement l'arête du marlin, il est respecté pour son courage et sa résilience. Le roman explore des thèmes de dignité, de lutte contre la nature, et de la valeur du combat même face à la défaite.", image: "./images/R8.jpg" },
+      
+      // Science
+      "S1": { title: "Une Brève Histoire du Temps", description: "*Une Brève Histoire du Temps* de Stephen Hawking, publié en 1988, est un ouvrage de vulgarisation scientifique qui explore les concepts fondamentaux de la cosmologie et de la physique théorique. Hawking y explique l'origine de l'univers, depuis le Big Bang jusqu'à la formation des galaxies, des étoiles et des trous noirs. Il aborde des sujets complexes tels que la relativité générale, la mécanique quantique, et la nature du temps lui-même. Le livre examine aussi des théories sur la structure de l'univers, comme la singularité et les trous noirs. En combinant des concepts scientifiques profonds avec un langage accessible, Hawking rend la cosmologie compréhensible pour un large public.", image: "./images/S1.jpg" },
+      "S2": { title: "Il gene egoista", description: "*Il gene egoista* de Richard Dawkins, publié en 1976, est un ouvrage fondamental en biologie évolutive qui propose que les gènes, plutôt que les individus ou les espèces, sont les principaux moteurs de l'évolution. Dawkins argumente que les gènes se comportent de manière égoïste en cherchant à se reproduire et à se propager à travers les générations. Il introduit le concept de gène égoïste pour expliquer des comportements apparemment altruistes comme le soin parental et la coopération, qui, selon lui, sont en réalité des stratégies pour favoriser la survie des gènes. Le livre propose aussi la notion de mèmes pour décrire la transmission culturelle d'idées et de comportements. *Il gene egoista* a eu un impact majeur sur la compréhension de l'évolution et la génétique, en mettant l'accent sur le rôle central des gènes dans le processus évolutif.", image: "./images/S2.jpg" },
+      "S3": { title: "Le Cinquième Rêve", description: "*Le Cinquième Rêve* de Patrice van Eersel est un roman publié en 2012. Il raconte l'histoire de **Paul**, un personnage qui est confronté à des rêves mystérieux et récurrents qui semblent influencer sa réalité quotidienne. À travers ces rêves, Paul explore des aspects de son passé et de son identité, ce qui le pousse à remettre en question sa perception du monde. Le roman mélange réalité et onirisme, offrant une réflexion sur la nature des rêves et leur impact sur notre vie. Van Eersel utilise un style introspectif pour plonger dans les profondeurs psychologiques de ses personnages.Le Dauphin, l'Homme et l'Évolution est un ouvrage de Patrice van Eersel publié en 2004. Ce livre explore les similitudes et les différences entre les dauphins et les humains, en mettant l'accent sur l'évolution des espèces et les parallèles entre les deux. Van Eersel analyse comment les dauphins, en tant qu'animaux marins intelligents, ont développé des capacités cognitives et sociales remarquables qui peuvent être comparées à celles des humains. L'ouvrage offre également une réflexion sur la place de l'homme dans le règne animal et sur les implications de ces comparaisons pour notre compréhension de l'évolution. En combinant des observations scientifiques et des réflexions philosophiques, ce livre invite à une réflexion profonde sur la nature de l'intelligence et de la conscience.", image: "./images/S3.png" },
+      "S4": { title: "Cosmos", description: "*Cosmos* d'Ann Druyan est un livre qui explore l'histoire et la science de l'univers, de ses débuts à l'émergence de la vie et de la conscience humaine. À travers des découvertes scientifiques et des explorations spatiales, il rend la science accessible et engageante, tout en soulignant notre connexion avec l'univers et notre responsabilité envers notre planète.", image: "./images/S4.jpg" },
+      "S5": { title: "L'origine des espèces", description: "*L'Origine des espèces* de Charles Darwin, publié en 1859, est un ouvrage fondamental de la biologie évolutive. Darwin y présente sa théorie de la sélection naturelle, expliquant comment les espèces évoluent au fil du temps grâce à la variation et la survie des individus les mieux adaptés à leur environnement. Il démontre que toutes les espèces descendent d'ancêtres communs et que la diversité de la vie est le résultat d'un processus de sélection naturelle. Ce livre a profondément changé notre compréhension de la biologie et de l'évolution des espèces.", image: "./images/S5.jpg" },
+      "S6": { title: "L'Univers élégant", description: "*L'Origine des espèces* de Charles Darwin, publié en 1859, est un ouvrage fondamental de la biologie évolutive. Darwin y présente sa théorie de la sélection naturelle, expliquant comment les espèces évoluent au fil du temps grâce à la variation et la survie des individus les mieux adaptés à leur environnement. Il démontre que toutes les espèces descendent d'ancêtres communs et que la diversité de la vie est le résultat d'un processus de sélection naturelle. Ce livre a profondément changé notre compréhension de la biologie et de l'évolution des espèces.", image: "./images/S6.jpg" },
+      "S7": { title: "Le Cosmos et le Lotus", description: "*Le Cosmos et le Lotus* de Trinh Xuan Thuan explore les connexions entre la science moderne et la spiritualité orientale. L'auteur, astrophysicien de renom, examine comment les découvertes scientifiques sur l'univers peuvent se relier aux traditions spirituelles et philosophiques, notamment le bouddhisme et le taoïsme. Le livre propose une réflexion sur la manière dont la science et la spiritualité peuvent coexister et enrichir notre compréhension du cosmos et de notre place dans celui-ci.", image: "./images/S7.jpg" },
+      "S8": { title: "La vie immortelle d'Henrietta Lacks", description: "*La Vie immortelle d'Henrietta Lacks* de Rebecca Skloot raconte l'histoire vraie d'Henrietta Lacks, une femme dont les cellules ont été prélevées sans son consentement en 1951 et ont conduit à des avancées médicales majeures. Les cellules d'Henrietta, connues sous le nom de cellules HeLa, ont été les premières à se multiplier de manière illimitée en laboratoire, permettant des recherches importantes sur le cancer, les vaccins et plus encore. Le livre explore les dilemmes éthiques entourant la recherche médicale et la vie d'Henrietta, tout en mettant en lumière les contributions significatives de sa famille. Skloot tisse ensemble les aspects scientifiques, éthiques et personnels de cette histoire. Ce récit met en lumière les injustices subies par Henrietta Lacks et sa famille, tout en célébrant les contributions durables de ses cellules à la science.", image: "./images/S8.jpg" },
+      // Ajoute les autres livres science ici...
+  
+      // Conte
+      "C1": { title: "Les contes du Japon", description: "*Les Contes du Japon* est un recueil de contes traditionnels japonais collectés et traduits par **Gérard Rondeau**. Le livre rassemble des récits fascinants qui illustrent les mythes, légendes et folklore du Japon. Il offre un aperçu des croyances, des valeurs et des coutumes japonaises à travers des histoires de dieux, de démons, de héros et de créatures fantastiques. Les contes reflètent la richesse et la diversité de la culture japonaise, en capturant à la fois la spiritualité et la vie quotidienne. Ce recueil permet aux lecteurs de plonger dans la profondeur des traditions narratives du Japon.", image: "./images/C1.jpg" },
+      "C2": { title: "le Petit Prince", description: "*Le Petit Prince* est un conte philosophique écrit par **Antoine de Saint-Exupéry**. L'histoire suit un jeune prince venu d'une petite planète, qui voyage à travers l'univers et rencontre divers personnages représentant différentes facettes de la nature humaine. À travers ses aventures, le livre explore des thèmes universels tels que l'amitié, l'amour et la quête de sens. L'œuvre est connue pour sa simplicité apparente et sa profondeur émotionnelle, touchant des lecteurs de tous âges. *Le Petit Prince* est considéré comme un classique de la littérature mondiale et est souvent interprété comme une réflexion sur la vie et les relations humaines.", image: "./images/C2.jpg" },
+      "C3": { title: "Le Petit Chaperon Rouge", description: "*Le Petit Chaperon Rouge* est un conte des frères **Grimm**, issu de leur célèbre collection de contes populaires. L'histoire suit une jeune fille, surnommée le Petit Chaperon Rouge, qui se rend chez sa grand-mère avec des provisions. En chemin, elle rencontre un loup qui, déguisé en grand-mère, tente de la tromper pour la dévorer. Le récit met en avant des thèmes de naïveté et de ruse, avec une morale sur les dangers de parler aux étrangers. Ce conte est l'un des plus connus des frères Grimm et a été adapté en de nombreuses versions à travers le monde.", image: "./images/C3.jpg" },
+      "C4": { title: "Les contes de Perrault", description: "*Les Contes de Perrault* est un recueil de contes classiques publié par **Charles Perrault** au XVIIe siècle. L'ouvrage rassemble des histoires emblématiques telles que *Cendrillon*, *Le Petit Chaperon Rouge*, *La Belle au bois dormant* et *Le Chat botté*. Perrault a adapté ces récits populaires pour les rendre accessibles et attrayants pour un public plus large, souvent avec une morale en fin de conte. Les contes de Perrault se caractérisent par leur style élégant et leur structure narrative simple, visant à divertir tout en transmettant des leçons de vie. Ces histoires ont eu une influence durable sur la littérature pour enfants et continuent d'être populaires dans de nombreuses adaptations modernes.", image: "./images/C4.jpg" },
+      "C5": { title: "Les Contes du Chat Perché", description: "*Les Contes du Chat Perché* est une série de contes écrits par **Marcel Aymé**. Publiée pour la première fois en 1939, cette collection raconte les aventures d’un chat qui parle, nommé Chat Perché, et de ses amis dans un univers rural et fantastique. Les histoires sont connues pour leur humour, leur inventivité et leur capacité à mêler le quotidien à l'extraordinaire. Aymé utilise des éléments de la magie et du merveilleux pour offrir des réflexions sur la nature humaine et la société. Les contes capturent la magie de l'enfance tout en offrant des critiques subtiles de la vie adulte.", image: "./images/C5.jpg" },
+      "C6": { title: "Les Mille et Une Nuits", description: "*Les Mille et Une Nuits, Tome 1* est un recueil de contes orientaux traditionnels, souvent attribué à **Schéhérazade**, la narratrice légendaire des histoires. Ce premier tome regroupe des récits fascinants du Moyen-Orient, riches en aventures, magie et intrigues, où la narratrice raconte une histoire chaque nuit pour échapper à une condamnation à mort. Les contes célèbres incluent des histoires comme *Ali Baba et les Quarante Voleurs*, *Sinbad le Marin* et *Le Chat Botté*. Les récits sont caractérisés par leur structure en boucle, où les histoires s’entrelacent et se développent. Le recueil est un chef-d'œuvre de la littérature arabe, influençant profondément la littérature mondiale et offrant un aperçu de la culture et des croyances de l'époque.", image: "./images/C6.jpg" },
+      "C7": { title: "The Tales of Beedle the Bard", description: "*The Tales of Beedle the Bard* est un recueil de contes écrit par **J.K. Rowling**. Publié en 2008, le livre présente cinq contes imaginaires que l'auteur a inventés pour enrichir l'univers de *Harry Potter*. Les histoires, racontées dans l'univers de *Harry Potter*, sont : *Le Sorcier et la Pierre de Lune*, *La Fontaine de la Bonne Fortune*, *Le Robe de Feu*, *Le Contes des Trois Frères* et *Le Sorcier au Chapeau*. Chaque conte est accompagné de notes et de commentaires de **Albus Dumbledore**, un personnage clé de la série. Ce recueil offre aux fans un aperçu supplémentaire de la mythologie et de la magie dans le monde de Harry Potter.", image: "./images/C7.jpg" },
+      "C8": { title: "La Sorcière du placard aux balais et autres contes", description: "*La Sorcière du placard aux balais et autres contes* est un recueil de contes écrits par **Pierre Gripari**. Publié en 1967, le livre rassemble des histoires fantastiques et humoristiques qui se déroulent dans un univers riche en magie et en imagination. Le conte éponyme, *La Sorcière du placard aux balais*, raconte les aventures d'une sorcière originale et attachante, ainsi que des péripéties qu'elle rencontre avec ses pouvoirs. Les autres contes du recueil explorent divers thèmes, mêlant fantaisie et critique sociale avec une touche de légèreté. Le style de Gripari est caractérisé par son humour, sa créativité et son esprit, offrant une lecture captivante pour les jeunes lecteurs et les adultes.", image: "./images/C8.jpg" },
+      // Ajoute les autres livres conte ici...
+  
+      // Action
+      "A1": { title: "The Day of the Jackal", description: "*The Day of the Jackal* est un thriller politique écrit par **Frederick Forsyth**. Publiée en 1971, l'histoire suit un tueur à gages surnommé le Jackal engagé pour assassiner le président français Charles de Gaulle. Le roman est célèbre pour son suspense intense et sa narration détaillée, décrivant minutieusement les préparatifs du meurtre et les efforts de la police pour déjouer le complot. Forsyth utilise une approche réaliste et minutieuse pour créer une intrigue captivante qui mélange fiction et faits historiques. *The Day of the Jackal* est considéré comme un classique du genre et a été adapté en film et en série télévisée.", image: "./images/A1.jpg" },
+      "A2": { title: "Jurassic Park ", description: "*Jurassic Park* est un roman de science-fiction écrit par **Michael Crichton**, publié en 1990. L'histoire se déroule sur une île où des scientifiques ont réussi à recréer des dinosaures à partir de l'ADN préhistorique, créant un parc d'attractions rempli de ces créatures disparues. Lorsque le parc commence à mal fonctionner et que les dinosaures échappent au contrôle, la situation devient rapidement catastrophique. Le roman explore des thèmes comme la responsabilité scientifique, les dangers de jouer avec la nature, et les limites de la technologie. *Jurassic Park* est célèbre pour ses scènes d'action palpitantes et ses réflexions profondes sur la science et l'éthique, et a été adapté en un film à succès réalisé par Steven Spielberg.", image: "./images/A2.jpg" },
+      "A3": { title: "The Three Musketeers", description: "*The Three Musketeers* est un roman d'aventure écrit par **Alexandre Dumas**, publié pour la première fois en 1844. L'histoire suit les aventures d'un jeune homme nommé d'Artagnan qui se rend à Paris pour rejoindre les mousquetaires du roi Louis XIII. En route, il se lie d'amitié avec trois mousquetaires expérimentés : Athos, Porthos, et Aramis. Ensemble, ils se battent pour défendre l'honneur du roi et de la France, se retrouvant mêlés à des complots politiques et des duels. Le roman est connu pour ses intrigues palpitantes, ses personnages charismatiques, et son esprit d'aventure, et est considéré comme un classique de la littérature d'aventure.", image: "./images/A3.jpg" },
+      "A4": { title: "The Count of Monte Cristo", description: "*The Count of Monte Cristo* est un roman d'aventure écrit par **Alexandre Dumas**, publié pour la première fois en 1844. L'histoire suit Edmond Dantès, un jeune marin injustement emprisonné pour trahison. Après s'être échappé de prison, il découvre un trésor caché sur l'île de Monte Cristo et utilise sa fortune pour se venger de ceux qui l'ont trahi. Le roman est connu pour ses thèmes de justice, de vengeance et de rédemption, ainsi que pour ses intrigues complexes et ses personnages riches. *The Count of Monte Cristo* est largement considéré comme un chef-d'œuvre de la littérature et a inspiré de nombreuses adaptations cinématographiques et théâtrales.", image: "./images/A4.jpg" },
+      "A5": { title: "First Blood", description: "*First Blood* est un roman écrit par **David Morrell**, publié en 1972. L'histoire suit John Rambo, un ancien soldat des forces spéciales qui revient dans une petite ville américaine après la guerre du Vietnam. Lorsqu'il est maltraité par la police locale, Rambo utilise ses compétences militaires pour se défendre, entraînant une traque intense dans les bois. Le roman explore des thèmes de traumatisme de guerre, de survie et de conflits entre les anciens combattants et la société civile. *First Blood* a été adapté en film en 1982, lançant la célèbre franchise Rambo avec Sylvester Stallone dans le rôle principal.", image: "./images/A5.jpg" },
+      "A6": { title: "The Count of Monte Cristo", description: "*The Count of Monte Cristo* est un roman d'aventure écrit par **Alexandre Dumas**, publié pour la première fois en 1844. L'histoire suit Edmond Dantès, un jeune marin injustement emprisonné pour trahison. Après s'être échappé de prison, il découvre un trésor caché sur l'île de Monte Cristo et utilise sa fortune pour se venger de ceux qui l'ont trahi. Le roman est connu pour ses thèmes de justice, de vengeance et de rédemption, ainsi que pour ses intrigues complexes et ses personnages riches. *The Count of Monte Cristo* est largement considéré comme un chef-d'œuvre de la littérature et a inspiré de nombreuses adaptations cinématographiques et théâtrales.", image: "./images/A6.jpg" },
+      "A7": { title: "Star Wars ", description: "*Star Wars* est une franchise de science-fiction créée par **George Lucas**, avec le premier film sorti en 1977 sous le titre *Star Wars: Episode IV - A New Hope*. L'histoire se déroule dans une galaxie lointaine, où une lutte épique oppose les forces du mal, dirigées par l'Empire Galactique, aux rebelles cherchant à restaurer la paix et la justice. La saga suit les aventures de personnages emblématiques comme Luke Skywalker, Leia Organa, et Han Solo, ainsi que des figures mythiques comme Darth Vader et Yoda. *Star Wars* est célèbre pour ses effets spéciaux innovants, son univers riche et ses thèmes universels de bien contre mal. La franchise s'est étendue à des films, séries télévisées, romans, bandes dessinées, et produits dérivés, devenant un phénomène culturel mondial.", image: "./images/A7.jpg" },
+      "A8": { title: "The Silence of the Lambs ", description: "*The Silence of the Lambs* est un thriller psychologique écrit par **Thomas Harris**, publié en 1988. L'histoire suit Clarice Starling, une jeune agente du FBI, qui cherche à capturer un tueur en série appelé Buffalo Bill en consultant un autre tueur en série, le Dr Hannibal Lecter, un psychiatre cannibale et manipulateur. Lecter, incarcéré dans un hôpital psychiatrique, utilise ses compétences pour manipuler Clarice tout en lui fournissant des indices sur l'identité de Buffalo Bill. Le roman est célèbre pour ses personnages complexes, son suspense intense et ses thèmes de psychologie criminelle. *The Silence of the Lambs* a été adapté en un film acclamé en 1991, mettant en vedette Anthony Hopkins dans le rôle de Hannibal Lecter et Jodie Foster dans celui de Clarice Starling.", image: "./images/A8.jpg" },
+      // Ajoute les autres livres action ici...
+  
+      // Horreur
+      "H1": { title: "Frankenstein", description: "*Frankenstein* est un roman d'horreur écrit par **Mary Shelley**, publié en 1818. L'histoire suit Victor Frankenstein, un scientifique qui crée une créature vivante à partir de cadavres, seulement pour être horrifié par son propre chef-d'œuvre. La créature, rejetée par son créateur et par la société, devient une figure tragique, cherchant désespérément à comprendre son existence et à se venger de Frankenstein. Le roman explore des thèmes tels que les dangers de l'ambition scientifique, les conséquences de l'isolement et les responsabilités du créateur envers sa création. *Frankenstein* est souvent considéré comme l'un des premiers romans de science-fiction et a eu une influence majeure sur la littérature et la culture populaire.", image: "./images/H1.jpg" },
+      "H2": { title: "Dracula", description: "*Dracula* est un roman d'horreur écrit par **Bram Stoker**, publié en 1897. L'histoire suit le comte Dracula, un vampire originaire de Transylvanie qui voyage en Angleterre pour étendre son influence et semer la terreur. Le roman est narré à travers des lettres, des journaux et des documents, révélant les efforts de Jonathan Harker, Mina Murray et leurs amis pour arrêter Dracula. Il explore des thèmes de superstition, de peur de l'étranger, et de lutte entre le bien et le mal. *Dracula* est devenu une œuvre emblématique du genre de l'horreur et a profondément influencé la représentation des vampires dans la culture populaire.", image: "./images/H2.jpg" },
+      "H3": { title: "The Island of Doctor Moreau", description: "*The Island of Doctor Moreau* est un roman de science-fiction et d'horreur écrit par **H.G. Wells**, publié en 1896. L'histoire suit Edward Prendick, un naufragé qui se retrouve sur une île isolée où le scientifique fou, le Dr Moreau, réalise des expériences sur des animaux, les transformant en créatures mi-humaines, mi-animales. Au fur et à mesure que Prendick découvre la nature des expériences de Moreau, il est confronté à des questions sur la moralité, la cruauté et la nature de l'humanité. Le roman explore des thèmes de science, de déshumanisation et de l'impact des expérimentations scientifiques incontrôlées. *The Island of Doctor Moreau* est reconnu pour sa critique sociale et son exploration des limites de la science.", image: "./images/H3.jpg" },
+      "H4": { title: "IT", description: "It est un roman d'horreur écrit par Stephen King, publié en 1986. L'histoire se déroule dans la ville fictive de Derry, où un groupe d'enfants se confronte à une entité maléfique qui prend la forme de leurs pires peurs, notamment un clown nommé Pennywise. Le roman alterne entre les événements de l'enfance des personnages, lorsqu'ils affrontent la créature pour la première fois, et leur retour en tant qu'adultes pour une confrontation finale. It explore des thèmes de l'innocence perdue, de la peur et du pouvoir de l'amitié face au mal. C'est l'un des ouvrages les plus célèbres de King, connu pour son ambiance terrifiante et ses personnages profondément développés.", image: "./images/H4.jpg" },
+      "H5": { title: "The Dark Tower", description: "*The Dark Tower* est une série de romans écrite par **Stephen King**, dont le premier volume, *The Gunslinger*, a été publié en 1982. La saga suit Roland Deschain, un pistolero solitaire en quête de la mystérieuse Tour Sombre, un artefact légendaire au centre de l'univers. Au cours de son voyage, Roland affronte divers ennemis et rencontre des personnages étranges, tout en cherchant à comprendre les secrets et les mystères entourant la Tour. La série mélange des éléments de fantasy, de science-fiction, d'horreur et de western, créant un univers complexe et riche. *The Dark Tower* est considérée comme l'œuvre maîtresse de Stephen King, reliant de nombreux aspects de son univers littéraire et explorant des thèmes de destin, de sacrifice et de lutte contre le mal.", image: "./images/H5.jpg" },
+      "H6": { title: "The Picture of Dorian Gray", description: "*The Picture of Dorian Gray* est un roman de **Oscar Wilde**, publié en 1890. L'histoire suit Dorian Gray, un jeune homme d'une beauté exceptionnelle, qui fait un vœu de rester éternellement jeune et beau, tandis que son portrait vieillira à sa place. Influencé par le cynique Lord Henry Wotton, Dorian plonge dans une vie de débauche et de moralité douteuse, tout en restant physiquement inchangé. Le portrait, en revanche, devient de plus en plus déformé par les vices et les péchés de Dorian. Le roman explore des thèmes de beauté, de moralité, et des conséquences de la recherche du plaisir à tout prix, tout en offrant une critique acerbe de la société victorienne.", image: "./images/H6.jpg" },
+      "H7": { title: "The Exorcist", description: "*The Exorcist* est un roman d'horreur écrit par **William Peter Blatty**, publié en 1971. L'histoire suit l'obsession d'une mère pour sauver sa fille, Regan, qui est possédée par une entité démoniaque. Face à des phénomènes de plus en plus terrifiants, elle fait appel à deux prêtres pour réaliser un exorcisme. Le roman explore des thèmes de foi, de possession et de lutte contre le mal, et est connu pour ses descriptions graphiques et son atmosphère oppressante. *The Exorcist* a été adapté en film en 1973, devenant un classique du genre de l'horreur et influençant de nombreuses œuvres ultérieures.", image: "./images/H7.jpg" },
+      "H8": { title: "The Shining", description: "*The Shining* est un roman d'horreur écrit par **Stephen King**, publié en 1977. L'histoire suit Jack Torrance, un écrivain en difficulté qui accepte un poste de gardien d'hiver dans un hôtel isolé, l'Overlook Hotel, avec sa femme Wendy et son fils Danny, qui possède des pouvoirs psychiques. Alors que l'isolement et les forces surnaturelles de l'hôtel commencent à influencer Jack, il plonge dans la folie, mettant en danger sa famille. Le roman explore des thèmes de la santé mentale, du mal et de l'impact de l'environnement sur le comportement humain. *The Shining* est célèbre pour son atmosphère terrifiante et son intrigue captivante, et a été adapté en film par Stanley Kubrick en 1980, devenant un classique du genre de l'horreur.", image: "./images/H8.jpg" },
+      // Ajoute les autres livres horreur ici...
+    };
+  
+    // Script pour gérer la modale
+    document.addEventListener('DOMContentLoaded', function () {
+      const modal = document.getElementById("bookModal");
+      const modalClose = document.querySelector(".close");
+  
+      // Fonction pour afficher la modale avec les détails du livre
+      function showBookDetails(bookId) {
+        const book = bookDetails[bookId];
+        if (book) {
+          document.getElementById("bookTitle").textContent = book.title;
+          document.getElementById("bookDescription").textContent = book.description;
+          document.getElementById("bookImage").src = book.image;
+          modal.style.display = "block";
+        }
+      }
+  
+      // Ajouter un écouteur de clic sur chaque image de livre
+      document.querySelectorAll('.card-item img').forEach(img => {
+        img.addEventListener('click', function () {
+          const category = this.alt.split(" ")[0]; // Récupère la première partie de l'alt comme catégorie
+          const bookId = category.charAt(0) + this.alt.split(" ")[1]; // Extrait l'ID du livre basé sur l'alt
+          showBookDetails(bookId);
+        });
+      });
+  
+      // Fermer la modale quand on clique sur (x)
+      modalClose.addEventListener('click', function () {
+        modal.style.display = "none";
+      });
+  
+      // Fermer la modale si on clique en dehors de la modale
+      window.addEventListener('click', function (event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      });
+    });
+  </script>
+  
+    
 </body>
 </html>

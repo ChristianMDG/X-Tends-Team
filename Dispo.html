@@ -7,95 +7,7 @@
     <title>Gestion de Bibliothèque</title>
     <link rel="stylesheet" href="Dispo.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* Styles pour le modal */
-        .modal {
-            display: none;
-            /* Masquer le modal par défaut */
-            position: fixed;
-            z-index: 1000;
-            /* S'assurer qu'il est au-dessus du contenu */
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.5);
-            /* Fond semi-transparent */
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background-color: #fff;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 500px;
-            position: relative;
-            border-radius: 8px;
-            /* Coins arrondis */
-        }
-
-        .close-button {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .close-button:hover,
-        .close-button:focus {
-            color: #000;
-            text-decoration: none;
-        }
-
-        button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            margin: 10px 5px;
-            cursor: pointer;
-            border-radius: 5px;
-            /* Coins arrondis pour les boutons */
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        button.cancel {
-            background-color: #6c757d;
-        }
-
-        button.cancel:hover {
-            background-color: #5a6268;
-        }
-
-        /* Loader */
-        .loader {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100px;
-            /* Hauteur pour centrer le loader */
-        }
-
-        /* Toast notification */
-        .toast {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #333;
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 5px;
-            z-index: 1000;
-        }
-    </style>
+    
 </head>
 
 <body>
@@ -174,15 +86,24 @@
                             data.forEach(book => {
                                 const bookElement = document.createElement("div");
                                 bookElement.classList.add("book-item");
-                                const coverImage = book.coverImage ?
-                                    `<img src="${book.coverImage}" alt="${book.titre}" class="book-cover">` :
+
+                                // Afficher l'image de couverture
+                                const coverImage = book.imageUrl ?
+                                    `<img src="${book.imageUrl}" alt="${book.titre}" class="book-cover">` :
                                     `<div class="book-cover">
                                         <div class="book-title"><i class="fas fa-book book-icon"></i></div>
                                     </div>`;
+
+                                // Afficher la description du livre
+                                const bookDescription = book.description ?
+                                    `<p class="book-description">${book.description}</p>` :
+                                    '';
+
                                 bookElement.innerHTML = `
                                     ${coverImage}
                                     <div class="book-details">
                                         <h4 class="book-title">${book.titre}</h4>
+                                        ${bookDescription}
                                         <button class="borrow-button" data-book-id="${book.id}">Emprunter</button>
                                     </div>
                                 `;
@@ -226,29 +147,20 @@
                         displayAvailableBooks();
                     })
                     .catch(error => {
-                        console.error("Erreur lors de l'emprunt:", error);
+                        console.error("Erreur lors de l'emprunt du livre:", error);
                         displayToast("Erreur lors de l'emprunt du livre.");
-                        closeModal(); // Fermer le modal même en cas d'erreur
                     });
             });
 
-            // Toast notification
             function displayToast(message) {
                 const toast = document.createElement("div");
                 toast.classList.add("toast");
-                toast.innerText = message;
+                toast.textContent = message;
                 document.body.appendChild(toast);
                 setTimeout(() => {
                     toast.remove();
                 }, 3000);
             }
-
-            // Fermer le modal lorsqu'on clique à l'extérieur du contenu
-            window.onclick = function (event) {
-                if (event.target == modal) {
-                    closeModal();
-                }
-            };
         });
     </script>
 </body>

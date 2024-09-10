@@ -127,65 +127,8 @@ body::before {
   }
 }
 
-/* Modal styling */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed;
-  z-index: 1000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.6); /* Un peu plus foncé pour un effet dramatique */
-  padding-top: 60px;
-  transition: opacity 0.3s ease-in-out; /* Transition douce */
-}
-
-.modal-content {
-  background-color: #f0f4f8; /* Couleur douce en accord avec le thème principal */
-  margin: 5% auto;
-  padding: 20px;
-  border-radius: 12px; /* Coins arrondis */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Ombre légère pour profondeur */
-  width: 80%;
-  max-width: 600px; /* Légèrement plus large */
-  text-align: center; /* Centrer le contenu */
-}
-
-.close {
-  color: #333; /* Couleur plus contrastée pour être en harmonie avec le design */
-  float: right;
-  font-size: 24px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: #555; /* Couleur plus douce au survol */
-  text-decoration: none;
-  cursor: pointer;
-}
-
-#bookImage {
-  width: 100%; /* Uniformiser la taille des images */
-  height: 300px; /* Hauteur fixe pour que toutes les images soient de la même taille */
-  object-fit: cover; /* S'assurer que l'image s'adapte bien au cadre */
-  border-radius: 8px; /* Coins arrondis pour l'image */
-  margin-bottom: 15px;
-}
-
-.modal h2 {
-  color: #007bff; /* Bleu du thème principal */
-  margin-bottom: 10px;
-}
-
-.modal p {
-  color: #555; /* Texte doux en accord avec le thème */
-  line-height: 1.6;
-}
-
 section {
+ 
   padding: 50px;
   margin: 20px 0;
   border: 0px solid #ddd;
@@ -397,4 +340,7 @@ section {
   .submenu:hover .sub-menu {
     display: none;
   }
+}
+#container{
+  padding: 10vh;
 }
