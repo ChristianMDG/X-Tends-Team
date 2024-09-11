@@ -10,6 +10,7 @@ body {
   padding: 0;
   outline: none;
   animation: fadeIn 1.5s ease-in-out;
+  height: 115vh;
 }
 
 @keyframes fadeIn {

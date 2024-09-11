@@ -98,10 +98,6 @@ body::before {
   cursor: pointer;
 }
 
-.menu-icon::before {
-  content: "☰"; /* icône hamburger */
-}
-
 /* Styles pour les écrans plus petits */
 @media (max-width: 768px) {
   .menu {
@@ -186,8 +182,6 @@ body::before {
 }
 
 section {
-  padding: 50px;
-  margin: 20px 0;
   border: 0px solid #ddd;
 }
 
@@ -198,7 +192,6 @@ section {
 
 .carrousel-section h1 {
   text-align: center;
-  margin-top: 40px;
   font-size: 38px;
   color: #1e90ff;
 }
@@ -397,4 +390,19 @@ section {
   .submenu:hover .sub-menu {
     display: none;
   }
+}
+#container {
+ 
+  padding: 20vh;
+}
+
+button {
+  margin-top: 10px;
+  padding: 10px;
+  border: 2px solid #1e90ff;
+  background-color: transparent;
+  color: #1e90ff;
+  border-radius: 50px;
+  cursor: pointer;
+  animation: fadeIn 2s ease-in-out;
 }

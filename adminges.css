@@ -128,6 +128,7 @@ h2 {
   max-width: 80rem;
   position: relative;
   top: 0.6rem;
+  flex: 1; /* Permet au wrapper de prendre tout l'espace disponible */
 }
 
 .cols {
@@ -243,7 +244,10 @@ h2 {
   margin: 0 auto;
   bottom: -0.75rem;
 }
-
+a{
+  text-decoration: none;
+  font-size: 1.6rem;
+}
 @media screen and (max-width: 64rem) {
   .col {
     width: calc(33.333333% - 2rem);
@@ -316,3 +320,130 @@ a {
       font-size: 1.2em;
   }
 }
+
+/* Button */
+.btn {
+
+  padding: 15px;
+  border: none;
+  background-color: #004080;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  margin: 20px auto; /* Centre le bouton horizontalement */
+}
+
+/* Hover effect for button */
+.btn:hover {
+  background-color: #0059b3;
+}
+
+/* Loader */
+.loader {
+  display: none; /* Initialement masqué */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.loader::after {
+  content: "";
+  border: 8px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 8px solid #004080;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+}
+
+/* Animation de rotation du loader */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .container {
+      padding: 30px;
+  }
+}
+            /* Modal Styles */
+            .modal {
+              display: none;
+              /* Hidden by default */
+              position: fixed;
+              z-index: 1;
+              /* Sit on top */
+              left: 0;
+              top: 0;
+              width: 100%;
+              height: 100%;
+              overflow: auto;
+              /* Enable scroll if needed */
+              background-color: rgb(0, 0, 0);
+              /* Fallback color */
+              background-color: rgba(0, 0, 0, 0.4);
+              /* Black w/ opacity */
+            }
+      
+            .modal-content {
+              background-color: #fefefe;
+              margin: 15% auto;
+              /* 15% from the top and centered */
+              padding: 20px;
+              border: 1px solid #888;
+              width: 80%;
+              /* Could be more or less, depending on screen size */
+              max-width: 500px;
+              /* Max width for larger screens */
+              border-radius: 10px;
+            }
+      
+            .close {
+              color: #aaa;
+              float: right;
+              font-size: 28px;
+              font-weight: bold;
+            }
+      
+            .close:hover,
+            .close:focus {
+              color: black;
+              text-decoration: none;
+              cursor: pointer;
+            }
+      
+            button {
+              background-color:var(--highlight-color);
+              /* Green */
+              border: none;
+              color: white;
+              padding: 10px 20px;
+              text-align: center;
+              text-decoration: none;
+              display: inline-block;
+              font-size: 16px;
+              margin: 10px 5px;
+              cursor: pointer;
+              border-radius: 5px;
+            }
+      
+            button.cancel {
+              background-color: #f44336;
+              /* Red */
+            }
+      
+            button.confirm {
+              background-color: var(--highlight-color);
+              /* Green */
+            }

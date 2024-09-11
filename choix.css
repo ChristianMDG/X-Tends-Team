@@ -1,0 +1,142 @@
+/* Réinitialisation des marges et centrage du contenu */
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Prend toute la hauteur de la fenêtre */
+    position: relative;
+}
+
+/* Appliquer le background avec effet sombre et flou */
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(./images/book.jpg); /* Chemin de l'image de fond */
+    background-size: cover; /* Assure que l'image couvre tout l'écran */
+    background-position: center; /* Centrer l'image */
+    filter: blur(3px); /* Applique un effet de flou */
+    z-index: -2; /* Met l'image derrière le contenu */
+}
+
+/* Superposition sombre */
+body::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Couleur noire semi-transparente pour obscurcir le fond */
+    z-index: -1; /* Met cette couche au-dessus de l'image mais derrière le contenu */
+}
+
+/* Conteneur pour le contenu principal */
+.container {
+    position: relative;
+    text-align: center;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.5); /* Fond transparent pour le conteneur */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Ombre portée pour un effet 3D */
+    max-width: 600px; /* Largeur maximale du conteneur */
+    width: 90%; /* Largeur en fonction de l'écran */
+    z-index: 1; /* Assure que le contenu est au-dessus du fond */
+    margin: 10px; /* Espace pour éviter que le conteneur touche les bords */
+}
+
+
+/* Boutons */
+.btn {
+    width: 50%; /* Boutons prennent toute la largeur du conteneur */
+    padding: 15px;
+    margin: 10px 0;
+    border: none;
+    background-color: #00bfff; /* Bleu clair */
+    color: white;
+    font-size: 1.1rem; /* Police adaptée pour les différentes tailles d'écran */
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+/* Effet survol pour les boutons */
+.btn:hover {
+    background-color: #0059b3; /* Couleur bleu plus foncé au survol */
+}
+
+/* Logo */
+.logo img {
+    width: 100px; /* Ajuste la taille du logo */
+    height: auto; /* Maintient les proportions */
+    margin-bottom: 0px;
+}
+
+/* Ajustement du titre à l'intérieur du conteneur */
+.welcome-title {
+    font-size: 2rem;
+    color: #00bfff;
+    margin-bottom: 20px;
+}
+
+/* MEDIA QUERIES POUR LES PETITS APPAREILS */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 1.8rem; /* Réduit légèrement la taille du texte */
+    }
+
+    .btn {
+        font-size: 1rem; /* Réduit la taille des boutons sur petits écrans */
+    }
+
+    .logo img {
+        width: 60px; /* Logo plus petit sur les petits appareils */
+    }
+}
+
+@media (max-width: 480px) {
+    h2 {
+        font-size: 1.5rem; /* Plus petite taille de titre pour les très petits écrans */
+    }
+
+    .btn {
+        font-size: 0.9rem; /* Ajustement des boutons pour les très petits écrans */
+        padding: 12px;
+    }
+
+    .logo img {
+        width: 50px; /* Encore plus petit pour s'adapter aux très petits appareils */
+    }
+}
+
+/* Bouton de retour */
+.back-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: rgba(0, 0, 0, 0.6); /* Bouton discret avec fond sombre */
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    z-index: 2; /* Pour être au-dessus du contenu */
+}
+
+/* Effet de survol du bouton de retour */
+.back-btn:hover {
+    background-color: rgba(0, 0, 0, 0.8); /* Rend le bouton plus visible au survol */
+}

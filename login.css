@@ -1,0 +1,198 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+}
+
+/* Appliquer le background avec effet sombre et flou */
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(./images/book.jpg);
+    background-size: cover;
+    background-position: center;
+    filter: blur(2px); /* Applique le flou */
+    z-index: -2; /* Met derrière le contenu */
+}
+
+/* Superposition sombre */
+body::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Couleur noire avec opacité */
+    z-index: -1; /* Place cette couche juste au-dessus de l'image */
+}
+
+/* Conteneur pour le formulaire */
+.container {
+    text-align: center;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.7); /* Assombrit le fond du formulaire pour le rendre plus lisible */
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    max-width: 400px;
+    width: 90%; /* Assure que le conteneur s'ajuste à l'écran */
+    z-index: 1; /* S'assure que le formulaire est au-dessus de la vidéo */
+}
+
+/* Titre */
+h2 {
+    margin-bottom: 20px;
+    font-size: 38px;
+    color: #00bfff;
+}
+
+/* Formulaire */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Champs de saisie */
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    border: 2px solid #004080;
+    border-radius: 5px;
+    background: #fff;
+    color: #000;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+    outline: none;
+    border-color: #00bfff;
+}
+
+/* Loader */
+#loader {
+    display: none; /* Initialement masqué */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+#loader::after {
+    content: "";
+    border: 8px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 8px solid #004080;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+}
+/* Boutons */
+.btn {
+    width: 50%;
+    padding: 15px;
+    margin: 10px 0;
+    border: none;
+    background-color: #00bfff;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #0059b3;
+}
+
+/* Lien oublié mot de passe */
+.forgot-password a {
+    color: #00bfff;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.forgot-password a:hover {
+    text-decoration: underline;
+}
+
+/* Message d'erreur */
+.error {
+    color: #ff6f6f;
+    margin-top: 10px;
+}
+
+
+/* Animation de rotation du loader */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Media Queries pour améliorer la réactivité */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px; /* Réduit le padding pour les petits écrans */
+        max-width: 90%; /* Ajuste la largeur du conteneur pour les petits écrans */
+    }
+
+    h2 {
+        font-size: 24px; /* Réduit la taille de la police pour les petits écrans */
+    }
+
+    input[type="email"],
+    input[type="password"] {
+        font-size: 14px; /* Réduit la taille de la police pour les petits écrans */
+        padding: 12px; /* Réduit le padding pour les petits écrans */
+    }
+
+    .btn {
+        font-size: 16px; /* Réduit la taille de la police pour les petits écrans */
+        padding: 12px; /* Réduit le padding pour les petits écrans */
+    }
+
+    .forgot-password a {
+        font-size: 12px; /* Réduit la taille de la police pour les petits écrans */
+    }
+}
+
+/* Bouton de retour */
+.back-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: rgba(0, 0, 0, 0.6); /* Bouton discret avec fond sombre */
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    z-index: 2; /* Pour être au-dessus du contenu */
+}
+
+/* Effet de survol du bouton de retour */
+.back-btn:hover {
+    background-color: rgba(0, 0, 0, 0.8); /* Rend le bouton plus visible au survol */
+}

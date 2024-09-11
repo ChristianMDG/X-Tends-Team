@@ -5,39 +5,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestion de Bibliothèque</title>
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="livre.css">
     <link rel="stylesheet" href="Chargement.css">
-    
 </head>
 
 <body>
-    <!-- Vidéo de fond -->
     <video autoplay muted loop class="background-video">
         <source src="./videos/reading.mp4" type="video/mp4">
         Votre navigateur ne supporte pas les vidéos HTML5.
     </video>
 
-    <!-- En-tête -->
     <header class="container mt-4">
         <div class="d-flex justify-content-between align-items-center">
             <div class="logo">
-                <img src="./images/logo.png" alt="logo" width="100">
+                <a href="./adminges.html">
+                    <img src="./images/logo.png" alt="logo" width="100">
+                </a>
             </div>
             <div class="header-title text-white">
                 <h1>Bienvenue à la Bibliothèque</h1>
                 <p>Gérez vos livres avec simplicité et efficacité.</p>
             </div>
-            <!-- Icône de menu pour afficher les options -->
             <div class="menu-icon text-white" onclick="toggleMenu()" style="font-size: 30px; cursor: pointer;">
                 &#9776;
             </div>
         </div>
     </header>
 
-    <!-- Navbar avec options -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="navbar" style="display: none;">
         <div class="container">
             <a class="nav-link" href="#" onclick="showSection('formSection')"
@@ -47,13 +42,39 @@
         </div>
     </nav>
 
-    <!-- Section pour les messages d'alerte -->
     <div class="container mt-3">
         <div id="alertMessage" class="alert d-none" role="alert"></div>
     </div>
 
-    <!-- Formulaire pour ajouter/modifier un livre -->
-    <div id="formSection" class="container mt-4 section">
+    <!-- La section Liste des Livres visible par défaut -->
+    <div id="livresSection" class="container mt-4 section">
+        <div class="card">
+            <div class="card-header">
+                <h2>Liste des Livres</h2>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped" id="livresTable">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Titre</th>
+                            <th>ISBN</th>
+                            <th>Auteur</th>
+                            <th>Disponible</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Les livres seront affichés ici dynamiquement -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section Ajouter un Livre masquée par défaut -->
+    <div id="formSection" class="container mt-4 section d-none">
         <div class="card">
             <div class="card-header">
                 <h2 id="formTitle">Ajouter un Livre</h2>
@@ -72,8 +93,8 @@
                             978-3-16-148410-0 (ISBN-13) ou 0-306-40615-2 (ISBN-10).</small>
                     </div>
                     <div class="form-group">
-                        <label for="datePublication">Date de Publication :</label>
-                        <input type="date" id="datePublication" class="form-control" required>
+                        <label for="auteur">Auteur :</label>
+                        <input type="text" id="auteur" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label for="disponible">Disponible :</label>
@@ -87,8 +108,11 @@
                         <textarea id="description" class="form-control" rows="3"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="imageUrl">URL de l'image :</label>
-                        <input type="url" id="imageUrl" class="form-control" placeholder="URL de l'image">
+                        <label for="imageFile">Image :</label>
+                        <input type="file" id="imageFile" class="form-control" accept="image/*"
+                            onchange="previewImage(event)">
+                        <img id="imagePreview" src="" alt="Image Preview"
+                            style="display: none; width: 100px; height: auto; margin-top: 10px;">
                     </div>
                     <button type="submit" id="submitBtn" class="btn btn-primary">Ajouter Livre</button>
                     <button type="button" class="btn btn-secondary" onclick="resetForm()">Annuler</button>
@@ -97,56 +121,17 @@
         </div>
     </div>
 
-    <!-- Section pour la liste des livres -->
-    <div id="livresSection" class="container mt-4 section d-none">
-        <div class="card">
-            <div class="card-header">
-                <h2>Liste des Livres</h2>
-            </div>
-            <div class="card-body">
-                <table class="table table-striped" id="livresTable">
-                    <thead>
-                        <tr>
-                            <th>Titre</th>
-                            <th>ISBN</th>
-                            <th>Date de Publication</th>
-                            <th>Disponible</th>
-                            <th>Image</th>
-                            <th>Description</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Les livres seront affichés ici dynamiquement -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    <div class="text-center mt-3">
-        <a href="./adminges.html">
-            <button class="btn btn-outline-light">Come Back</button>
-        </a>
-    </div>
-
-    <!-- Spinner de chargement -->
     <div id="loading" class="spinner" style="display:none;"></div>
 
-    <!-- Inclusion de jQuery, Popper.js et Bootstrap JS pour les fonctionnalités dynamiques -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-    <!-- Inclusion d'Axios pour les requêtes HTTP -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="chargement.js"></script>
-
     <script>
         const API_BASE_URL = "http://127.0.0.1:8080/api";
         let livreEnModification = null; // Variable pour stocker l'ID du livre en cours de modification
 
-        // Fonction pour formater l'ISBN
         function formatIsbn(isbn) {
             isbn = isbn.replace(/\D/g, '');
             if (isbn.length === 13) {
@@ -178,136 +163,158 @@
             document.getElementById("formTitle").innerText = "Ajouter un Livre";
             document.getElementById("submitBtn").innerText = "Ajouter Livre";
             livreEnModification = null;
+            document.getElementById("imagePreview").style.display = 'none'; // Hide image preview
         }
 
         document.getElementById("livreForm").addEventListener("submit", function (event) {
             event.preventDefault();
+
+            // Récupération des données du formulaire
             const titre = document.getElementById("titre").value;
             const isbn = document.getElementById("isbn").value;
-            const datePublication = document.getElementById("datePublication").value;
+            const auteur = document.getElementById("auteur").value;
             const disponible = document.getElementById("disponible").value === "true";
             const description = document.getElementById("description").value;
-            const imageUrl = document.getElementById("imageUrl").value;
+            const imageFile = document.getElementById("imageFile").files[0];
 
-            const data = {
-                titre,
-                isbn,
-                datePublication,
-                disponible,
-                description,
-                imageUrl
-            };
-
-            if (livreEnModification) {
-                // Modifier un livre existant
-                axios.put(`${API_BASE_URL}/livres/${livreEnModification}`, data)
-                    .then(response => {
-                        showAlert("Livre modifié avec succès", "success");
-                        resetForm();
-                        loadLivres();
-                    })
-                    .catch(error => {
-                        console.error("Erreur lors de la modification du livre:", error);
-                        showAlert("Erreur lors de la modification du livre", "danger");
-                    });
-            } else {
-                // Ajouter un nouveau livre
-                axios.post(`${API_BASE_URL}/livres`, data)
-                    .then(response => {
-                        showAlert("Livre ajouté avec succès", "success");
-                        resetForm();
-                        loadLivres();
-                    })
-                    .catch(error => {
-                        console.error("Erreur lors de l'ajout du livre:", error);
-                        showAlert("Erreur lors de l'ajout du livre", "danger");
-                    });
+            // Création de l'objet FormData pour l'upload de fichier
+            const formData = new FormData();
+            formData.append("titre", titre);
+            formData.append("isbn", isbn);
+            formData.append("auteur", auteur);
+            formData.append("disponible", disponible);
+            formData.append("description", description);
+            if (imageFile) {
+                formData.append("image", imageFile);
             }
+
+            const url = livreEnModification ? `${API_BASE_URL}/livres/${livreEnModification}` : `${API_BASE_URL}/livres`;
+            const method = livreEnModification ? "put" : "post";
+
+            axios({
+                method: method,
+                url: url,
+                data: formData,
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+                .then(function (response) {
+                    afficherLivres();
+                    resetForm();
+                    showAlert("success", livreEnModification ? "Livre modifié avec succès !" : "Livre ajouté avec succès !");
+                })
+                .catch(function (error) {
+                    console.error("Erreur lors de l'ajout/modification du livre :", error);
+                    showAlert("danger", "Une erreur est survenue. Veuillez réessayer.");
+                });
         });
 
-        function loadLivres() {
+        function showAlert(type, message) {
+            const alertMessage = document.getElementById("alertMessage");
+            alertMessage.className = `alert alert-${type}`;
+            alertMessage.innerText = message;
+            alertMessage.classList.remove("d-none");
+            setTimeout(() => {
+                alertMessage.classList.add("d-none");
+            }, 3000);
+        }
+
+        function previewImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const imagePreview = document.getElementById("imagePreview");
+                    imagePreview.src = e.target.result;
+                    imagePreview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                document.getElementById("imagePreview").style.display = 'none';
+            }
+        }
+
+        function afficherLivres() {
             axios.get(`${API_BASE_URL}/livres`)
-                .then(response => {
+                .then(function (response) {
                     const livres = response.data;
                     const tableBody = document.getElementById("livresTable").getElementsByTagName("tbody")[0];
-                    tableBody.innerHTML = "";
+                    tableBody.innerHTML = ""; // Clear existing rows
 
                     livres.forEach(livre => {
-                        const row = document.createElement("tr");
+                        const imageUrl = livre.imageUrl ? `http://localhost:8080/images/{{livre.imageUrl}}` : 'default-image.png';
 
+                        const titre = livre.titre || 'Non spécifié';
+                        const isbn = livre.isbn || 'Non spécifié';
+                        const auteur = livre.auteur || 'Non spécifié';
+                        const disponible = livre.disponible !== undefined ? (livre.disponible ? 'Oui' : 'Non') : 'Non spécifié';
+                        const description = livre.description || 'Non spécifié';
+
+                        const row = document.createElement("tr");
                         row.innerHTML = `
-                            <td>${livre.titre}</td>
-                            <td>${livre.isbn}</td>
-                            <td>${livre.datePublication}</td>
-                            <td>${livre.disponible ? "Oui" : "Non"}</td>
-                            <td><img src="${livre.imageUrl}" alt="${livre.titre}" style="width: 50px; height: 50px;"></td>
-                            <td>${livre.description}</td>
+                            <td><img src="${imageUrl}" alt="Image" class="default-image"></td>
+                            <td>${titre}</td>
+                            <td>${isbn}</td>
+                            <td>${auteur}</td>
+                            <td>${disponible}</td>
+                            <td>${description}</td>
                             <td>
                                 <button class="btn btn-warning btn-sm" onclick="editLivre(${livre.id})">Modifier</button>
                                 <button class="btn btn-danger btn-sm" onclick="deleteLivre(${livre.id})">Supprimer</button>
                             </td>
                         `;
-
                         tableBody.appendChild(row);
                     });
                 })
-                .catch(error => {
-                    console.error("Erreur lors du chargement des livres:", error);
+                .catch(function (error) {
+                    console.error("Erreur lors de la récupération des livres :", error);
                 });
         }
 
         function editLivre(id) {
             axios.get(`${API_BASE_URL}/livres/${id}`)
-                .then(response => {
+                .then(function (response) {
                     const livre = response.data;
-
                     document.getElementById("titre").value = livre.titre;
                     document.getElementById("isbn").value = livre.isbn;
-                    document.getElementById("datePublication").value = livre.datePublication;
+                    document.getElementById("auteur").value = livre.auteur;
                     document.getElementById("disponible").value = livre.disponible ? "true" : "false";
                     document.getElementById("description").value = livre.description;
-                    document.getElementById("imageUrl").value = livre.imageUrl;
-
                     document.getElementById("formTitle").innerText = "Modifier un Livre";
                     document.getElementById("submitBtn").innerText = "Modifier Livre";
-                    livreEnModification = id;
+                    livreEnModification = livre.id;
 
-                    showSection('formSection');
+                    if (livre.imageUrl) {
+                        document.getElementById("imagePreview").src = livre.imageUrl;
+                        document.getElementById("imagePreview").style.display = 'block';
+                    } else {
+                        document.getElementById("imagePreview").style.display = 'none';
+                    }
+
+                    showSection("formSection");
                 })
-                .catch(error => {
-                    console.error("Erreur lors de la récupération du livre:", error);
-                    showAlert("Erreur lors de la récupération du livre", "danger");
+                .catch(function (error) {
+                    console.error("Erreur lors de la récupération du livre :", error);
                 });
         }
 
         function deleteLivre(id) {
             if (confirm("Êtes-vous sûr de vouloir supprimer ce livre ?")) {
                 axios.delete(`${API_BASE_URL}/livres/${id}`)
-                    .then(response => {
-                        showAlert("Livre supprimé avec succès", "success");
-                        loadLivres();
+                    .then(function (response) {
+                        afficherLivres();
+                        showAlert("success", "Livre supprimé avec succès !");
                     })
-                    .catch(error => {
-                        console.error("Erreur lors de la suppression du livre:", error);
-                        showAlert("Erreur lors de la suppression du livre", "danger");
+                    .catch(function (error) {
+                        console.error("Erreur lors de la suppression du livre :", error);
+                        showAlert("danger", "Une erreur est survenue. Veuillez réessayer.");
                     });
             }
         }
 
-        function showAlert(message, type) {
-            const alertMessage = document.getElementById("alertMessage");
-            alertMessage.className = `alert alert-${type}`;
-            alertMessage.textContent = message;
-            alertMessage.classList.remove("d-none");
-
-            setTimeout(() => {
-                alertMessage.classList.add("d-none");
-            }, 3000);
-        }
-
-        // Initialisation
-        $(document).ready(function () {
-            loadLivres();
+        document.addEventListener("DOMContentLoaded", function () {
+            afficherLivres();
         });
     </script>
 </body>

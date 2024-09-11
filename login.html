@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <!-- Lien vers le fichier CSS -->
+    <link rel="stylesheet" href="login.css">
+    <!-- Lien vers le favicon -->
+    <link rel="icon" href="./images/favicon.png" type="image/x-icon"> <!-- Assurez-vous que le chemin est correct -->
+
+    <style>
+        /* Styles pour la modale de bienvenue */
+        .modal {
+            display: none;
+            /* Masqué par défaut */
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Fond transparent */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-content h2 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .modal-content p {
+            margin-top: 10px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Bouton de retour -->
+    <a href="javascript:history.back()" class="back-btn">← Return</a>
+    <!-- Lien JavaScript pour revenir à la page précédente -->
+
+    <!-- Conteneur pour le formulaire -->
+    <div class="container">
+        <h2>Admin Login</h2>
+        <form id="loginForm">
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button class="btn" type="submit">Login</button>
+            <p class="forgot-password"><a href="#" onclick="forgotPassword()">Forgot password?</a></p>
+            <p class="error" id="error-msg"></p> <!-- Placeholder pour messages d'erreur -->
+        </form>
+    </div>
+
+    <!-- Fenêtre modale pour le message de bienvenue -->
+    <div id="welcomeModal" class="modal">
+        <div class="modal-content">
+            <h2>Welcome!</h2>
+            <p>You have successfully logged in.</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", function (event) {
+            event.preventDefault(); // Empêche la soumission normale du formulaire
+
+            // Récupération des valeurs email et mot de passe
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const errorMsg = document.getElementById("error-msg");
+
+            // Réinitialise le message d'erreur
+            errorMsg.innerHTML = "";
+
+            // Validation de l'email
+            if (!email.includes("@")) {
+                errorMsg.innerHTML = "Please enter a valid email address containing '@'.";
+                return;
+            }
+
+            // Validation du mot de passe
+            if (password.length < 6) {
+                errorMsg.innerHTML = "Password must be at least 6 characters long.";
+                return;
+            }
+
+            // Simulation de la validation des informations de connexion
+            if (email && password) {
+                // Afficher la modale de bienvenue
+                const modal = document.getElementById("welcomeModal");
+                modal.style.display = "flex"; // Affiche la modale
+
+                // Faire disparaître la modale après 3 secondes
+                setTimeout(function () {
+                    modal.style.display = "none";
+                    // Redirection après la fermeture de la modale
+                    window.location.href = "./adminges.html";
+                }, 3000);
+            } else {
+                // Affiche un message d'erreur en cas de login incorrect
+                errorMsg.innerHTML = "Invalid login. Please check your email and password.";
+            }
+        });
+
+        // Fonction pour simuler la récupération de mot de passe
+        function forgotPassword() {
+            const email = document.getElementById("email").value;
+
+            if (!email) {
+                alert("Please enter your email address to reset your password.");
+            } else if (!email.includes("@")) {
+                alert("Please enter a valid email address.");
+            } else {
+                // Simule l'envoi d'un email pour la réinitialisation de mot de passe
+                alert("A password reset link has been sent to your email: " + email);
+            }
+        }
+    </script>
+</body>
+
+</html>

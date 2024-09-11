@@ -1,175 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="choice.css">
+    <title>Manage</title>
+    <link rel="stylesheet" href="adminges.css">
+    <link rel="icon" href="./images/favicon.png" type="image/x-icon">
 </head>
-<body>
-    <style>
-        /* Styles pour le loader */
-        .loader-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: rgba(255, 255, 255, 0.9);
-            z-index: 9999;
-        }
-    
-        .loader {
-            border: 8px solid #f3f3f3;
-            border-radius: 50%;
-            border-top: 8px solid #3498db;
-            width: 60px;
-            height: 60px;
-            animation: spin 1s linear infinite;
-        }
-    
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-    
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-    
-        /* Masquer le contenu pendant le chargement */
-        #content {
-            display: none;
-        }
-    </style>
-    <header>
-        <!-- Loader -->
-        <div id="loader" class="loader-container">
-            <div class="loader"></div>
-        </div>
 
+<body>
+ 
+  
+    <header>
         <!-- Menu icon -->
         <div class="menu-icon" onclick="toggleMenu()">
             <div></div>
             <div></div>
             <div></div>
         </div>
-    <div id="container">
-        <!-- Navbar -->
-        
-        <nav class="navbar" id="navbar">
-            <a href="./choice.html">Home</a>
-            <a href="./livre.html">Library</a>
-            <a href="./Utilisateur.html">User</a>
-            <a href="./Emprunt.html">Emprunt</a>
-            <a href="./Auteur.html">Author</a>
-        </nav>
-        <div class="logo">
-            <img src="./images/logo.png" alt="logo">
-        </div></div>
-        
+        <div id="container">
+            <!-- Navbar -->
+            <nav class="navbar" id="navbar">
+                <a href="./choix.html">Home</a>
+                <a href="./livre.html">Library</a>
+                <a href="./Emprunt.html">Emprunt</a>
+                <a onclick="openSignOutModal()">Sign Out</a>
+            </nav>
+            <div onclick="window.history.back()">
+                <img src="./images/logo.png" alt="Retour à l'accueil">
+            </div>
     </header>
-    <!--text animate--> 
+    <!-- Text animate -->
     <h2 data-text="I want to manage my:">I want to manage my:</h2>
-    <!--text animate-->
-
-    <!--card animate-->
+    <!-- Text animate -->
+    <!-- Card animate -->
     <div class="wrapper">
-        <!--<h1>I want to manage my:</h1>-->
         <div class="cols">
-                  <div class="col" ontouchstart="this.classList.toggle('hover');">
-                      <div class="container">
-                          <div class="front" style="background-image: url(./images/book5.jpg)">
-                              <div class="inner">
-                                  <p>Library</p>
-                    <!--<span>Me</span>-->
-                              </div>
-                          </div>
-                          <div class="back">
-                              <div class="inner">
-                                <a href="./livre.html"><p>Library</p></a>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  
-                  <div class="col" ontouchstart="this.classList.toggle('hover');">
-                      <div class="container">
-                          <div class="front" style="background-image: url(./images/book6.jpg)">
-                              <div class="inner">
-                                <p>User</p>
-                      <!--<span>Me</span>-->
-                              </div>
-                          </div>
-                          <div class="back">
-                           <div class="inner">
-                            <a href="./Utilisateur.html"><p>User</p></a>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-
-                  <div class="col" ontouchstart="this.classList.toggle('hover');">
-                      <div class="container">
-                          <div class="front" style="background-image: url(./images/book3.jpg)">
-                              <div class="inner">
-                                  <p>Emprunt</p>
-                      <!--<span>Me</span>-->
-                              </div>
-                          </div>
-                          <div class="back">
-                              <div class="inner">
-                                  <a href="./Emprunt.html"><p>Emprunt</p></a>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="col" ontouchstart="this.classList.toggle('hover');">
-                    <div class="container">
-                        <div class="front" style="background-image: url(./images/book7.jpg)">
-                            <div class="inner">
-                                <p>Author</p>
-                     <!--<span>Me</span>-->
-                            </div>
+            <div class="col" ontouchstart="this.classList.toggle('hover');">
+                <div class="container">
+                    <div class="front" style="background-image: url(./images/book5.jpg)">
+                        <div class="inner">
+                            <p>Library</p>
                         </div>
-                        <div class="back">
-                            <div class="inner">
-                                <a href="./Auteur.html"><p>Author</p></a>
-                            </div>
+                    </div>
+                    <div class="back">
+                        <div class="inner">
+                            <a href="./livre.html">
+                                <p>Library</p>
+                            </a>
                         </div>
                     </div>
                 </div>
-              </div>
-       </div>
-        <!--card animate-->
-
-    <!-- Bouton de retour à l'accueil -->
-    <div class="text-center mt-3">
-        <a href="./choice.html">
-            <button class="btn btn-outline-light">Come Back </button>
-        </a>
+            </div>
+            <div class="col" ontouchstart="this.classList.toggle('hover');">
+                <div class="container">
+                    <div class="front" style="background-image: url(./images/book3.jpg)">
+                        <div class="inner">
+                            <p>Emprunt</p>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="inner">
+                            <a href="./Emprunt.html">
+                                <p>Emprunt</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-        <!-- JavaScript pour le menu toggle -->
-<script>
-    function toggleMenu() {
-        var navbar = document.getElementById("navbar");
-        navbar.classList.toggle("show");
-    }
-      // Fonction pour simuler le chargement
-        window.addEventListener('load', function () {
-            // Simule le chargement des données
-            setTimeout(function () {
-                // Cache le loader
-                document.getElementById('loader').style.display = 'none';
-                // Affiche le contenu
-                document.getElementById('content').style.display = 'block';
-            }, 300); // 2 secondes de chargement simulé
-        });
+    <!-- Modal for Sign Out Confirmation -->
+    <div id="signOutModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeSignOutModal()">&times;</span>
+            <h3>Are you sure you want to sign out?</h3>
+            <button onclick="confirmSignOut()">Yes, Sign Out</button>
+            <button onclick="closeSignOutModal()">Cancel</button>
+        </div>
+    </div>
+
+    <!-- JavaScript for the menu toggle and modal -->
+    <script>
+        function toggleMenu() {
+            var navbar = document.getElementById("navbar");
+            navbar.classList.toggle("show");
+        }
+
+        function openSignOutModal() {
+            document.getElementById("signOutModal").style.display = "block";
+        }
+
+        function closeSignOutModal() {
+            document.getElementById("signOutModal").style.display = "none";
+        }
+
+        function confirmSignOut() {
+            // Simulate the sign-out process and redirect
+            window.location.href = './choix.html';
+        }
     </script>
-</script>
 </body>
+
 </html>

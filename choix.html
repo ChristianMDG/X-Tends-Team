@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Access</title>
+    <link rel="stylesheet" href="choix.css"> <!-- Lien vers le fichier CSS externe -->
+    <!-- Lien vers le favicon -->
+    <link rel="icon" href="./images/favicon.png" type="image/x-icon"> <!-- Assurez-vous que le chemin est correct -->
+</head>
+<body>
+   
+    <!-- Bouton de retour -->
+    <a href="javascript:history.back()" class="back-btn">← Return</a> <!-- Lien JavaScript pour revenir à la page précédente -->
+
+    <!-- Conteneur principal pour la disposition -->
+    <div class="container">
+        <!-- Section de gauche : logo et description -->
+        <div class="left-section">
+            <!-- Logo de la bibliothèque -->
+            <div class="logo">
+                <img src="./images/logo.png" alt="Library Logo">
+            </div>
+             <!-- Titre -->
+             <h2 class="welcome-title">Welcome to X-Tend Library</h2>
+            <!-- Description -->
+            <div class="description">
+                <h3>Discover Thousands of Books</h3>
+                <p>Our library offers a vast collection of books from various genres, ready for you to borrow. X-Tend Library is the perfect place for you. Join us and dive into the world of knowledge!</p>
+            </div>
+        </div>
+
+        <!-- Section de droite : Choix du rôle -->
+        <div class="right-section">
+            <div class="role-choice">
+                <h3>Select Your Role</h3>
+                <button class="btn" onclick="window.location.href='./login.html'">Admin</button>
+                <button class="btn" onclick="window.location.assign('./livreslide.html')">User</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

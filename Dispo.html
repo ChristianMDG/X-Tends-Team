@@ -11,6 +11,83 @@
 </head>
 
 <body>
+    <style>
+        /* Style général du modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+/* Style du contenu du modal */
+.modal-content {
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    width: 80%;
+    max-width: 500px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+/* Style du bouton de fermeture du modal */
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+/* Style des boutons dans le modal */
+.modal-content button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 1em;
+    margin-right: 10px;
+}
+
+.modal-content button.cancel {
+    background-color: #6c757d;
+}
+
+/* Style des champs de formulaire dans le modal */
+.modal-content input[type="text"],
+.modal-content input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+}
+
+/* Style des messages d'erreur */
+.modal-content span {
+    display: block;
+    margin-top: 5px;
+}
+
+/* Style du texte dans le modal */
+.modal-content h3 {
+    margin-top: 0;
+}
+
+.modal-content p {
+    margin-bottom: 20px;
+}
+
+    </style>
     <!-- Header -->
     <header>
         <nav>
@@ -33,16 +110,27 @@
             <div id="books-list"></div>
         </div>
     </section>
-    <!-- Modal de Confirmation -->
-    <div id="modal-confirm" class="modal">
+   
+    <!-- Modal de Confirmation d'Emprunt -->
+    <div id="modal-confirm" class="modal" style="display:none;">
         <div class="modal-content">
             <span class="close-button" onclick="closeModal()">&times;</span>
             <h3>Confirmation d'Emprunt</h3>
             <p id="modal-text">Voulez-vous vraiment emprunter ce livre ?</p>
+    
+            <label for="user-name">Nom:</label>
+            <input type="text" id="user-name" placeholder="Votre nom" required>
+            <span id="name-error" style="color: red; display: none;">Veuillez entrer votre nom.</span>
+    
+            <label for="user-email">Email:</label>
+            <input type="email" id="user-email" placeholder="Votre email" required>
+            <span id="email-error" style="color: red; display: none;">Veuillez entrer un email valide.</span>
+    
             <button id="confirm-button">Confirmer</button>
             <button class="cancel" onclick="closeModal()">Annuler</button>
         </div>
     </div>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
@@ -63,106 +151,113 @@
     </footer>
     <!-- JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const booksList = document.getElementById("books-list");
-            const apiUrl = "http://127.0.0.1:8080/api/livres";
-            let selectedBookId = null;
+   <script src="Dispo.js"></script>
+   <script>
+    // Ouvrir le modal pour confirmer l'emprunt
+        function openModal(bookId, bookTitle) {
+            selectedBookId = bookId;
+            document.getElementById("modal-text").textContent = `Voulez-vous vraiment emprunter le livre "${bookTitle}" ?`;
+            document.getElementById("modal-confirm").style.display = "block";
+        }
 
-            // Afficher la liste des livres disponibles
-            function displayAvailableBooks() {
-                booksList.innerHTML = ''; // Vider avant d'ajouter le loader
-                const loader = document.createElement('div');
-                loader.classList.add('loader');
-                loader.innerHTML = '<img src="./images/loader.gif" alt="Chargement...">';
-                booksList.appendChild(loader);
-                fetch(`${apiUrl}/disponibles`)
-                    .then(response => response.json())
-                    .then(data => {
-                        booksList.innerHTML = ""; // Réinitialise la liste
-                        if (data.length === 0) {
-                            booksList.innerHTML = "<p>Aucun livre disponible pour le moment.</p>";
-                        } else {
-                            data.forEach(book => {
-                                const bookElement = document.createElement("div");
-                                bookElement.classList.add("book-item");
+        // Fermer le modal
+        function closeModal() {
+            document.getElementById("modal-confirm").style.display = "none";
+            document.getElementById("user-name").value = "";
+            document.getElementById("user-email").value = "";
+            document.getElementById("name-error").style.display = "none";
+            document.getElementById("email-error").style.display = "none";
+            selectedBookId = null;
+        }
 
-                                // Afficher l'image de couverture
-                                const coverImage = book.imageUrl ?
-                                    `<img src="${book.imageUrl}" alt="${book.titre}" class="book-cover">` :
-                                    `<div class="book-cover">
-                                        <div class="book-title"><i class="fas fa-book book-icon"></i></div>
-                                    </div>`;
+        // Capture et envoi des informations de l'utilisateur
+        document.getElementById("confirm-button").addEventListener("click", () => {
+            const userName = document.getElementById("user-name").value.trim();
+            const userEmail = document.getElementById("user-email").value.trim();
+            let valid = true;
 
-                                // Afficher la description du livre
-                                const bookDescription = book.description ?
-                                    `<p class="book-description">${book.description}</p>` :
-                                    '';
+            // Réinitialiser les messages d'erreur
+            document.getElementById("name-error").style.display = "none";
+            document.getElementById("email-error").style.display = "none";
 
-                                bookElement.innerHTML = `
-                                    ${coverImage}
-                                    <div class="book-details">
-                                        <h4 class="book-title">${book.titre}</h4>
-                                        ${bookDescription}
-                                        <button class="borrow-button" data-book-id="${book.id}">Emprunter</button>
-                                    </div>
-                                `;
-                                booksList.appendChild(bookElement);
-                            });
-                        }
-                    })
-                    .catch(error => {
-                        console.error("Erreur lors de la récupération des livres:", error);
-                        booksList.innerHTML = "<p>Erreur lors de la récupération des livres.</p>";
-                    });
+            // Validation des champs
+            if (!userName) {
+                document.getElementById("name-error").style.display = "block";
+                valid = false;
+            }
+            if (!userEmail || !validateEmail(userEmail)) {
+                document.getElementById("email-error").style.display = "block";
+                valid = false;
             }
 
-            displayAvailableBooks();
-
-            booksList.addEventListener("click", event => {
-                if (event.target.classList.contains("borrow-button")) {
-                    selectedBookId = event.target.dataset.bookId;
-                    openModal();
-                }
-            });
-
-            // Ouvrir et fermer le modal
-            const modal = document.getElementById("modal-confirm");
-            const confirmButton = document.getElementById("confirm-button");
-
-            function openModal() {
-                modal.style.display = "flex"; // Utilisation de "flex" pour centrer le contenu
+            if (!valid) {
+                return;
             }
 
-            function closeModal() {
-                modal.style.display = "none";
-                selectedBookId = null; // Réinitialiser l'ID du livre sélectionné
-            }
-
-            confirmButton.addEventListener("click", () => {
-                axios.post(`${apiUrl}/emprunter/${selectedBookId}`)
-                    .then(response => {
-                        closeModal();
-                        displayToast("Livre emprunté avec succès !");
-                        displayAvailableBooks();
-                    })
-                    .catch(error => {
-                        console.error("Erreur lors de l'emprunt du livre:", error);
-                        displayToast("Erreur lors de l'emprunt du livre.");
-                    });
-            });
-
-            function displayToast(message) {
-                const toast = document.createElement("div");
-                toast.classList.add("toast");
-                toast.textContent = message;
-                document.body.appendChild(toast);
-                setTimeout(() => {
-                    toast.remove();
-                }, 3000);
-            }
+            // Envoyer les données d'emprunt au backend
+            axios.post(`${apiUrl}/emprunter/${selectedBookId}`, {
+                nom: userName,
+                email: userEmail
+            })
+                .then(response => {
+                    alert("Livre emprunté avec succès!");
+                    closeModal();
+                    loadAvailableBooks(); // Rafraîchir les livres disponibles
+                    loadBorrowedBooks(); // Rafraîchir la liste des emprunts
+                })
+                .catch(error => {
+                    console.error("Erreur lors de l'emprunt du livre:", error);
+                    alert("Erreur lors de l'emprunt du livre.");
+                });
         });
-    </script>
+
+        // Fonction de validation d'email
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        // Charger les livres empruntés pour l'administrateur
+        function loadBorrowedBooks() {
+            axios.get(`${apiUrl}/emprunts`)
+                .then(response => {
+                    const books = response.data;
+                    const borrowedBooksList = document.getElementById("borrowed-books-list");
+                    borrowedBooksList.innerHTML = "";
+
+                    if (books.length === 0) {
+                        borrowedBooksList.innerHTML = "<p>Aucun livre emprunté pour le moment.</p>";
+                    } else {
+                        books.forEach(book => {
+                            const borrowedBookItem = `
+                                <div class="book-item">
+                                    <img src="${book.imageUrl}" alt="${book.titre}" class="book-cover">
+                                    <div class="book-details">
+                                        <h4>${book.titre}</h4>
+                                        <p>Auteur: ${book.auteur}</p>
+                                        <p>Date d'emprunt: ${new Date(book.borrowDate).toLocaleDateString()}</p>
+                                        <p>Date de retour: ${book.returnDate ? new Date(book.returnDate).toLocaleDateString() : 'Non spécifié'}</p>
+                                        <p>Nom de l'emprunteur: ${book.nom}</p>
+                                        <p>Email de l'emprunteur: ${book.email}</p>
+                                    </div>
+                                </div>
+                            `;
+                            borrowedBooksList.innerHTML += borrowedBookItem;
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error("Erreur lors de la récupération des emprunts:", error);
+                });
+        }
+
+        // Initialiser la page
+        document.addEventListener("DOMContentLoaded", () => {
+            loadAvailableBooks(); // Charger les livres disponibles au chargement de la page
+            loadBorrowedBooks();  // Charger les livres empruntés au chargement de la page
+        });
+   </script>
 </body>
+
 
 </html>

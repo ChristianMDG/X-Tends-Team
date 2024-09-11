@@ -8,19 +8,23 @@
   <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
   <link rel="icon" href="./images/favicon.png" type="image/x-icon">
   <link rel="stylesheet" href="livreslide.css">
+  <link rel="stylesheet" href="Chargement.css">
 </head>
 <body>
   <!--header-->
+  <div id="loading" class="spinner" style="display:none;"></div>
+  <div id="container">
   <header>
     <nav>
         <div class="logo">
-            <center><img src="./images/logo.png" alt="Logo"></center>
+          <a href="./choix.html" >
+            <center><img src="./images/logo.png" alt="Logo"></center></a>
         </div>
         <button class="menu-toggle" aria-label="Toggle menu">
             <span class="menu-icon"></span>
         </button>
         <center><ul class="menu" id="menu">
-            <li><a href="./choice.html" class="fas fa-home">Home</a></li>
+            <li><a href="./choix.html" class="fas fa-home">Home</a></li>
             <li class="submenu">
                 <a href="#" class="fas fa-list">Book</a>
                 <ul class="sub-menu">
@@ -46,6 +50,21 @@
     <p id="bookDescription">Description du Livre</p>
   </div>
 </div>
+
+<!-- Welcome and Tutorial Modal -->
+<div id="welcomeModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Bienvenue à la Bibliothèque X-Tends !</h2>
+    <p>Nous sommes ravis de vous accueillir ici. Explorez notre collection variée de livres à travers différents genres.
+    </p>
+    <h3>Comment Emprunter un Livre :</h3>
+    <p>Pour emprunter un livre, veuillez cliquer sur "Livres disponible" dans le menu. Vous trouverez une liste de
+      livres disponibles que vous pouvez emprunter.</p>
+    <button onclick="closeWelcomeModal()">Compris !</button>
+  </div>
+</div>
+
 
 
   <!-- Carousel Section -->
@@ -366,7 +385,7 @@
       </div>
     </div>
   </section>
-
+</div>
   <!--footer-->
   <footer class="footer">
     <div class="footer-content">
@@ -392,8 +411,29 @@
     </div>
   </footer>
   
-  
+  <script>
+    // Show the welcome modal on page load
+    window.onload = function () {
+      document.getElementById("welcomeModal").style.display = "block";
+    };
 
+    // Function to close the welcome modal
+    function closeWelcomeModal() {
+      document.getElementById("welcomeModal").style.display = "none";
+    }
+
+    // Event listener for closing the modal when clicking on the 'x'
+    document.querySelector(".modal .close").onclick = function () {
+      closeWelcomeModal();
+    };
+
+    // Event listener for closing the modal when clicking outside the modal
+    window.onclick = function (event) {
+      if (event.target === document.getElementById("welcomeModal")) {
+        closeWelcomeModal();
+      }
+    };
+  </script>
   <!-- SwiperJS Scripts -->
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   <script>

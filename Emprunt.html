@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestion des Emprunts</title>
-    <!-- Lien vers Bootstrap pour le style rapide -->
+    <title>Liste des Emprunts</title>
+    <!-- Lien vers Bootstrap pour le style -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
     <!-- Votre fichier CSS personnalisé -->
     <link rel="stylesheet" href="Emprunt.css">
     <link rel="stylesheet" href="Chargement.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
@@ -25,100 +25,55 @@
     <header class="container mt-4">
         <div class="d-flex justify-content-between align-items-center">
             <div class="logo">
-                <img src="./images/logo.png" alt="logo" width="100">
+                <a href="./adminges.html">
+                    <img src="./images/logo.png" alt="Logo" width="100">
+                </a>
+
             </div>
             <div class="header-title text-white">
-                <h1>Bienvenue, Administrateur</h1>
-                <p>Gérez vos emprunts de livres.</p>
+                <h1>Liste des Emprunts</h1>
+                <p>Consultez les emprunts de livres.</p>
             </div>
-            <!-- Icône de menu pour afficher les options -->
-            <div class="menu-icon text-white" onclick="toggleMenu()" style="font-size: 30px; cursor: pointer;">
-                &#9776;
-            </div>
-        </div>
+           
     </header>
 
     <!-- Navbar avec options -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="navbar" style="display: none;">
-        <div class="container">
-            <a class="nav-link" href="#" onclick="showSection('formSection')">Ajouter un Emprunt</a>
-            <a class="nav-link" href="#" onclick="showSection('listSection')">Liste des Emprunts</a>
-        </div>
-    </nav>
 
     <!-- Section pour les messages d'alerte -->
     <div class="container mt-3">
         <div id="alertMessage" class="alert d-none" role="alert"></div>
     </div>
 
-    <!-- Formulaire pour ajouter un emprunt -->
-    <div id="formSection" class="container mt-4 section">
-        <div class="card">
-            <div class="card-header">
-                <h2 id="formTitle">Ajouter un Emprunt</h2>
-            </div>
-            <div class="card-body">
-                <form id="empruntForm">
-                    <div class="form-group">
-                        <label for="livreId">ID Livre :</label>
-                        <input type="number" id="livreId" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="utilisateurId">ID Utilisateur :</label>
-                        <input type="number" id="utilisateurId" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="dateEmprunt">Date d'emprunt :</label>
-                        <input type="date" id="dateEmprunt" class="form-control" disabled>
-                    </div>
-                    <div class="form-group">
-                        <label for="dateRetour">Date de retour :</label>
-                        <input type="date" id="dateRetour" class="form-control">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Ajouter Emprunt</button>
-                    <button type="button" class="btn btn-secondary" onclick="resetForm()">Annuler</button>
-                </form>
-            </div>
-        </div>
-        <div class="text-center mt-3">
-            <a href="./adminges.html">
-                <button class="btn btn-outline-light">Come Back</button>
-            </a>
-        </div>
-    </div>
-
     <!-- Liste des emprunts -->
-    <div id="listSection" class="container mt-4 section d-none">
+    <section id="borrowed-books" class="container mt-4">
         <div class="card">
             <div class="card-header">
                 <h2>Liste des Emprunts</h2>
             </div>
             <div class="card-body">
-                <table class="table table-striped" id="empruntsTable">
+                <table class="table table-striped" id="borrowed-books-table">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>ID Livre</th>
-                            <th>ID Utilisateur</th>
+                            <th>Titre</th>
+                            <th>Auteur</th>
                             <th>Date d'emprunt</th>
                             <th>Date de retour</th>
-                            <th>Actions</th> <!-- New column for actions -->
+                            <th>Nom de l'emprunteur</th>
+                            <th>Email de l'emprunteur</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <!-- Les emprunts seront ajoutés ici dynamiquement -->
+                    <tbody id="borrowed-books-body">
+                        <!-- Les livres empruntés seront insérés ici par JavaScript -->
                     </tbody>
                 </table>
             </div>
         </div>
-        <div class="text-center mt-3">
-            <a href="./adminges.html">
-                <button class="btn btn-outline-light">Come Back</button>
-            </a>
-        </div>
-    </div>
-<!-- Spinner de chargement -->
-<div id="loading" class="spinner" style="display:none;"></div>
+    </section>
+
+    <!-- Spinner de chargement -->
+    <div id="loading" class="spinner" style="display:none;"></div>
+
+
     <!-- Inclusion de jQuery, Popper.js et Bootstrap JS pour les fonctionnalités dynamiques -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
@@ -128,30 +83,65 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <!-- Votre fichier JavaScript personnalisé -->
-    <script src="Emprunt.js"></script>
+
     <script src="chargement.js"></script>
-    <Script>
-        // Fonction pour récupérer la liste des auteurs
-            function getEmprunt() {
-                showLoading(); // Affiche le spinner avant la requête
+    <script>
+        // Fonction pour afficher/masquer la barre de navigation
+        function toggleMenu() {
+            const navbar = document.getElementById('navbar');
+            navbar.style.display = (navbar.style.display === 'none' || navbar.style.display === '') ? 'block' : 'none';
+        }
 
-                axios.get('http://localhost:8080/api/emprunts')  // URL de ton API pour les emprunts
-                    .then(function (response) {
-                        hideLoading(); // Masque le spinner après la requête
-                        console.log(response.data); // Traite la réponse ici, afficher les emprunts
-                    })
-                    .catch(function (error) {
-                        hideLoading(); // Masque le spinner en cas d'erreur
-                        console.error(error); // Gestion de l'erreur
-                    });
-            }
+        // Fonction pour afficher le spinner de chargement
+        function showLoading() {
+            document.getElementById('loading').style.display = 'block';
+        }
 
-            // Appel de la fonction pour charger les auteurs lors du chargement de la page
-            window.onload = function () {
-                getEmprunt();
-            };
+        // Fonction pour masquer le spinner de chargement
+        function hideLoading() {
+            document.getElementById('loading').style.display = 'none';
+        }
 
-    </Script>
+        // Fonction pour récupérer les livres empruntés
+
+        const apiUrl = "http://127.0.0.1:8080/api/livres";
+
+        // Charger les livres empruntés pour l'administrateur
+        function loadBorrowedBooks() {
+            axios.get(`${apiUrl}/emprunts`)
+                .then(response => {
+                    const books = response.data;
+                    const borrowedBooksBody = document.getElementById("borrowed-books-body");
+                    borrowedBooksBody.innerHTML = "";
+
+                    if (books.length === 0) {
+                        borrowedBooksBody.innerHTML = "<tr><td colspan='6'>Aucun emprunt trouvé.</td></tr>";
+                    } else {
+                        books.forEach(book => {
+                            const borrowedBookItem = `
+                                        <tr>
+                                            <td>${book.titre}</td>
+                                            <td>${book.auteur}</td>
+                                            <td>${book.borrowDate}</td>
+                                            <td>${book.returnDate}</td>
+                                            <td>${book.nom}</td>
+                                            <td>${book.email}</td>
+                                        </tr>
+                                    `;
+                            borrowedBooksBody.innerHTML += borrowedBookItem;
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error("Erreur lors de la récupération des emprunts:", error);
+                });
+        }
+
+        // Initialiser la page
+        document.addEventListener("DOMContentLoaded", () => {
+            loadBorrowedBooks(); // Charger les livres empruntés au chargement de la page
+        });
+    </script>
 </body>
 
 </html>
