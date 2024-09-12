@@ -71,7 +71,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     bookElement.innerHTML = `
                         <div class="book-info">
-                            <div>ID Du Livre: <span>${book.id}</span></div>
                             <div>Titre: <span>${book.titre}</span></div>
                             <div>Isbn: <span>${book.isbn}</span></div>
                             <div>Date d'emprunt: <span>${book.borrowDate}</span></div>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,25 +9,28 @@
     <!-- Lien vers le favicon -->
     <link rel="icon" href="./images/favicon.png" type="image/x-icon"> <!-- Assurez-vous que le chemin est correct -->
 </head>
+
 <body>
-   
+
     <!-- Bouton de retour -->
-    <a href="javascript:history.back()" class="back-btn">← Return</a> <!-- Lien JavaScript pour revenir à la page précédente -->
+    <a href="javascript:history.back()" class="back-btn">← Return</a>
+    <!-- Lien JavaScript pour revenir à la page précédente -->
 
     <!-- Conteneur principal pour la disposition -->
     <div class="container">
         <!-- Section de gauche : logo et description -->
         <div class="left-section">
-            <!-- Logo de la bibliothèque -->
-            <div class="logo">
+            <!-- Logo de la bibliothèque avec fonction de fermeture -->
+            <div class="logo" onclick="closeApplication()">
                 <img src="./images/logo.png" alt="Library Logo">
             </div>
-             <!-- Titre -->
-             <h2 class="welcome-title">Welcome to X-Tend Library</h2>
+            <!-- Titre -->
+            <h2 class="welcome-title">Welcome to X-Tend Library</h2>
             <!-- Description -->
             <div class="description">
                 <h3>Discover Thousands of Books</h3>
-                <p>Our library offers a vast collection of books from various genres, ready for you to borrow. X-Tend Library is the perfect place for you. Join us and dive into the world of knowledge!</p>
+                <p>Our library offers a vast collection of books from various genres, ready for you to borrow. X-Tend
+                    Library is the perfect place for you. Join us and dive into the world of knowledge!</p>
             </div>
         </div>
 
@@ -39,6 +43,17 @@
             </div>
         </div>
     </div>
-</body>
-</html>
 
+    <!-- JavaScript pour fermer l'application -->
+    <script>
+        function closeApplication() {
+            const confirmation = confirm("Are you sure you want to close the application?");
+            if (confirmation) {
+                window.close();  // Ferme la fenêtre ou l'onglet du navigateur
+            }
+        }
+    </script>
+
+</body>
+
+</html>
