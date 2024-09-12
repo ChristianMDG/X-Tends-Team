@@ -29,8 +29,8 @@ document.addEventListener("DOMContentLoaded", () => {
                         const coverImage = `<img src="${coverImageUrl}" alt="${book.titre}" class="book-cover">`;
 
                         // Afficher la description du livre
-                        const bookDescription = book.description ?
-                            `<p class="book-description">${book.description}</p>` :
+                        const bookDescription = book.auteur ?
+                            `<p class="book-description">${book.auteur}</p>` :
                             '';
 
                         bookElement.innerHTML = `
