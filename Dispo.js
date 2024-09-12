@@ -22,11 +22,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         bookElement.classList.add("book-item");
 
                         // Afficher l'image de couverture
-                        const coverImage = book.imageUrl ?
-                            `<img src="${book.imageUrl}" alt="${book.titre}" class="book-cover">` :
-                            `<div class="book-cover">
-                                <div class="book-title"><i class="fas fa-book book-icon"></i></div>
-                            </div>`;
+                        const coverImageUrl = book.imageUrl ?
+                            `${apiUrl}/images/${book.imageUrl.split('/').pop()}` : // Assuming imageUrl is just the filename
+                            'default-image.png'; // Path to a default image if no imageUrl
+
+                        const coverImage = `<img src="${coverImageUrl}" alt="${book.titre}" class="book-cover">`;
 
                         // Afficher la description du livre
                         const bookDescription = book.description ?

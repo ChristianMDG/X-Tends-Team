@@ -243,7 +243,7 @@
                     tableBody.innerHTML = ""; // Clear existing rows
 
                     livres.forEach(livre => {
-                        const imageUrl = livre.imageUrl ? `http://localhost:8080/images/{{livre.imageUrl}}` : 'default-image.png';
+                        const imageUrl = livre.imageUrl ? `http://127.0.0.1:8080/api/livres/images/${livre.imageUrl.split('/').pop()}` : 'default-image.png';
 
                         const titre = livre.titre || 'Non spécifié';
                         const isbn = livre.isbn || 'Non spécifié';
@@ -253,7 +253,7 @@
 
                         const row = document.createElement("tr");
                         row.innerHTML = `
-                            <td><img src="${imageUrl}" alt="Image" class="default-image"></td>
+                            <td><img src="${imageUrl}" alt="Image" class="default-image" style="width: 60px; height: auto;"></td>
                             <td>${titre}</td>
                             <td>${isbn}</td>
                             <td>${auteur}</td>
@@ -299,18 +299,34 @@
                 });
         }
 
-        function deleteLivre(id) {
-            if (confirm("Êtes-vous sûr de vouloir supprimer ce livre ?")) {
-                axios.delete(`${API_BASE_URL}/livres/${id}`)
-                    .then(function (response) {
-                        afficherLivres();
-                        showAlert("success", "Livre supprimé avec succès !");
-                    })
-                    .catch(function (error) {
-                        console.error("Erreur lors de la suppression du livre :", error);
-                        showAlert("danger", "Une erreur est survenue. Veuillez réessayer.");
-                    });
-            }
+       function deleteLivre(id) {
+            // Récupérer les détails du livre pour vérifier sa disponibilité
+            axios.get(`${API_BASE_URL}/livres/${id}`)
+                .then(function (response) {
+                    const livre = response.data;
+
+                    if (livre.disponible === false) {
+                        showAlert("warning", "Ce livre est marqué comme indisponible et ne peut pas être supprimé.");
+                        return; // Ne pas poursuivre la suppression
+                    }
+
+                    // Si le livre est disponible, confirmer la suppression
+                    if (confirm("Êtes-vous sûr de vouloir supprimer ce livre ?")) {
+                        axios.delete(`${API_BASE_URL}/livres/${id}`)
+                            .then(function (response) {
+                                afficherLivres();
+                                showAlert("success", "Livre supprimé avec succès !");
+                            })
+                            .catch(function (error) {
+                                console.error("Erreur lors de la suppression du livre :", error);
+                                showAlert("danger", "Une erreur est survenue. Veuillez réessayer.");
+                            });
+                    }
+                })
+                .catch(function (error) {
+                    console.error("Erreur lors de la récupération du livre :", error);
+                    showAlert("danger", "Une erreur est survenue lors de la vérification du livre.");
+                });
         }
 
         document.addEventListener("DOMContentLoaded", function () {
