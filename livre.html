@@ -177,7 +177,7 @@
             const disponible = document.getElementById("disponible").value === "true";
             const description = document.getElementById("description").value;
             const imageFile = document.getElementById("imageFile").files[0];
-
+           
             // Création de l'objet FormData pour l'upload de fichier
             const formData = new FormData();
             formData.append("titre", titre);
@@ -294,6 +294,7 @@
                     }
 
                     showSection("formSection");
+                    
                 })
                 .catch(function (error) {
                     console.error("Erreur lors de la récupération du livre :", error);

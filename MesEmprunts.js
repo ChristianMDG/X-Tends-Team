@@ -104,6 +104,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 alert(message);
                 displayAvailableBooks();
                 displayBorrowedBooks();
+                window.location.href = "./Dispo.html";
+
             })
             .catch(error => console.error("Erreur lors du retour du livre:", error));
     }
